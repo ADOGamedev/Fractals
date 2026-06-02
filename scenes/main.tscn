@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c3tw8sb50jac" path="res://scenes/sierpinski_triangle.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://ds5ev0pss41f3" path="res://scenes/mandelbrot_fractal.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node2D" unique_id=461617946]
 
@@ -13,6 +14,15 @@ limit_bottom = 720
 script = ExtResource("1_o5qli")
 
 [node name="SierpinskiTriangle" parent="." unique_id=1081089723 instance=ExtResource("2_0wfyh")]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="MandelbrotFractal" parent="." unique_id=463574064 instance=ExtResource("3_sugp2")]
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 0
 anchor_right = 0.0
