@@ -1,17 +1,45 @@
 [gd_scene format=3 uid="uid://ds5ev0pss41f3"]
 
 [ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="1_sbyhb"]
-[ext_resource type="Texture2D" uid="uid://b4o8r3da4825s" path="res://assets/gradients/rainbow_gradient.tres" id="2_ddu1x"]
+[ext_resource type="Texture2D" uid="uid://cc4ul64r2t30x" path="res://assets/gradients/ice_gradient.tres" id="2_ddu1x"]
+[ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/madelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_ak01r"]
+[ext_resource type="PackedScene" uid="uid://f8bl2vummrrl" path="res://scenes/custom_slider.tscn" id="4_qdu73"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_7bf1l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
 shader = ExtResource("1_sbyhb")
 shader_parameter/ratio = 1.7777778
 shader_parameter/iterations = 1500
-shader_parameter/scale = 2.0
+shader_parameter/scale = 0.23
 shader_parameter/gradient = ExtResource("2_ddu1x")
-shader_parameter/gradient_attenuation = 0.8
+shader_parameter/set_color = Color(1, 1, 1, 1)
+shader_parameter/gradient_attenuation = 0.36
 shader_parameter/offset = Vector2(0.5, 0)
 shader_parameter/exponent = 2.0
+shader_parameter/constant_c = Vector2(0.5, 0.5)
+shader_parameter/julia = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4xk"]
+shader = ExtResource("3_ak01r")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="FontVariation" id="FontVariation_3lt8q"]
+base_font = ExtResource("7_7bf1l")
+variation_embolden = 1.1
+baseline_offset = 0.05
 
 [node name="MandelbrotFractal" type="ColorRect" unique_id=463574064]
 material = SubResource("ShaderMaterial_ddu1x")
@@ -21,3 +49,108 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("3_3lt8q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=139056689]
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer" unique_id=1494403600]
+material = SubResource("ShaderMaterial_3g4xk")
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -394.0
+offset_top = -243.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("5_7bf1l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1338554059]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=113972890 instance=ExtResource("4_qdu73")]
+unique_name_in_owner = true
+layout_mode = 2
+integer = true
+
+[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="1" unique_id=1811200641]
+max_value = 10000.0
+value = 1500.0
+exp_edit = true
+rounded = true
+
+[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="2" unique_id=1889557775]
+custom_minimum_size = Vector2(40, 0)
+
+[node name="julia" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1846314710]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="julia_label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=795172826]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3lt8q")
+text = "Julia Set"
+
+[node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=908241621]
+layout_mode = 2
+icon_alignment = 1
+
+[node name="constant_y" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1303271991 instance=ExtResource("4_qdu73")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="label" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="0" unique_id=26013323]
+text = "Cy"
+
+[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="1" unique_id=1811200641]
+min_value = -2.0
+max_value = 2.0
+step = 0.0
+value = 0.28
+
+[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="2" unique_id=1889557775]
+custom_minimum_size = Vector2(40, 0)
+
+[node name="constant_x" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1931032134 instance=ExtResource("4_qdu73")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="label" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="0" unique_id=26013323]
+text = "Cx"
+
+[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="1" unique_id=1811200641]
+min_value = -2.0
+max_value = 2.0
+step = 0.0
+value = -1.008
+
+[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="2" unique_id=1889557775]
+custom_minimum_size = Vector2(40, 0)
+
+[node name="exp" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1170571461 instance=ExtResource("4_qdu73")]
+unique_name_in_owner = true
+layout_mode = 2
+tween_duration = 0.1
+
+[node name="label" parent="CanvasLayer/Panel/VBoxContainer/exp" index="0" unique_id=26013323]
+text = "Exp"
+
+[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/exp" index="1" unique_id=1811200641]
+min_value = -10.0
+max_value = 10.0
+step = 0.0
+value = 2.0
+
+[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/exp" index="2" unique_id=1889557775]
+custom_minimum_size = Vector2(40, 0)
+
+[editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
+[editable path="CanvasLayer/Panel/VBoxContainer/constant_y"]
+[editable path="CanvasLayer/Panel/VBoxContainer/constant_x"]
+[editable path="CanvasLayer/Panel/VBoxContainer/exp"]

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://f8bl2vummrrl"]
+
+[ext_resource type="Script" uid="uid://t2bmb15y04y" path="res://src/custom_slider/custom_slider.gd" id="1_nuarj"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_omaqn"]
+
+[node name="CustomSlider" type="HBoxContainer" unique_id=113972890]
+offset_right = 264.0
+offset_bottom = 23.0
+theme_override_constants/separation = 13
+script = ExtResource("1_nuarj")
+
+[node name="label" type="Label" parent="." unique_id=26013323]
+layout_mode = 2
+theme = ExtResource("2_omaqn")
+text = "Iterations"
+
+[node name="slider" type="HSlider" parent="." unique_id=1811200641]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_omaqn")
+
+[node name="value_label" type="Label" parent="." unique_id=1889557775]
+layout_mode = 2
+theme = ExtResource("2_omaqn")
+theme_override_font_sizes/font_size = 15
+text = "1500"
+
+[connection signal="value_changed" from="slider" to="." method="_on_slider_value_changed"]
