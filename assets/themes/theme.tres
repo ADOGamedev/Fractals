@@ -1,37 +1,56 @@
 [gd_resource type="Theme" format=3 uid="uid://bbf1lvlicbu03"]
 
-[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="1_7egdk"]
+[ext_resource type="FontFile" uid="uid://ohn5rrj6cwn5" path="res://assets/fonts/latinmodern-math.otf" id="1_7egdk"]
+[ext_resource type="Texture2D" uid="uid://o0epm4y60a0f" path="res://assets/sprites/checkbox_on.png" id="1_ji1hq"]
+[ext_resource type="Texture2D" uid="uid://0vg2ifcvplfp" path="res://assets/sprites/grabber.png" id="1_pdjgs"]
+[ext_resource type="Texture2D" uid="uid://cqc0pcv6unrgq" path="res://assets/sprites/grabber_hover.png" id="2_hooha"]
+[ext_resource type="Texture2D" uid="uid://c37c184weep5f" path="res://assets/sprites/checkbox_off.png" id="2_w1xho"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hooha"]
-bg_color = Color(1, 1, 1, 0.37254903)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_top = 2.0
-expand_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.25882354)
+border_color = Color(1, 1, 1, 0.61960787)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 18.0
+expand_margin_right = 23.0
+expand_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ji1hq"]
-bg_color = Color(1, 1, 1, 0.5529412)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_top = 2.0
-expand_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.36862746)
+border_color = Color(1, 1, 1, 0.61960787)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 18.0
+expand_margin_right = 23.0
+expand_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdjgs"]
-bg_color = Color(1, 1, 1, 0.25882354)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_top = 2.0
-expand_margin_bottom = 2.0
+bg_color = Color(0.49, 0.49, 0.49, 0.24313726)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46, 0.46, 0.46, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 18.0
+expand_margin_right = 6.0
+expand_margin_bottom = 18.0
 
 [sub_resource type="FontVariation" id="FontVariation_p0u25"]
 base_font = ExtResource("1_7egdk")
-variation_embolden = 1.1
 baseline_offset = -0.125
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7egdk"]
@@ -63,6 +82,10 @@ corner_radius_top_left = 30
 corner_detail = 16
 
 [resource]
+CheckBox/icons/checked = ExtResource("1_ji1hq")
+CheckBox/icons/unchecked = ExtResource("2_w1xho")
+HSlider/icons/grabber = ExtResource("1_pdjgs")
+HSlider/icons/grabber_highlight = ExtResource("2_hooha")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_hooha")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_ji1hq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_pdjgs")

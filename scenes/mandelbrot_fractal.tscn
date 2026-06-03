@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cc4ul64r2t30x" path="res://assets/gradients/ice_gradient.tres" id="2_ddu1x"]
 [ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/madelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_ak01r"]
-[ext_resource type="PackedScene" uid="uid://f8bl2vummrrl" path="res://scenes/custom_slider.tscn" id="4_qdu73"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_3lt8q"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_7bf1l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
@@ -16,10 +16,10 @@ shader_parameter/scale = 0.23
 shader_parameter/gradient = ExtResource("2_ddu1x")
 shader_parameter/set_color = Color(1, 1, 1, 1)
 shader_parameter/gradient_attenuation = 0.36
-shader_parameter/offset = Vector2(0.5, 0)
+shader_parameter/offset = Vector2(0, 0)
 shader_parameter/exponent = 2.0
 shader_parameter/constant_c = Vector2(0.5, 0.5)
-shader_parameter/julia = false
+shader_parameter/julia = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4xk"]
 shader = ExtResource("3_ak01r")
@@ -36,10 +36,9 @@ shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
 shader_parameter/edge_width = 3.61600017176
 shader_parameter/chromatic_strength = 5.0
 
-[sub_resource type="FontVariation" id="FontVariation_3lt8q"]
+[sub_resource type="FontVariation" id="FontVariation_3g4xk"]
 base_font = ExtResource("7_7bf1l")
 variation_embolden = 1.1
-baseline_offset = 0.05
 
 [node name="MandelbrotFractal" type="ColorRect" unique_id=463574064]
 material = SubResource("ShaderMaterial_ddu1x")
@@ -71,86 +70,67 @@ theme = ExtResource("5_7bf1l")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1338554059]
 layout_mode = 2
-theme_override_constants/separation = 7
-
-[node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=113972890 instance=ExtResource("4_qdu73")]
-unique_name_in_owner = true
-layout_mode = 2
-integer = true
-
-[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="1" unique_id=1811200641]
-max_value = 10000.0
-value = 1500.0
-exp_edit = true
-rounded = true
-
-[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="2" unique_id=1889557775]
-custom_minimum_size = Vector2(40, 0)
-
-[node name="julia" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1846314710]
-unique_name_in_owner = true
-layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="julia_label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=795172826]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_3lt8q")
-text = "Julia Set"
-
-[node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=908241621]
-layout_mode = 2
-icon_alignment = 1
-
-[node name="constant_y" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1303271991 instance=ExtResource("4_qdu73")]
+[node name="constant_r" parent="CanvasLayer/Panel/VBoxContainer" unique_id=582957621 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
+variable_name = "cᵣ"
 
-[node name="label" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="0" unique_id=26013323]
-text = "Cy"
-
-[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="1" unique_id=1811200641]
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/constant_r" index="0" unique_id=1601533653]
 min_value = -2.0
 max_value = 2.0
 step = 0.0
-value = 0.28
 
-[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/constant_y" index="2" unique_id=1889557775]
-custom_minimum_size = Vector2(40, 0)
-
-[node name="constant_x" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1931032134 instance=ExtResource("4_qdu73")]
+[node name="constant_i" parent="CanvasLayer/Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
+variable_name = "cᵢ"
 
-[node name="label" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="0" unique_id=26013323]
-text = "Cx"
-
-[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="1" unique_id=1811200641]
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/constant_i" index="0" unique_id=1601533653]
 min_value = -2.0
 max_value = 2.0
 step = 0.0
-value = -1.008
 
-[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/constant_x" index="2" unique_id=1889557775]
-custom_minimum_size = Vector2(40, 0)
-
-[node name="exp" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1170571461 instance=ExtResource("4_qdu73")]
+[node name="exp" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1154020312 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
-tween_duration = 0.1
+variable_name = "x"
+curr_value = 2.0
 
-[node name="label" parent="CanvasLayer/Panel/VBoxContainer/exp" index="0" unique_id=26013323]
-text = "Exp"
-
-[node name="slider" parent="CanvasLayer/Panel/VBoxContainer/exp" index="1" unique_id=1811200641]
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/exp" index="0" unique_id=1601533653]
 min_value = -10.0
 max_value = 10.0
 step = 0.0
-value = 2.0
 
-[node name="value_label" parent="CanvasLayer/Panel/VBoxContainer/exp" index="2" unique_id=1889557775]
-custom_minimum_size = Vector2(40, 0)
+[node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=359612231 instance=ExtResource("6_3lt8q")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "i"
+integer = true
+curr_value = 1500.0
 
-[editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
-[editable path="CanvasLayer/Panel/VBoxContainer/constant_y"]
-[editable path="CanvasLayer/Panel/VBoxContainer/constant_x"]
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 10000.0
+step = 0.0
+value = 1.0
+
+[node name="julia" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=386633372]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=907165543]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3g4xk")
+text = "Julia Set"
+
+[node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=1476773306]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[editable path="CanvasLayer/Panel/VBoxContainer/constant_r"]
+[editable path="CanvasLayer/Panel/VBoxContainer/constant_i"]
 [editable path="CanvasLayer/Panel/VBoxContainer/exp"]
+[editable path="CanvasLayer/Panel/VBoxContainer/iterations"]

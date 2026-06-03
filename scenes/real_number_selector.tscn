@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bjomfxjmw08sm"]
+
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="1_5tvvt"]
+[ext_resource type="Script" uid="uid://rqfxvl8uakpa" path="res://src/real_number_selector/real_number_selector.gd" id="1_juajq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tvvt"]
+bg_color = Color(0, 0, 0, 0.627451)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[node name="RealNumberSelector" type="PanelContainer" unique_id=691124258]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -845.0
+offset_bottom = -688.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5tvvt")
+script = ExtResource("1_juajq")
+
+[node name="HSlider" type="HSlider" parent="." unique_id=1601533653]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_5tvvt")
+
+[node name="Label" type="Label" parent="HSlider" unique_id=1982451087]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "zᵣ = 0.5"
+vertical_alignment = 1
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
