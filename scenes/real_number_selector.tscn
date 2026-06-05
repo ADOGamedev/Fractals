@@ -15,6 +15,30 @@ expand_margin_top = 4.0
 expand_margin_right = 6.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_juajq"]
+bg_color = Color(1, 1, 1, 0.25882354)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6hvo"]
+bg_color = Color(0, 0, 0, 0.54901963)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
 [node name="RealNumberSelector" type="PanelContainer" unique_id=691124258]
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,5 +68,15 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 22
 text = "zᵣ = 0.5"
 vertical_alignment = 1
+
+[node name="hover" type="Panel" parent="." unique_id=134018671]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_juajq")
+
+[node name="disabled" type="Panel" parent="." unique_id=273695745]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o6hvo")
 
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

@@ -8,15 +8,18 @@ const FIRST_TRIANGLE_POS = Vector2(0.5, 0.75)
 
 @onready var bg = $bg
 
+
+var iterations : int = 8
+
 func _ready() -> void:
 	bg.color = bg_color
-
-
+	
+	
 func _draw() -> void:
 	draw_triangle(size / 2.0, size.y)
 	draw_inverted_triangle(FIRST_TRIANGLE_POS * size, size.y / 2.0)
 
-	draw_fractal(10, FIRST_TRIANGLE_POS * size)
+	draw_fractal(iterations, FIRST_TRIANGLE_POS * size)
 
 
 func draw_fractal(depth: int, prev_pos: Vector2, iteration = 2) -> void:

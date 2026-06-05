@@ -7,6 +7,8 @@
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_3lt8q"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_7bf1l"]
+[ext_resource type="PackedScene" uid="uid://bxum74uw4fp7" path="res://scenes/complex_number_selector.tscn" id="8_3g4xk"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
 shader = ExtResource("1_sbyhb")
@@ -17,9 +19,11 @@ shader_parameter/gradient = ExtResource("2_ddu1x")
 shader_parameter/set_color = Color(1, 1, 1, 1)
 shader_parameter/gradient_attenuation = 0.36
 shader_parameter/offset = Vector2(0, 0)
-shader_parameter/exponent = 2.0
+shader_parameter/exponent = Vector2(2, 0)
 shader_parameter/constant_c = Vector2(0.5, 0.5)
+shader_parameter/initial_z = Vector2(0, 0)
 shader_parameter/julia = true
+shader_parameter/burning_ship = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4xk"]
 shader = ExtResource("3_ak01r")
@@ -36,6 +40,19 @@ shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
 shader_parameter/edge_width = 3.61600017176
 shader_parameter/chromatic_strength = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g4xk"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_detail = 16
+
 [sub_resource type="FontVariation" id="FontVariation_3g4xk"]
 base_font = ExtResource("7_7bf1l")
 variation_embolden = 1.1
@@ -50,7 +67,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_3lt8q")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=139056689]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=139056689 groups=["canvas_layer"]]
 
 [node name="Panel" type="PanelContainer" parent="CanvasLayer" unique_id=1494403600]
 material = SubResource("ShaderMaterial_3g4xk")
@@ -59,49 +76,19 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -394.0
-offset_top = -243.0
-offset_right = -25.0
+offset_left = -356.0
+offset_top = -192.0
+offset_right = -30.0
 offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 theme = ExtResource("5_7bf1l")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3g4xk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1338554059]
 layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="constant_r" parent="CanvasLayer/Panel/VBoxContainer" unique_id=582957621 instance=ExtResource("6_3lt8q")]
-unique_name_in_owner = true
-layout_mode = 2
-variable_name = "cᵣ"
-
-[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/constant_r" index="0" unique_id=1601533653]
-min_value = -2.0
-max_value = 2.0
-step = 0.0
-
-[node name="constant_i" parent="CanvasLayer/Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("6_3lt8q")]
-unique_name_in_owner = true
-layout_mode = 2
-variable_name = "cᵢ"
-
-[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/constant_i" index="0" unique_id=1601533653]
-min_value = -2.0
-max_value = 2.0
-step = 0.0
-
-[node name="exp" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1154020312 instance=ExtResource("6_3lt8q")]
-unique_name_in_owner = true
-layout_mode = 2
-variable_name = "x"
-curr_value = 2.0
-
-[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/exp" index="0" unique_id=1601533653]
-min_value = -10.0
-max_value = 10.0
-step = 0.0
+theme_override_constants/separation = -2
 
 [node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=359612231 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
@@ -116,9 +103,16 @@ max_value = 10000.0
 step = 0.0
 value = 1.0
 
+[node name="Control" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1459559442]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
+
 [node name="julia" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=386633372]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=907165543]
 layout_mode = 2
@@ -130,7 +124,108 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[editable path="CanvasLayer/Panel/VBoxContainer/constant_r"]
-[editable path="CanvasLayer/Panel/VBoxContainer/constant_i"]
-[editable path="CanvasLayer/Panel/VBoxContainer/exp"]
+[node name="burning_ship" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1727483424]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/burning_ship" unique_id=1662256788]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3g4xk")
+text = "Burning Ship"
+
+[node name="burning_ship_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/burning_ship" unique_id=1863821484]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="constant" parent="CanvasLayer" unique_id=1264587179 instance=ExtResource("8_3g4xk")]
+unique_name_in_owner = true
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 35.0
+offset_top = 35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.748, 0.748)
+complex_num = Vector2(-0.748, 0.06)
+variable_name = "c"
+
+[node name="InOutWidget" parent="CanvasLayer/constant" unique_id=392686038 instance=ExtResource("9_ffm43")]
+layout_mode = 0
+offset_left = 324.86627
+offset_top = 159.0909
+offset_right = 381.86627
+offset_bottom = 258.09088
+text = "c"
+displacement = Vector2(-280, 0)
+TWEEN_TIME = 0.17
+
+[node name="exp" parent="CanvasLayer" unique_id=1181438606 instance=ExtResource("8_3g4xk")]
+unique_name_in_owner = true
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 35.0
+offset_top = 364.99997
+offset_right = 35.0
+offset_bottom = 364.99997
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.748, 0.748)
+complex_num = Vector2(2, 0)
+variable_name = "x"
+
+[node name="Camera2D" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(1181438606, 565143421) index="1" unique_id=769366961]
+zoom = Vector2(0.2, 0.2)
+MIN_ZOOM = Vector2(0.2, 0.2)
+
+[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/real_part" parent_id_path=PackedInt32Array(1181438606, 691124258) index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 10.0
+
+[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/complex_part" parent_id_path=PackedInt32Array(1181438606, 1407017057) index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 10.0
+
+[node name="InOutWidget" parent="CanvasLayer/exp" unique_id=1788190043 instance=ExtResource("9_ffm43")]
+layout_mode = 0
+offset_left = 324.8663
+offset_top = 159.09094
+offset_right = 381.8663
+offset_bottom = 258.09094
+text = "x"
+displacement = Vector2(-280, 0)
+TWEEN_TIME = 0.17
+
+[node name="z" parent="CanvasLayer" unique_id=1193295927 instance=ExtResource("8_3g4xk")]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -274.00006
+offset_top = 35.0
+offset_right = -274.00006
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 1
+scale = Vector2(0.748, 0.748)
+
+[node name="InOutWidget" parent="CanvasLayer/z" unique_id=529710540 instance=ExtResource("9_ffm43")]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 159.0
+offset_right = 1.0
+offset_bottom = 258.0
+direction = 0
+displacement = Vector2(280, 0)
+TWEEN_TIME = 0.17
+
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
+[editable path="CanvasLayer/exp"]
+[editable path="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/real_part"]
+[editable path="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/complex_part"]

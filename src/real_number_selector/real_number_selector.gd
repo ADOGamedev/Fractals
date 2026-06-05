@@ -40,6 +40,13 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if $disabled.visible:
+		return
+
+
+	if event is InputEventMouseMotion:
+		$hover.visible = $HSlider.get_global_rect().has_point(event.position)
+
 	if event is InputEventMouseMotion and dragging:
 		var shift = Input.is_key_pressed(KEY_SHIFT)
 		var ctrl = Input.is_key_pressed(KEY_CTRL)
@@ -77,6 +84,20 @@ func get_value() -> float:
 	return curr_value
 	
 
+func get_target_value() -> float:
+	return target_value
+
+func set_value(value: float) -> void:
+	target_value = value
+	$HSlider.value = target_value
+	
+	
+func set_variable_name(new_name: String) -> void:
+	variable_name = new_name
+	update_label_value()
+
+
+
 func _on_h_slider_value_changed(_value: float) -> void:
 	update_label_value()
 
@@ -86,3 +107,7 @@ func update_label_value() -> void:
 		$HSlider/Label.text = variable_name + " = " + str(int(target_value))
 	else:
 		$HSlider/Label.text = variable_name + " = " + "%.5f" % target_value
+
+
+func set_disabled(disabled: bool) -> void:
+	$disabled.visible = disabled

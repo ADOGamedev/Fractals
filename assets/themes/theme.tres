@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cqc0pcv6unrgq" path="res://assets/sprites/grabber_hover.png" id="2_hooha"]
 [ext_resource type="Texture2D" uid="uid://c37c184weep5f" path="res://assets/sprites/checkbox_off.png" id="2_w1xho"]
 
+[sub_resource type="FontVariation" id="FontVariation_ji1hq"]
+base_font = ExtResource("1_7egdk")
+baseline_offset = -0.125
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hooha"]
 bg_color = Color(1, 1, 1, 0.25882354)
 border_color = Color(1, 1, 1, 0.61960787)
@@ -82,6 +86,7 @@ corner_radius_top_left = 30
 corner_detail = 16
 
 [resource]
+Button/fonts/font = SubResource("FontVariation_ji1hq")
 CheckBox/icons/checked = ExtResource("1_ji1hq")
 CheckBox/icons/unchecked = ExtResource("2_w1xho")
 HSlider/icons/grabber = ExtResource("1_pdjgs")

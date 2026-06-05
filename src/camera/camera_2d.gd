@@ -1,6 +1,6 @@
 extends Camera2D
 
-const MIN_ZOOM = Vector2(1.0, 1.0)
+@export var MIN_ZOOM = Vector2(1.0, 1.0)
 @export var drag_speed := 1.0
 @export var zoom_multiplier := 1.05
 
@@ -26,6 +26,8 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		get_viewport().set_input_as_handled()
+		
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			dragging = event.pressed
 			last_mouse_pos = event.position
