@@ -13,7 +13,7 @@ config_version=5
 config/name="Fractals"
 run/main_scene="uid://rnpr5d1l6bsu"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://b80r2ipuo7g1d"
 
 [autoload]
 

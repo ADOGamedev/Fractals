@@ -44,9 +44,13 @@ func _process(_delta: float) -> void:
 
 		grad.add_point(offset, child.get_color())
 
-
-	grad.set_color(0, get_child(first_child_i).get_color())
-	grad.set_color(grad.get_point_count() - 1, get_child(last_child_i).get_color())
+	var first_child = get_child(first_child_i)
+	var last_child = get_child(last_child_i)
+	if first_child.has_method("get_color"):
+		grad.set_color(0, first_child.get_color())
+	
+	if last_child.has_method("get_color"):
+		grad.set_color(grad.get_point_count() - 1, last_child.get_color())
 
 	%gradient_texture.texture.gradient = grad
 

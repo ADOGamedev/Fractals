@@ -3,9 +3,12 @@ extends ColorRect
 var zoom = 0.5
 var auto_iterations = true
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	if !visible:
+		$CanvasLayer.visible = false
+		
 	var iterations = 1
-	var auto_iterations = %auto_iterations_checkbox.button_pressed
+	auto_iterations = %auto_iterations_checkbox.button_pressed
 	if auto_iterations:
 		%iterations.set_disabled(true)
 		iterations = min(25, roundi(log2(zoom)) + 10)

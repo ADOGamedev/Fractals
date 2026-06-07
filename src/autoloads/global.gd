@@ -5,6 +5,8 @@ var mandelbrot_color = Color.WHITE
 var mandelbrot_grad_attenuation = 0.36
 var mandelbrot_grad_repetition = 500.0
 var mandelbrot_smooth_grad = true
+var mandelbrot_grad_mapping = false
+var mandelbrot_glow_rainbow = false
 
 var ui_hidden = false
 

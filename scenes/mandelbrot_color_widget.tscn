@@ -138,6 +138,7 @@ curr_value = 0.36
 [node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_attenuation" index="0" unique_id=1601533653]
 max_value = 2.0
 step = 0.0
+allow_greater = true
 
 [node name="Control3" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1641024052]
 layout_mode = 2
@@ -161,6 +162,40 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_avj2j")
 button_pressed = true
+
+[node name="gradient_mapping" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=947692169]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/gradient_mapping" unique_id=1548601366]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_xp7sd")
+text = "Gradient Mapping"
+
+[node name="gradient_mapping_checkbox" type="CheckBox" parent="PanelContainer/VBoxContainer/gradient_mapping" unique_id=1999544186]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_avj2j")
+
+[node name="glow_rainbow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=575826820]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/glow_rainbow" unique_id=1395592262]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_xp7sd")
+text = "Glow Rainbow"
+
+[node name="glow_rainbow_checkbox" type="CheckBox" parent="PanelContainer/VBoxContainer/glow_rainbow" unique_id=1286581259]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_avj2j")
 
 [editable path="PanelContainer/VBoxContainer/gradient_repetition"]
 [editable path="PanelContainer/VBoxContainer/gradient_attenuation"]

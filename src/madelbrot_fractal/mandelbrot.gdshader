@@ -19,6 +19,8 @@ uniform bool burning_ship = false;
 uniform bool rings_fractal = false;
 
 uniform bool smooth_grad = true;
+uniform bool gradient_mapping = false;
+uniform bool glow_rainbow = false;
 
 vec2 complex_sqr(in vec2 z) {
 	return vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y);
@@ -28,6 +30,10 @@ vec2 complex_ln(in vec2 z) {
     float r = length(z);
     if (r == 0.0) return vec2(-1e20, 0.0);
     return vec2(log(r), atan(z.y, z.x));
+}
+
+vec2 complex_log_base(in vec2 b, in vec2 z) {
+	return complex_ln(z) / complex_ln(b);
 }
 
 vec2 complex_mul(in vec2 z, in vec2 w) {
@@ -47,18 +53,20 @@ vec2 complex_div(in vec2 z, in vec2 w) {
 	return complex_mul(z, complex_pow(w, vec2(-1., 0.0)));
 }
 
-float get_point_scape_iterations(in vec2 z, in vec2 c) {
+float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 	vec2 current_number = vec2(z);
 	
 	bool is_default_exp = abs(exponent.x - 2.0) < 1e-4 && abs(exponent.y) < 1e-4;
 	
-	for (int i = 0; i < iterations; i++) {
-		float threshold = is_default_exp ? 2.0 : 100.0;
+	for (int i = 0; i < iters; i++) {
+		float threshold = gradient_mapping ? 1000.0 : 10.0;
 		if (length(current_number) > threshold) {
 			if (!smooth_grad) {
 				return float(i);
 			}
-			return float(i) + 1.0 - log(log(length(current_number))) / log(2);
+			float first_log = log(length(current_number)) / log(threshold);
+			vec2 smooth_i = float(i) + 1.0 - complex_log_base(exponent, vec2(first_log, 0.0));
+			return smooth_i.x;
 		}
 		
 		
@@ -83,14 +91,49 @@ float get_point_scape_iterations(in vec2 z, in vec2 c) {
 	return -1.0;
 }
 
+vec2 get_gradient(in vec2 z, in vec2 c, in int iters) {
+	float h = 0.000005;
+	float fx1 = get_point_scape_iterations(z, c - vec2(h, 0.0), iters);
+	float fy1 = get_point_scape_iterations(z, c - vec2(0.0, h), iters);
+	float fx2 = get_point_scape_iterations(z, c + vec2(h, 0.0), iters);
+	float fy2 = get_point_scape_iterations(z, c + vec2(0.0, h), iters);
+	
+	return vec2((fx1 - fx2) / (2.0*h), (fy1 - fy2) / (2.0*h));
+}
+
+vec3 hsv_to_rgb(vec3 hsv) {
+	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	vec3 p = abs(fract(hsv.xxx + K.xyz) * 6.0 - K.www);
+	return hsv.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), hsv.y);
+}
 
 void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, 1.0) / scale - offset;
 
-	float scape_iterations = julia ? get_point_scape_iterations(uv, constant_c) : get_point_scape_iterations(initial_z, uv);
+	float scape_iterations = julia ? get_point_scape_iterations(uv, constant_c, iterations) : get_point_scape_iterations(initial_z, uv, iterations);
 	
 	if (scape_iterations < 0.0) {
 		COLOR = set_color;
+	}
+	else if (gradient_mapping) {
+	    vec2 grad = julia ? 
+	        get_gradient(uv, constant_c, iterations) :
+	        get_gradient(initial_z, uv, iterations);
+		
+		float mag = log(pow(length(grad), 1./gradient_attenuation));
+		if (!glow_rainbow) {
+			mag = 1. - mag;
+		}
+		
+		grad = normalize(grad);
+		
+		float angle = 1. - atan(grad.y, grad.x) / (2.*pi) - 0.15;
+		angle = fract(angle / (float(gradient_repetition) / float(iterations)));
+		if (glow_rainbow) {
+			//angle = pow(angle, gradient_attenuation);
+		}
+		
+	    COLOR = vec4(hsv_to_rgb(vec3(angle, 0.5, mag)), 1.0);
 	}
 	else {
 		float gradient_value = fract(scape_iterations / float(gradient_repetition));

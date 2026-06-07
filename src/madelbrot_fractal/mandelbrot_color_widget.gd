@@ -9,3 +9,5 @@ func _process(_delta: float) -> void:
 	Global.mandelbrot_grad_attenuation = %gradient_attenuation.get_value()
 	Global.mandelbrot_grad_repetition = %gradient_repetition.get_value()
 	Global.mandelbrot_smooth_grad = %smoothened_gradient_checkbox.button_pressed
+	Global.mandelbrot_grad_mapping = %gradient_mapping_checkbox.button_pressed
+	Global.mandelbrot_glow_rainbow = %glow_rainbow_checkbox.button_pressed

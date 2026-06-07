@@ -22,6 +22,7 @@ var double_click_threshold_ms = 250
 
 
 func _ready() -> void:
+	$HSlider.exp_edit = exp_edit
 	$HSlider.value = curr_value
 	target_value = curr_value
 	update_label_value()

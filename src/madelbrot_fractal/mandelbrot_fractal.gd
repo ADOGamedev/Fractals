@@ -57,6 +57,8 @@ func set_main_fractal_parameters() -> void:
 	material.set_shader_parameter("gradient_attenuation", Global.mandelbrot_grad_attenuation)
 	material.set_shader_parameter("gradient_repetition", Global.mandelbrot_grad_repetition)
 	material.set_shader_parameter("smooth_grad", Global.mandelbrot_smooth_grad)
+	material.set_shader_parameter("gradient_mapping", Global.mandelbrot_grad_mapping)
+	material.set_shader_parameter("glow_rainbow", Global.mandelbrot_glow_rainbow)
 
 	var grad_tex = GradientTexture2D.new()
 	grad_tex.gradient = Global.mandelbrot_grad

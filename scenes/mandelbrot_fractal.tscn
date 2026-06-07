@@ -10,28 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
 [ext_resource type="PackedScene" uid="uid://cjqotmay3hwia" path="res://scenes/mandelbrot_color_widget.tscn" id="10_q64vy"]
 
-[sub_resource type="Gradient" id="Gradient_ffm43"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_0di7l"]
-gradient = SubResource("Gradient_ffm43")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
 shader = ExtResource("1_sbyhb")
-shader_parameter/ratio = 1.7777778
-shader_parameter/iterations = 1500
-shader_parameter/scale = 0.4
-shader_parameter/gradient = SubResource("GradientTexture1D_0di7l")
-shader_parameter/set_color = Color(1, 1, 1, 1)
-shader_parameter/gradient_attenuation = 2.3
-shader_parameter/gradient_repetition = 1500.0
-shader_parameter/offset = Vector2(0.5, 0)
-shader_parameter/exponent = Vector2(2, 0)
-shader_parameter/constant_c = Vector2(0.5, 0.5)
-shader_parameter/initial_z = Vector2(0, 0)
-shader_parameter/julia = true
-shader_parameter/burning_ship = false
-shader_parameter/rings_fractal = false
-shader_parameter/smooth_grad = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4xk"]
 shader = ExtResource("3_ak01r")
@@ -266,9 +246,9 @@ offset_bottom = -174.0
 
 [node name="InOutWidget" parent="CanvasLayer/MandelbrotColorWidget" unique_id=440504051 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = 423.0
+offset_left = 422.0
 offset_top = 76.0
-offset_right = 571.0
+offset_right = 570.0
 offset_bottom = 238.0
 scale = Vector2(0.535, 0.535)
 text = " Color "
@@ -286,10 +266,10 @@ mouse_filter = 2
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/exp" unique_id=1192069601]
 material = SubResource("ShaderMaterial_q64vy")
 layout_mode = 0
-offset_left = 35.0
-offset_top = 607.0
-offset_right = 361.20322
-offset_bottom = 722.0
+offset_left = 1006.0
+offset_top = 380.99997
+offset_right = 1332.2031
+offset_bottom = 496.0
 scale = Vector2(0.748, 0.748)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0di7l")
 
@@ -328,12 +308,13 @@ allow_lesser = true
 
 [node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = 278.0
-offset_top = 622.01996
-offset_right = 320.0
-offset_bottom = 678.01996
+offset_left = 965.0
+offset_top = 396.0
+offset_right = 1007.0
+offset_bottom = 452.0
 text = "x"
-displacement = Vector2(-280, 0)
+direction = 0
+displacement = Vector2(280, 0)
 TWEEN_TIME = 0.17
 
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]

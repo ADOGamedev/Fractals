@@ -26,7 +26,7 @@ void fragment() {
 	uv.y = 1.0 - uv.y;
 	uv.x -= uv.y / 2.0;
 	
-	if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+	if (uv.x < 0.0 || uv.x >= 1.0 || uv.y < 0.0 || uv.y >= 1.0) {
 		COLOR = vec4(0.0);
 	}
 	else {
