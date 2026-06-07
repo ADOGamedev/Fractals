@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bcvhdnejxaybj"]
+
+[ext_resource type="Script" uid="uid://bb4kg1ch10cel" path="res://src/gradient_selector/single_color_gradient_selector.gd" id="1_23oei"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1aqo2"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23oei"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bypo1"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2m6kk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_23oei"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qx0r5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_is2gr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qx0r5"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="SingleColorGradientSelector" type="VBoxContainer" unique_id=1905952084 groups=["single_color_gradient_selector"]]
+z_index = 1
+offset_right = 7.0
+offset_bottom = 28.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+script = ExtResource("1_23oei")
+
+[node name="Panel" type="Panel" parent="." unique_id=463471590]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1aqo2")
+
+[node name="Panel" type="Panel" parent="Panel" unique_id=84924748]
+z_index = -1
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_23oei")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=375380105]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bypo1")
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PanelContainer" unique_id=1530094141]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2m6kk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_23oei")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qx0r5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_is2gr")
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer" unique_id=866917985]
+z_index = -1
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qx0r5")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

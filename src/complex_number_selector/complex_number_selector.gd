@@ -50,8 +50,9 @@ func _input(event: InputEvent) -> void:
 		return
 
 	var mouse_pos = %SubViewportContainer.get_local_mouse_position()
+	var mouse_in = %SubViewportContainer.get_global_rect().has_point(get_viewport().get_mouse_position())
 
-	if mouse_pos.x > %SubViewportContainer.size.x or mouse_pos.y > %SubViewportContainer.size.y or mouse_pos < Vector2.ZERO:
+	if !mouse_in:
 		selecting = false
 		return
 	else:

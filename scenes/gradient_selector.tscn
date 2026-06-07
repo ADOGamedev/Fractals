@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://388ls8jfbkcm"]
+
+[ext_resource type="Script" uid="uid://b1km6cirp5g12" path="res://src/gradient_selector/gradient_selector.gd" id="1_qib60"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_663tl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.6745098)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="Gradient" id="Gradient_jxy1t"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qib60"]
+gradient = SubResource("Gradient_jxy1t")
+
+[node name="GradientSelector" type="Control" unique_id=873852120]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(129, 20)
+script = ExtResource("1_qib60")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1431749422]
+layout_mode = 0
+offset_right = 258.0
+offset_bottom = 25.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_663tl")
+
+[node name="gradient_texture" type="TextureRect" parent="PanelContainer" unique_id=2010167717]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("GradientTexture1D_qib60")
+
+[connection signal="gui_input" from="PanelContainer/gradient_texture" to="." method="_on_texture_rect_gui_input"]

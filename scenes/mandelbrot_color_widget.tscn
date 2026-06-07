@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://cjqotmay3hwia"]
+
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_7pcls"]
+[ext_resource type="Script" uid="uid://dtpmonlq4n2v2" path="res://src/madelbrot_fractal/mandelbrot_color_widget.gd" id="1_avj2j"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_avj2j"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_xp7sd"]
+[ext_resource type="PackedScene" uid="uid://388ls8jfbkcm" path="res://scenes/gradient_selector.tscn" id="4_gq60x"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_xp7sd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pcls"]
+shader = ExtResource("1_7pcls")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pcls"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 15.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_t1ain"]
+base_font = ExtResource("3_xp7sd")
+variation_embolden = 1.1
+baseline_offset = -0.125
+
+[sub_resource type="FontVariation" id="FontVariation_xp7sd"]
+base_font = ExtResource("3_xp7sd")
+variation_embolden = 1.1
+
+[node name="MandelbrotColorWidget" type="Control" unique_id=374050701]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_avj2j")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
+material = SubResource("ShaderMaterial_7pcls")
+layout_mode = 0
+offset_right = 423.0
+offset_bottom = 236.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pcls")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1837798147]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1043683066]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=306460672]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.33
+theme = ExtResource("2_avj2j")
+theme_override_fonts/font = SubResource("FontVariation_t1ain")
+text = "Color"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1935145166]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 5
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=2004927155]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1704212198]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=2125605314]
+layout_mode = 2
+theme = ExtResource("2_avj2j")
+theme_override_fonts/font = SubResource("FontVariation_t1ain")
+text = "Gradient"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=758074604]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 32
+
+[node name="GradientSelector" parent="PanelContainer/VBoxContainer/HBoxContainer2/MarginContainer" unique_id=873852120 instance=ExtResource("4_gq60x")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1660638526]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="gradient_repetition" parent="PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("6_xp7sd")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "gᵣ"
+sensitivity = 0.003
+exp_edit = true
+curr_value = 1500.0
+
+[node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_repetition" index="0" unique_id=1601533653]
+max_value = 2000.0
+step = 0.0
+exp_edit = true
+allow_greater = true
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1702283715]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="gradient_attenuation" parent="PanelContainer/VBoxContainer" unique_id=2122151627 instance=ExtResource("6_xp7sd")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "gₐ"
+sensitivity = 0.003
+curr_value = 0.36
+
+[node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_attenuation" index="0" unique_id=1601533653]
+max_value = 2.0
+step = 0.0
+
+[node name="Control3" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1641024052]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.35
+
+[node name="smoothened_gradient" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1764302980]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/smoothened_gradient" unique_id=1678746033]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_xp7sd")
+text = "Smoothened Gradient"
+
+[node name="smoothened_gradient_checkbox" type="CheckBox" parent="PanelContainer/VBoxContainer/smoothened_gradient" unique_id=810728955]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_avj2j")
+button_pressed = true
+
+[editable path="PanelContainer/VBoxContainer/gradient_repetition"]
+[editable path="PanelContainer/VBoxContainer/gradient_attenuation"]

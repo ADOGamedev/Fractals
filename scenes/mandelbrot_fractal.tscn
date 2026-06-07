@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ds5ev0pss41f3"]
 
 [ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="1_sbyhb"]
-[ext_resource type="Texture2D" uid="uid://cc4ul64r2t30x" path="res://assets/gradients/ice_gradient.tres" id="2_ddu1x"]
+[ext_resource type="Gradient" uid="uid://b4o8r3da4825s" path="res://assets/gradients/rainbow_gradient.tres" id="2_q64vy"]
 [ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/madelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_ak01r"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
@@ -9,21 +9,28 @@
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_7bf1l"]
 [ext_resource type="PackedScene" uid="uid://bxum74uw4fp7" path="res://scenes/complex_number_selector.tscn" id="8_3g4xk"]
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
+[ext_resource type="PackedScene" uid="uid://cjqotmay3hwia" path="res://scenes/mandelbrot_color_widget.tscn" id="10_q64vy"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q64vy"]
+gradient = ExtResource("2_q64vy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
 shader = ExtResource("1_sbyhb")
 shader_parameter/ratio = 1.7777778
 shader_parameter/iterations = 1500
-shader_parameter/scale = 0.23
-shader_parameter/gradient = ExtResource("2_ddu1x")
+shader_parameter/scale = 0.4
+shader_parameter/gradient = SubResource("GradientTexture1D_q64vy")
 shader_parameter/set_color = Color(1, 1, 1, 1)
-shader_parameter/gradient_attenuation = 0.36
-shader_parameter/offset = Vector2(0, 0)
+shader_parameter/gradient_attenuation = 2.3
+shader_parameter/gradient_repetition = 1500.0
+shader_parameter/offset = Vector2(0.5, 0)
 shader_parameter/exponent = Vector2(2, 0)
 shader_parameter/constant_c = Vector2(0.5, 0.5)
 shader_parameter/initial_z = Vector2(0, 0)
 shader_parameter/julia = true
 shader_parameter/burning_ship = false
+shader_parameter/rings_fractal = false
+shader_parameter/smooth_grad = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4xk"]
 shader = ExtResource("3_ak01r")
@@ -57,6 +64,27 @@ corner_detail = 16
 base_font = ExtResource("7_7bf1l")
 variation_embolden = 1.1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q64vy"]
+shader = ExtResource("3_ak01r")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.40800001938
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0di7l"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
 [node name="MandelbrotFractal" type="ColorRect" unique_id=463574064]
 material = SubResource("ShaderMaterial_ddu1x")
 anchors_preset = 15
@@ -77,7 +105,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -356.0
-offset_top = -192.0
+offset_top = -222.0
 offset_right = -30.0
 offset_bottom = -25.0
 grow_horizontal = 0
@@ -95,7 +123,9 @@ unique_name_in_owner = true
 layout_mode = 2
 variable_name = "i"
 integer = true
+exp_edit = true
 curr_value = 1500.0
+exp_maximum = 50000
 
 [node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="0" unique_id=1601533653]
 min_value = 1.0
@@ -109,7 +139,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.64
 
 [node name="julia" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=386633372]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
@@ -120,6 +149,7 @@ theme_override_fonts/font = SubResource("FontVariation_3g4xk")
 text = "Julia Set"
 
 [node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=1476773306]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -140,6 +170,22 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="rings_fractal" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=665863938]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/rings_fractal" unique_id=1141381864]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3g4xk")
+text = "Rings Fractal"
+
+[node name="rings_fractal_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/rings_fractal" unique_id=771746121]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="constant" parent="CanvasLayer" unique_id=1264587179 instance=ExtResource("8_3g4xk")]
 unique_name_in_owner = true
 anchors_preset = 0
@@ -155,6 +201,23 @@ scale = Vector2(0.748, 0.748)
 complex_num = Vector2(-0.748, 0.06)
 variable_name = "c"
 
+[node name="fractal" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(1264587179, 565143421) index="0" unique_id=57092129]
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="real_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="2" unique_id=691124258]
+sensitivity = 0.005
+
+[node name="HSlider" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/real_part" index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 5.0
+
+[node name="complex_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="3" unique_id=1407017057]
+sensitivity = 0.005
+
+[node name="HSlider" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/complex_part" index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 5.0
+
 [node name="InOutWidget" parent="CanvasLayer/constant" unique_id=392686038 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = 324.86627
@@ -162,43 +225,6 @@ offset_top = 159.0909
 offset_right = 381.86627
 offset_bottom = 258.09088
 text = "c"
-displacement = Vector2(-280, 0)
-TWEEN_TIME = 0.17
-
-[node name="exp" parent="CanvasLayer" unique_id=1181438606 instance=ExtResource("8_3g4xk")]
-unique_name_in_owner = true
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 35.0
-offset_top = 364.99997
-offset_right = 35.0
-offset_bottom = 364.99997
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(0.748, 0.748)
-complex_num = Vector2(2, 0)
-variable_name = "x"
-
-[node name="Camera2D" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(1181438606, 565143421) index="1" unique_id=769366961]
-zoom = Vector2(0.2, 0.2)
-MIN_ZOOM = Vector2(0.2, 0.2)
-
-[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/real_part" parent_id_path=PackedInt32Array(1181438606, 691124258) index="0" unique_id=1601533653]
-min_value = -5.0
-max_value = 10.0
-
-[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/complex_part" parent_id_path=PackedInt32Array(1181438606, 1407017057) index="0" unique_id=1601533653]
-min_value = -5.0
-max_value = 10.0
-
-[node name="InOutWidget" parent="CanvasLayer/exp" unique_id=1788190043 instance=ExtResource("9_ffm43")]
-layout_mode = 0
-offset_left = 324.8663
-offset_top = 159.09094
-offset_right = 381.8663
-offset_bottom = 258.09094
-text = "x"
 displacement = Vector2(-280, 0)
 TWEEN_TIME = 0.17
 
@@ -215,6 +241,12 @@ grow_horizontal = 0
 grow_vertical = 1
 scale = Vector2(0.748, 0.748)
 
+[node name="real_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="2" unique_id=691124258]
+sensitivity = 0.005
+
+[node name="complex_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="3" unique_id=1407017057]
+sensitivity = 0.005
+
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=529710540 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = -56.0
@@ -225,7 +257,90 @@ direction = 0
 displacement = Vector2(280, 0)
 TWEEN_TIME = 0.17
 
+[node name="MandelbrotColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("10_q64vy")]
+offset_left = 35.0
+offset_top = 362.0
+offset_right = -822.0
+offset_bottom = -174.0
+
+[node name="InOutWidget" parent="CanvasLayer/MandelbrotColorWidget" unique_id=440504051 instance=ExtResource("9_ffm43")]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 76.0
+offset_right = 571.0
+offset_bottom = 238.0
+scale = Vector2(0.535, 0.535)
+text = " Color "
+displacement = Vector2(-458, 0)
+
+[node name="exp" type="Control" parent="CanvasLayer" unique_id=311680584]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/exp" unique_id=1192069601]
+material = SubResource("ShaderMaterial_q64vy")
+layout_mode = 0
+offset_left = 35.0
+offset_top = 607.0
+offset_right = 361.20322
+offset_bottom = 722.0
+scale = Vector2(0.748, 0.748)
+theme_override_styles/panel = SubResource("StyleBoxFlat_0di7l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/exp/PanelContainer" unique_id=860261930]
+layout_mode = 2
+theme_override_constants/separation = 11
+alignment = 1
+
+[node name="exp_r" parent="CanvasLayer/exp/PanelContainer/VBoxContainer" unique_id=1395074969 instance=ExtResource("6_3lt8q")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "xᵣ"
+sensitivity = 0.005
+curr_value = 2.0
+
+[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/VBoxContainer/exp_r" index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 10.0
+step = 0.0
+allow_greater = true
+allow_lesser = true
+
+[node name="exp_i" parent="CanvasLayer/exp/PanelContainer/VBoxContainer" unique_id=2014945059 instance=ExtResource("6_3lt8q")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "xᵢ"
+sensitivity = 0.005
+curr_value = 0.0
+
+[node name="HSlider" parent="CanvasLayer/exp/PanelContainer/VBoxContainer/exp_i" index="0" unique_id=1601533653]
+min_value = -5.0
+max_value = 10.0
+step = 0.0
+allow_greater = true
+allow_lesser = true
+
+[node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 622.01996
+offset_right = 320.0
+offset_bottom = 678.01996
+text = "x"
+displacement = Vector2(-280, 0)
+TWEEN_TIME = 0.17
+
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
-[editable path="CanvasLayer/exp"]
-[editable path="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/real_part"]
-[editable path="CanvasLayer/exp/PanelContainer/MarginContainer/VBoxContainer/complex_part"]
+[editable path="CanvasLayer/constant"]
+[editable path="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/real_part"]
+[editable path="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/complex_part"]
+[editable path="CanvasLayer/z"]
+[editable path="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer/real_part"]
+[editable path="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer/complex_part"]
+[editable path="CanvasLayer/exp/PanelContainer/VBoxContainer/exp_r"]
+[editable path="CanvasLayer/exp/PanelContainer/VBoxContainer/exp_i"]

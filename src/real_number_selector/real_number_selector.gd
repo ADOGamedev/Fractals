@@ -7,6 +7,8 @@ extends PanelContainer
 @export var fine_control1 = 0.1
 @export var fine_control2 = 0.001
 
+@export var exp_edit := false
+
 @export var curr_value: float = 0.35
 
 var initial_value = 0.0
@@ -15,6 +17,8 @@ var target_value := 0.0
 var dragging = false
 var last_click_time = 0
 var double_click_threshold_ms = 250
+
+@export var exp_maximum = 10000000
 
 
 func _ready() -> void:
@@ -30,8 +34,16 @@ func _process(delta: float) -> void:
 		curr_value = target_value
 	else:
 		curr_value = lerp(curr_value, target_value, LERP_VALUE * delta)
-	curr_value = clamp(curr_value, $HSlider.min_value, $HSlider.max_value)
-	target_value = clamp(target_value, $HSlider.min_value, $HSlider.max_value)
+	
+	var h_slider_min = $HSlider.min_value
+	var h_slider_max = $HSlider.max_value
+	if $HSlider.allow_greater:
+		h_slider_max = INF
+	if $HSlider.allow_lesser:
+		h_slider_min = -INF
+
+	curr_value = clamp(curr_value, h_slider_min, exp_maximum if exp_edit else h_slider_max)
+	target_value = clamp(target_value, h_slider_min, exp_maximum if exp_edit else h_slider_max)
 
 	if integer:
 		curr_value = roundi(curr_value)
@@ -57,7 +69,14 @@ func _input(event: InputEvent) -> void:
 		if ctrl:
 			curr_sensitivity *= fine_control2
 
-		target_value += event.relative.x * curr_sensitivity * ($HSlider.max_value - $HSlider.min_value)
+		if exp_edit:
+			var log_min = to_log_space($HSlider.min_value)
+			var log_max = to_log_space($HSlider.max_value)
+			var log_val = to_log_space(target_value)
+			log_val += event.relative.x * curr_sensitivity * (log_max - log_min)
+			target_value = from_log_space(log_val)
+		else:
+			target_value += event.relative.x * curr_sensitivity * ($HSlider.max_value - $HSlider.min_value)
 
 		
 		$HSlider.value = target_value
@@ -111,3 +130,10 @@ func update_label_value() -> void:
 
 func set_disabled(disabled: bool) -> void:
 	$disabled.visible = disabled
+
+
+func to_log_space(v: float) -> float:
+	return log(max(v, 1e-9))
+
+func from_log_space(v: float) -> float:
+	return exp(v)
