@@ -20,13 +20,22 @@ MIN_ZOOM = Vector2(0.5, 0.5)
 [node name="bg" type="ColorRect" parent="." unique_id=2119815704]
 z_index = -5
 custom_minimum_size = Vector2(1280, 720)
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_left = -2863.0
+offset_top = -1877.0
+offset_right = 4510.0
+offset_bottom = 2755.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="SierpinskiTriangle" parent="." unique_id=1081089723 instance=ExtResource("2_0wfyh")]
+[node name="MandelbrotFractal" parent="." unique_id=463574064 instance=ExtResource("3_sugp2")]
 visible = false
+custom_minimum_size = Vector2(1280, 720)
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="SierpinskiTriangle" parent="." unique_id=1081089723 instance=ExtResource("2_0wfyh")]
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 0
 anchor_right = 0.0
@@ -38,10 +47,3 @@ grow_vertical = 1
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
-
-[node name="MandelbrotFractal" parent="." unique_id=463574064 instance=ExtResource("3_sugp2")]
-custom_minimum_size = Vector2(1280, 720)
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 1920.0
-offset_bottom = 1080.0

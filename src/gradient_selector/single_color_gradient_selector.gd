@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @export var initial_color := Color.BLACK
 var dragging := false
+var can_queue_free = true
 
 func get_color() -> Color:
 	return %ColorPickerButton.color
@@ -12,11 +13,10 @@ func set_color(color: Color) -> void:
 func _ready() -> void:
 	set_color(initial_color)
 
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		var mouse_in = get_global_rect().has_point(event.position)
-		if mouse_in:
+		if mouse_in and can_queue_free:
 			queue_free()
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

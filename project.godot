@@ -29,6 +29,7 @@ window/vsync/vsync_mode=0
 [global_group]
 
 single_color_gradient_selector=""
+canvas_layer=""
 
 [input]
 

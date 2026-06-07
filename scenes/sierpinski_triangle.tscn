@@ -1,20 +1,53 @@
 [gd_scene format=3 uid="uid://c3tw8sb50jac"]
 
 [ext_resource type="Script" uid="uid://cdei0x18legja" path="res://src/sierpinski_triangle/sierpinski_triangle.gd" id="1_7n8ju"]
+[ext_resource type="Shader" uid="uid://b1fiust5nd40" path="res://src/sierpinski_triangle/sierpinski.gdshader" id="1_iwf3y"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_1y084"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_jnh7p"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_tqlmh"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="6_k1bsp"]
 
-[node name="SierpinskiTriangle" type="Control" unique_id=1081089723]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_7n8ju")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5g1au"]
+shader = ExtResource("1_iwf3y")
+shader_parameter/ratio = 1.7777778
+shader_parameter/scale = 0.7
+shader_parameter/iterations = 2
 
-[node name="bg" type="ColorRect" parent="." unique_id=6321002]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgu3i"]
+shader = ExtResource("3_1y084")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cigia"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_in7qj"]
+base_font = ExtResource("6_k1bsp")
+variation_embolden = 1.1
+
+[node name="SierpinskiTriangle" type="ColorRect" unique_id=6321002]
 z_index = -1
-layout_mode = 1
+material = SubResource("ShaderMaterial_5g1au")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,3 +55,66 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+script = ExtResource("1_7n8ju")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1377579895 groups=["canvas_layer"]]
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer" unique_id=1882319736]
+material = SubResource("ShaderMaterial_rgu3i")
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -356.0
+offset_top = -155.0
+offset_right = -30.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("4_jnh7p")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cigia")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=552581854]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -2
+
+[node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("5_tqlmh")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "i"
+integer = true
+curr_value = 10.0
+exp_maximum = 50000
+
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 25.0
+step = 0.0
+value = 1.0
+
+[node name="Control" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=622958676]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
+
+[node name="auto_iterations" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=380428087]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/auto_iterations" unique_id=539588034]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_in7qj")
+text = "Auto Iterations"
+
+[node name="auto_iterations_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/auto_iterations" unique_id=1124437585]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+button_pressed = true
+
+[editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
