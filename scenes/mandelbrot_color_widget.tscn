@@ -197,5 +197,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_avj2j")
 
+[connection signal="toggled" from="PanelContainer/VBoxContainer/gradient_mapping/gradient_mapping_checkbox" to="." method="_on_gradient_mapping_checkbox_toggled"]
+
 [editable path="PanelContainer/VBoxContainer/gradient_repetition"]
 [editable path="PanelContainer/VBoxContainer/gradient_attenuation"]

@@ -11,7 +11,7 @@ extends PanelContainer
 
 @export var curr_value: float = 0.35
 
-var initial_value = 0.0
+var initial_value := 0.0
 var target_value := 0.0
 
 var dragging = false
@@ -106,6 +106,7 @@ func get_value() -> float:
 
 func get_target_value() -> float:
 	return target_value
+
 
 func set_value(value: float) -> void:
 	target_value = value

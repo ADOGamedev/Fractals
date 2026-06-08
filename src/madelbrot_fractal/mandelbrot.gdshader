@@ -59,7 +59,7 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 	bool is_default_exp = abs(exponent.x - 2.0) < 1e-4 && abs(exponent.y) < 1e-4;
 	
 	for (int i = 0; i < iters; i++) {
-		float threshold = gradient_mapping ? 1000.0 : 10.0;
+		float threshold = gradient_mapping ? 1000.0 : 50.0;
 		if (length(current_number) > threshold) {
 			if (!smooth_grad) {
 				return float(i);

@@ -2,7 +2,7 @@ extends Control
 
 @export var LERP_VALUE = 15
 
-@export var complex_num = Vector2.ZERO
+@export var initial_complex_num = Vector2.ZERO
 @export var variable_name = "z"
 
 var selecting = false
@@ -15,13 +15,13 @@ func _ready() -> void:
 	%real_part.set_variable_name(variable_name + "ᵣ")
 	%complex_part.set_variable_name(variable_name + "ᵢ")
 
-	%real_part.set_value(complex_num.x)
-	%complex_part.set_value(complex_num.y)	
-	%real_part.initial_value = complex_num.x
-	%complex_part.initial_value = complex_num.y
+	%real_part.set_value(initial_complex_num.x)
+	%complex_part.set_value(initial_complex_num.y)	
+	%real_part.initial_value = initial_complex_num.x
+	%complex_part.initial_value = initial_complex_num.y
 
 	var ball_offset = %ball_pointer.size * %ball_pointer.scale / 2.0
-	%ball_pointer.global_position = shader_coords_to_global_coords(complex_num) - ball_offset
+	%ball_pointer.global_position = shader_coords_to_global_coords(initial_complex_num) - ball_offset
 
 
 func _process(_delta: float) -> void:
@@ -61,8 +61,8 @@ func _input(event: InputEvent) -> void:
 				return
 			 
 			if (Time.get_ticks_msec() - last_click_time) < double_click_threshold_ms:
-				%real_part.set_value(complex_num.x)
-				%complex_part.set_value(complex_num.y)
+				%real_part.set_value(initial_complex_num.x)
+				%complex_part.set_value(initial_complex_num.y)
 
 			last_click_time = Time.get_ticks_msec()
 
@@ -95,6 +95,14 @@ func shader_coords_to_global_coords(coord: Vector2) -> Vector2:
 
 func get_complex_num() -> Vector2:
 	return Vector2(%real_part.get_value(), %complex_part.get_value())
+
+func set_target_complex_num(val: Vector2) -> void:
+	%real_part.set_value(val.x)
+	%complex_part.set_value(val.y)
+
+func set_initial_complex_num(val: Vector2) -> void:
+	%real_part.initial_value = val.x
+	%complex_part.initial_value = val.y
 
 func set_disabled(disabled: bool) -> void:
 	%disabled.visible = disabled

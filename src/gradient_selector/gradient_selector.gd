@@ -42,7 +42,10 @@ func _process(_delta: float) -> void:
 			last_child_i = child_i
 			max_offset = offset
 
+		offset = max(0.001, offset)
 		grad.add_point(offset, child.get_color())
+
+	grad.remove_point(0)
 
 	var first_child = get_child(first_child_i)
 	var last_child = get_child(last_child_i)
