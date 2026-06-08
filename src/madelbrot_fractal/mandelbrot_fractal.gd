@@ -16,6 +16,9 @@ var C_BURNING_SHIP = Vector2(-0.4384, 0.07305)
 
 var DEFAULT_EXPONENT = Vector2(2.0, 0.0)
 
+var DEFAULT_THRESHOLD = 10
+var GRAD_MAPPING_THRESHOLD = 1000
+
 
 func _ready() -> void:
 	%z.set_shader_parameter("exponent", DEFAULT_EXPONENT)
@@ -70,15 +73,17 @@ func disable_complex_selectors_accordingly() -> void:
 func set_main_fractal_parameters() -> void:
 	material.set_shader_parameter("iterations", %iterations.get_value())
 
-	material.set_shader_parameter("set_color", Global.mandelbrot_color)
-	material.set_shader_parameter("gradient_attenuation", Global.mandelbrot_grad_attenuation)
-	material.set_shader_parameter("gradient_repetition", Global.mandelbrot_grad_repetition)
-	material.set_shader_parameter("smooth_grad", Global.mandelbrot_smooth_grad)
-	material.set_shader_parameter("gradient_mapping", Global.mandelbrot_grad_mapping)
-	material.set_shader_parameter("glow_rainbow", Global.mandelbrot_glow_rainbow)
+	material.set_shader_parameter("threshold", %threshold.get_value())
+
+	material.set_shader_parameter("set_color", MandelbrotConfig.color)
+	material.set_shader_parameter("gradient_attenuation", MandelbrotConfig.grad_attenuation)
+	material.set_shader_parameter("gradient_repetition", MandelbrotConfig.grad_repetition)
+	material.set_shader_parameter("smooth_grad", MandelbrotConfig.smooth_grad)
+	material.set_shader_parameter("gradient_mapping", MandelbrotConfig.grad_mapping)
+	material.set_shader_parameter("glow_rainbow", MandelbrotConfig.glow_rainbow)
 
 	var grad_tex = GradientTexture2D.new()
-	grad_tex.gradient = Global.mandelbrot_grad
+	grad_tex.gradient = MandelbrotConfig.grad
 	material.set_shader_parameter("gradient", grad_tex)
 	
 	var julia = %julia_checkbox.button_pressed

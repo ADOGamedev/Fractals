@@ -20,6 +20,7 @@ shader_parameter/gradient_attenuation = 0.8
 shader_parameter/gradient_repetition = 400.0
 shader_parameter/offset = Vector2(0.5, 0)
 shader_parameter/exponent = Vector2(2, 0)
+shader_parameter/threshold = 10.0
 shader_parameter/constant_c = Vector2(0.5, 0.5)
 shader_parameter/initial_z = Vector2(0, 0)
 shader_parameter/julia = false
@@ -47,7 +48,7 @@ shader_parameter/chromatic_strength = 5.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g4xk"]
 content_margin_left = 20.0
 content_margin_top = 30.0
-content_margin_right = 30.0
+content_margin_right = 20.0
 content_margin_bottom = 20.0
 bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
 border_width_left = 5
@@ -102,7 +103,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -356.0
-offset_top = -222.0
+offset_top = -255.0
 offset_right = -30.0
 offset_bottom = -25.0
 grow_horizontal = 0
@@ -114,6 +115,47 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3g4xk")
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1338554059]
 layout_mode = 2
 theme_override_constants/separation = -2
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=449397764]
+layout_mode = 2
+theme = ExtResource("5_7bf1l")
+alignment = 1
+selected = 1
+item_count = 4
+popup/item_0/text = "Select type of fractal"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Mandelbrot"
+popup/item_1/id = 1
+popup/item_2/text = "Burning Ship"
+popup/item_2/id = 2
+popup/item_3/text = "Rings Fractal"
+popup/item_3/id = 3
+
+[node name="Control3" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1829288652]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
+
+[node name="threshold" parent="CanvasLayer/Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("6_3lt8q")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "t"
+exp_edit = true
+curr_value = 10.0
+exp_maximum = 10000
+
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/threshold" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 10000.0
+step = 0.0
+value = 1.0
+
+[node name="Control2" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=664606518]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.91
 
 [node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=359612231 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
@@ -152,6 +194,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="burning_ship" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1727483424]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
@@ -168,6 +211,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="rings_fractal" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=665863938]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
@@ -283,9 +327,9 @@ mouse_filter = 2
 material = SubResource("ShaderMaterial_q64vy")
 layout_mode = 0
 offset_left = 1006.0
-offset_top = 380.99997
+offset_top = 366.0
 offset_right = 1332.2031
-offset_bottom = 496.0
+offset_bottom = 481.00003
 scale = Vector2(0.748, 0.748)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0di7l")
 
@@ -325,9 +369,9 @@ allow_lesser = true
 [node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = 965.0
-offset_top = 396.0
+offset_top = 381.00003
 offset_right = 1007.0
-offset_bottom = 452.0
+offset_bottom = 437.00003
 text = "x"
 direction = 0
 displacement = Vector2(280, 0)
@@ -337,6 +381,7 @@ TWEEN_TIME = 0.17
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/burning_ship/burning_ship_checkbox" to="." method="_on_burning_ship_checkbox_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/rings_fractal/rings_fractal_checkbox" to="." method="_on_rings_fractal_checkbox_pressed"]
 
+[editable path="CanvasLayer/Panel/VBoxContainer/threshold"]
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
 [editable path="CanvasLayer/constant"]
 [editable path="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/real_part"]

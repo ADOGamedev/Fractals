@@ -2,7 +2,8 @@ shader_type canvas_item;
 
 const float pi = 3.141592653589793238;
 const float phi = 1.618033988749;
-uniform float ratio = 1.77777777777777777777777777777;
+uniform float ratio = 1.77777777777777;
+
 uniform int iterations = 300;
 uniform float scale = 0.4;
 uniform sampler2D gradient;
@@ -11,6 +12,8 @@ uniform float gradient_attenuation = 0.8;
 uniform float gradient_repetition = 400;
 uniform vec2 offset = vec2(0.5, 0.0);
 uniform vec2 exponent = vec2(2.0, 0.0);
+
+uniform float threshold = 10.0;
 
 uniform vec2 constant_c = vec2(0.5);
 uniform vec2 initial_z = vec2(0.0);
@@ -59,7 +62,6 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 	bool is_default_exp = abs(exponent.x - 2.0) < 1e-4 && abs(exponent.y) < 1e-4;
 	
 	for (int i = 0; i < iters; i++) {
-		float threshold = gradient_mapping ? 1000.0 : 50.0;
 		if (length(current_number) > threshold) {
 			if (!smooth_grad) {
 				return float(i);
@@ -93,10 +95,18 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 
 vec2 get_gradient(in vec2 z, in vec2 c, in int iters) {
 	float h = 0.000005;
-	float fx1 = get_point_scape_iterations(z, c - vec2(h, 0.0), iters);
-	float fy1 = get_point_scape_iterations(z, c - vec2(0.0, h), iters);
-	float fx2 = get_point_scape_iterations(z, c + vec2(h, 0.0), iters);
-	float fy2 = get_point_scape_iterations(z, c + vec2(0.0, h), iters);
+	float fx1 = julia
+		? get_point_scape_iterations(z - vec2(h, 0.0), c, iters)
+		: get_point_scape_iterations(z, c - vec2(h, 0.0), iters);
+	float fy1 = julia
+		? get_point_scape_iterations(z - vec2(0.0, h), c, iters)
+		: get_point_scape_iterations(z, c - vec2(0.0, h), iters);
+	float fx2 = julia
+		? get_point_scape_iterations(z + vec2(h, 0.0), c, iters)
+		: get_point_scape_iterations(z, c + vec2(h, 0.0), iters);
+	float fy2 = julia
+		? get_point_scape_iterations(z + vec2(0.0, h), c, iters)
+		: get_point_scape_iterations(z, c + vec2(0.0, h), iters);
 	
 	return vec2((fx1 - fx2) / (2.0*h), (fy1 - fy2) / (2.0*h));
 }
@@ -127,10 +137,11 @@ void fragment() {
 		
 		grad = normalize(grad);
 		
-		float angle = 1. - atan(grad.y, grad.x) / (2.*pi) - 0.15;
-		angle = fract(angle / (float(gradient_repetition) / float(iterations)));
-		if (glow_rainbow) {
-			//angle = pow(angle, gradient_attenuation);
+		float angle = atan(grad.y, grad.x) / (2.*pi) + 0.25;
+		float cicles = float(iterations) / gradient_repetition;
+		angle = fract(angle * cicles);
+		if (!glow_rainbow) {
+			angle = 1. - angle;
 		}
 		
 	    COLOR = vec4(hsv_to_rgb(vec3(angle, 0.5, mag)), 1.0);

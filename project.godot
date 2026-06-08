@@ -18,6 +18,7 @@ config/icon="uid://b80r2ipuo7g1d"
 [autoload]
 
 Global="*uid://c2ru27sdvqmn4"
+MandelbrotConfig="*uid://cm7t31riprdpv"
 
 [display]
 
