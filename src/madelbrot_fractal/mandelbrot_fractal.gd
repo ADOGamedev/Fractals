@@ -1,5 +1,7 @@
 extends ColorRect
 
+enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS}
+
 var OFFSET_MANDELBROT = Vector2(0.7, 0.0)
 var OFFSET_BURNING_SHIP = Vector2(0.5, 0.5)
 
@@ -39,8 +41,8 @@ func _process(_delta: float) -> void:
 
 
 func set_complex_selectors_parameters() -> void:
-	var burning_ship = %burning_ship_checkbox.button_pressed
-	var rings_fractal = %rings_fractal_checkbox.button_pressed
+	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP
+	var rings_fractal = %fractals_option_button.selected == Fractals.RINGS
 
 	var exponent = Vector2(%exp_r.get_value(), %exp_i.get_value())
 
@@ -87,8 +89,8 @@ func set_main_fractal_parameters() -> void:
 	material.set_shader_parameter("gradient", grad_tex)
 	
 	var julia = %julia_checkbox.button_pressed
-	var burning_ship = %burning_ship_checkbox.button_pressed
-	var rings_fractal = %rings_fractal_checkbox.button_pressed
+	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP
+	var rings_fractal = %fractals_option_button.selected == Fractals.RINGS
 
 	material.set_shader_parameter("julia", julia)
 	material.set_shader_parameter("burning_ship", burning_ship)
@@ -116,8 +118,8 @@ func set_main_fractal_parameters() -> void:
 
 
 func update_widgets_values() -> void:
-	var burning_ship = %burning_ship_checkbox.button_pressed
-	var rings_fractal = %rings_fractal_checkbox.button_pressed
+	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP
+	var rings_fractal = %fractals_option_button.selected == Fractals.RINGS
 
 	var z_value = Z_MANDELBROT
 	var c_value = C_MANDELBROT
@@ -134,11 +136,5 @@ func update_widgets_values() -> void:
 	%constant.set_initial_complex_num(c_value)
 
 
-func _on_rings_fractal_checkbox_pressed() -> void:
-	update_widgets_values()
-
-func _on_burning_ship_checkbox_pressed() -> void:
-	update_widgets_values()
-
-func _on_julia_checkbox_pressed() -> void:
+func _on_fractals_option_button_item_selected(_index: int) -> void:
 	update_widgets_values()

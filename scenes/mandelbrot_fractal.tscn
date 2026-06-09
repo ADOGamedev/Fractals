@@ -116,7 +116,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3g4xk")
 layout_mode = 2
 theme_override_constants/separation = -2
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=449397764]
+[node name="fractals_option_button" type="OptionButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=449397764]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("5_7bf1l")
 alignment = 1
@@ -155,7 +156,7 @@ value = 1.0
 [node name="Control2" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=664606518]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.91
+size_flags_stretch_ratio = 2.78
 
 [node name="iterations" parent="CanvasLayer/Panel/VBoxContainer" unique_id=359612231 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
@@ -188,40 +189,6 @@ theme_override_fonts/font = SubResource("FontVariation_3g4xk")
 text = "Julia Set"
 
 [node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/julia" unique_id=1476773306]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="burning_ship" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1727483424]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 9
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/burning_ship" unique_id=1662256788]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_3g4xk")
-text = "Burning Ship"
-
-[node name="burning_ship_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/burning_ship" unique_id=1863821484]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="rings_fractal" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=665863938]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 9
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/rings_fractal" unique_id=1141381864]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_3g4xk")
-text = "Rings Fractal"
-
-[node name="rings_fractal_checkbox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/rings_fractal" unique_id=771746121]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -377,9 +344,8 @@ direction = 0
 displacement = Vector2(280, 0)
 TWEEN_TIME = 0.17
 
+[connection signal="item_selected" from="CanvasLayer/Panel/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/julia/julia_checkbox" to="." method="_on_julia_checkbox_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/burning_ship/burning_ship_checkbox" to="." method="_on_burning_ship_checkbox_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/rings_fractal/rings_fractal_checkbox" to="." method="_on_rings_fractal_checkbox_pressed"]
 
 [editable path="CanvasLayer/Panel/VBoxContainer/threshold"]
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]
