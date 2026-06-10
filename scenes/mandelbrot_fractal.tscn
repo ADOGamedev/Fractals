@@ -26,6 +26,8 @@ shader_parameter/initial_z = Vector2(0, 0)
 shader_parameter/julia = false
 shader_parameter/burning_ship = false
 shader_parameter/rings_fractal = false
+shader_parameter/trigonometric_collatz = false
+shader_parameter/complex_extension_collatz = false
 shader_parameter/smooth_grad = true
 shader_parameter/gradient_mapping = false
 shader_parameter/glow_rainbow = false
@@ -122,7 +124,7 @@ layout_mode = 2
 theme = ExtResource("5_7bf1l")
 alignment = 1
 selected = 1
-item_count = 4
+item_count = 6
 popup/item_0/text = "Select type of fractal"
 popup/item_0/id = 0
 popup/item_0/disabled = true
@@ -133,6 +135,10 @@ popup/item_2/text = "Burning Ship"
 popup/item_2/id = 2
 popup/item_3/text = "Rings Fractal"
 popup/item_3/id = 3
+popup/item_4/text = "Trigonometric Collatz"
+popup/item_4/id = 4
+popup/item_5/text = "Complex Entension Collatz"
+popup/item_5/id = 5
 
 [node name="Control3" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1829288652]
 layout_mode = 2
@@ -208,17 +214,17 @@ grow_vertical = 1
 scale = Vector2(0.748, 0.748)
 variable_name = "c"
 
-[node name="fractal" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(1264587179, 565143421) index="0" unique_id=57092129]
+[node name="fractal" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(1264587179, 565143421) index="0" unique_id=57092129]
 pivot_offset_ratio = Vector2(0.5, 0.5)
 
-[node name="real_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="2" unique_id=691124258]
+[node name="real_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="1" unique_id=691124258]
 sensitivity = 0.005
 
 [node name="HSlider" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/real_part" index="0" unique_id=1601533653]
 min_value = -5.0
 max_value = 5.0
 
-[node name="complex_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="3" unique_id=1407017057]
+[node name="complex_part" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1264587179, 202245225) index="2" unique_id=1407017057]
 sensitivity = 0.005
 
 [node name="HSlider" parent="CanvasLayer/constant/PanelContainer/MarginContainer/VBoxContainer/complex_part" index="0" unique_id=1601533653]
@@ -248,10 +254,10 @@ grow_horizontal = 0
 grow_vertical = 1
 scale = Vector2(0.748, 0.748)
 
-[node name="real_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="2" unique_id=691124258]
+[node name="real_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="1" unique_id=691124258]
 sensitivity = 0.005
 
-[node name="complex_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="3" unique_id=1407017057]
+[node name="complex_part" parent="CanvasLayer/z/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1193295927, 202245225) index="2" unique_id=1407017057]
 sensitivity = 0.005
 
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=529710540 instance=ExtResource("9_ffm43")]

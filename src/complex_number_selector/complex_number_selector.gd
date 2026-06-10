@@ -25,6 +25,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	queue_redraw()
+
 	%ball_pointer.scale = Vector2(2.0, 2.0) / %Camera2D.zoom
 	var ball_offset = %ball_pointer.size * %ball_pointer.scale / 2.0
 
@@ -109,3 +111,5 @@ func set_disabled(disabled: bool) -> void:
 
 func set_shader_parameter(parameter: String, value) -> void:
 	%fractal.material.set_shader_parameter(parameter, value)
+
+

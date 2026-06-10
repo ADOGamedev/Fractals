@@ -1,6 +1,6 @@
 extends ColorRect
 
-enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS}
+enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS, TRIG_COLLATZ, EXTENDED_COLLATZ}
 
 var OFFSET_MANDELBROT = Vector2(0.7, 0.0)
 var OFFSET_BURNING_SHIP = Vector2(0.5, 0.5)
@@ -27,6 +27,8 @@ func _ready() -> void:
 	%constant.set_shader_parameter("exponent", DEFAULT_EXPONENT)
 
 	%MandelbrotColorWidget.set_gradient_repetition_target_value(%iterations.get_value())
+
+	update_widgets_values()
 
 	
 func _process(_delta: float) -> void:
@@ -91,10 +93,14 @@ func set_main_fractal_parameters() -> void:
 	var julia = %julia_checkbox.button_pressed
 	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP
 	var rings_fractal = %fractals_option_button.selected == Fractals.RINGS
+	var trigonometric_collatz = %fractals_option_button.selected == Fractals.TRIG_COLLATZ
+	var complex_extension_collatz = %fractals_option_button.selected == Fractals.EXTENDED_COLLATZ
 
 	material.set_shader_parameter("julia", julia)
 	material.set_shader_parameter("burning_ship", burning_ship)
 	material.set_shader_parameter("rings_fractal", rings_fractal)
+	material.set_shader_parameter("trigonometric_collatz", trigonometric_collatz)
+	material.set_shader_parameter("complex_extension_collatz", complex_extension_collatz)
 
 	var offset = OFFSET_MANDELBROT
 	if julia or rings_fractal:

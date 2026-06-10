@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://bxpiau60kxhy8" path="res://src/shaders/round_corners.gdshader" id="2_7iar7"]
 [ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="3_8nw14"]
 [ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="4_5bp0b"]
+[ext_resource type="Script" uid="uid://ciog047ujklpr" path="res://src/complex_number_selector/complex_grid.gd" id="4_8nw14"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_aajhq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1w6jf"]
@@ -44,11 +45,18 @@ shader_parameter/scale = 0.1
 shader_parameter/gradient = SubResource("GradientTexture1D_55yqh")
 shader_parameter/set_color = Color(1, 1, 1, 1)
 shader_parameter/gradient_attenuation = 1.105
+shader_parameter/gradient_repetition = 400.0
 shader_parameter/offset = Vector2(0.5, 0)
-shader_parameter/exponent = 2.0
+shader_parameter/exponent = Vector2(2, 0)
+shader_parameter/threshold = 10.0
 shader_parameter/constant_c = Vector2(0.5, 0.5)
 shader_parameter/initial_z = Vector2(0, 0)
 shader_parameter/julia = false
+shader_parameter/burning_ship = false
+shader_parameter/rings_fractal = false
+shader_parameter/smooth_grad = true
+shader_parameter/gradient_mapping = false
+shader_parameter/glow_rainbow = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukmm5"]
 bg_color = Color(0, 0, 0, 1)
@@ -85,8 +93,8 @@ script = ExtResource("1_7iar7")
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=207455905]
 material = SubResource("ShaderMaterial_1w6jf")
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 327.0
+offset_bottom = 418.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_b5gbr")
 
@@ -104,19 +112,30 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 12
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=736098329]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1604466807]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 4
+
+[node name="ComplexGrid" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=399308244]
+z_index = 1
+layout_mode = 2
+script = ExtResource("4_8nw14")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=736098329]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_oc6a6")
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("4_8nw14")
 
-[node name="SubViewport" type="SubViewport" parent="PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer" unique_id=565143421]
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer" unique_id=565143421]
 handle_input_locally = false
 gui_snap_controls_to_pixels = false
 size = Vector2i(256, 256)
 render_target_update_mode = 4
 
-[node name="fractal" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=57092129]
+[node name="fractal" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=57092129]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_2vu54")
 anchors_preset = 8
@@ -132,7 +151,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Camera2D" type="Camera2D" parent="PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=769366961]
+[node name="Camera2D" type="Camera2D" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=769366961]
 unique_name_in_owner = true
 position = Vector2(128, 128)
 limit_left = -64
@@ -141,7 +160,7 @@ limit_right = 388
 limit_bottom = 388
 script = ExtResource("4_5bp0b")
 
-[node name="ball_pointer" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=757196672]
+[node name="ball_pointer" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=757196672]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,10 +175,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ukmm5")
-
-[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=866673007]
-layout_mode = 2
-size_flags_vertical = 3
 
 [node name="real_part" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("5_aajhq")]
 unique_name_in_owner = true
