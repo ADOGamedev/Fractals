@@ -16,7 +16,7 @@ limit_top = -360
 limit_right = 1920
 limit_bottom = 1080
 script = ExtResource("1_o5qli")
-MIN_ZOOM = Vector2(0.1, 0.5)
+MIN_ZOOM = Vector2(0.5, 0.5)
 
 [node name="bg" type="ColorRect" parent="." unique_id=2119815704]
 z_index = -5

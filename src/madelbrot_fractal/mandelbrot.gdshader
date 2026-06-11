@@ -21,13 +21,12 @@ uniform bool julia = false;
 
 uniform bool burning_ship = false;
 uniform bool rings_fractal = false;
-uniform bool trigonometric_collatz = false;
-uniform bool complex_extension_collatz = false;
 
 
 uniform bool smooth_grad = true;
 uniform bool gradient_mapping = false;
 uniform bool glow_rainbow = false;
+uniform bool color_inside = false;
 
 vec2 complex_sqr(in vec2 z) {
 	return vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y);
@@ -61,13 +60,7 @@ vec2 complex_div(in vec2 z, in vec2 w) {
 }
 
 vec2 complex_cos(vec2 z) {
-    float pi_x = pi * z.x;
-    float pi_y = pi * z.y;
-    
-    float real_part = cos(pi_x) * cosh(pi_y);
-    float imag_part = -sin(pi_x) * sinh(pi_y);
-    
-    return vec2(real_part, imag_part);
+    return vec2(cos(z.x) * cosh(z.y), -sin(z.x) * sinh(z.y));
 }
 
 float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
@@ -95,18 +88,6 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 			vec2 denominator = complex_mul(c, z_pow) + vec2(1.0, 0.0);
 			current_number = complex_div(numerator, denominator);
 		}
-		else if (trigonometric_collatz) {
-			vec2 a = vec2(2., 0.) + 7. * current_number;
-			vec2 b = vec2(2., 0.) + 5. * current_number;
-			vec2 cosine = complex_cos(complex_mul(vec2(pi, 0.), current_number));
-			current_number = 1./4. * (a - complex_mul(b, cosine));
-		}
-		else if (complex_extension_collatz) {
-			vec2 a = vec2(2., 0.) + 7. * current_number;
-			vec2 b = vec2(2., 0.) + 5. * current_number;
-			vec2 power = complex_pow(vec2(-1., 0.), current_number);
-			current_number = 1./4. * (a - complex_mul(b, power));
-		}
 		else if (burning_ship) {
 	    	current_number = (is_default_exp ? complex_sqr(abs(current_number)) : complex_pow(abs(current_number), exponent)) + c;
 		}
@@ -116,7 +97,12 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 		
 	}
 	
-	return -1.0;
+	if (color_inside) {
+		return log(length(current_number) + 1.0) * float(iters);
+	}
+	else {
+		return -1.;
+	}
 }
 
 vec2 get_gradient(in vec2 z, in vec2 c, in int iters) {

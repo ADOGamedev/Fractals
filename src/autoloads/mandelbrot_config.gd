@@ -7,3 +7,4 @@ var grad_repetition = 500.0
 var smooth_grad = true
 var grad_mapping = false
 var glow_rainbow = false
+var color_inside = false

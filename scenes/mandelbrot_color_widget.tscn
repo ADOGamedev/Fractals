@@ -5,7 +5,10 @@
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_avj2j"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_xp7sd"]
 [ext_resource type="PackedScene" uid="uid://388ls8jfbkcm" path="res://scenes/gradient_selector.tscn" id="4_gq60x"]
+[ext_resource type="Texture2D" uid="uid://ddjsisbevv2ae" path="res://assets/sprites/menu_icon.png" id="6_t1ain"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_xp7sd"]
+[ext_resource type="Texture2D" uid="uid://rjmctmc3xn80" path="res://assets/sprites/menu_icon_pressed.png" id="7_dh67l"]
+[ext_resource type="Texture2D" uid="uid://bxakqlug3b46y" path="res://assets/sprites/menu_icon_hover.png" id="8_m6187"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7pcls"]
 shader = ExtResource("1_7pcls")
@@ -34,6 +37,40 @@ base_font = ExtResource("3_xp7sd")
 variation_embolden = 1.1
 baseline_offset = -0.125
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1ain"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09, 0.09, 0.09, 0.92941177)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.51, 0.51, 0.51, 1)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 5
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh67l"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.13725491)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 5
+
 [sub_resource type="FontVariation" id="FontVariation_xp7sd"]
 base_font = ExtResource("3_xp7sd")
 variation_embolden = 1.1
@@ -50,13 +87,13 @@ script = ExtResource("1_avj2j")
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
 material = SubResource("ShaderMaterial_7pcls")
 layout_mode = 0
-offset_right = 423.0
-offset_bottom = 236.0
+offset_right = 451.0
+offset_bottom = 340.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7pcls")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1837798147]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1043683066]
 layout_mode = 2
@@ -66,7 +103,7 @@ theme_override_constants/separation = 20
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=306460672]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.33
+size_flags_stretch_ratio = 0.29
 theme = ExtResource("2_avj2j")
 theme_override_fonts/font = SubResource("FontVariation_t1ain")
 text = "Color"
@@ -82,6 +119,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 1)
 
+[node name="Control4" type="Control" parent="PanelContainer/VBoxContainer" unique_id=971451996]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.49
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1704212198]
 layout_mode = 2
 size_flags_vertical = 4
@@ -96,7 +138,7 @@ text = "Gradient"
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=758074604]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_bottom = 24
 
 [node name="GradientSelector" parent="PanelContainer/VBoxContainer/HBoxContainer2/MarginContainer" unique_id=873852120 instance=ExtResource("4_gq60x")]
 unique_name_in_owner = true
@@ -104,10 +146,41 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
+[node name="gradient_menu_button" type="TextureButton" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1751880926]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+toggle_mode = true
+texture_normal = ExtResource("6_t1ain")
+texture_pressed = ExtResource("7_dh67l")
+texture_hover = ExtResource("8_m6187")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PopupMenu" type="PopupMenu" parent="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button" unique_id=590800036]
+unique_name_in_owner = true
+oversampling_override = 1.0
+position = Vector2i(397, 83)
+size = Vector2i(337, 158)
+visible = true
+theme = ExtResource("2_avj2j")
+theme_override_styles/panel = SubResource("StyleBoxFlat_t1ain")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dh67l")
+item_count = 1
+item_0/text = "Gradients Preset"
+item_0/id = 0
+item_0/separator = true
+
 [node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1660638526]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 2.49
+
+[node name="Control5" type="Control" parent="PanelContainer/VBoxContainer" unique_id=240192958]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.49
 
 [node name="gradient_repetition" parent="PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("6_xp7sd")]
 unique_name_in_owner = true
@@ -126,7 +199,7 @@ allow_greater = true
 [node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1702283715]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.05
+size_flags_stretch_ratio = 3.24
 
 [node name="gradient_attenuation" parent="PanelContainer/VBoxContainer" unique_id=2122151627 instance=ExtResource("6_xp7sd")]
 unique_name_in_owner = true
@@ -143,7 +216,7 @@ allow_greater = true
 [node name="Control3" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1641024052]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.35
+size_flags_stretch_ratio = 3.75
 
 [node name="smoothened_gradient" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1764302980]
 layout_mode = 2
@@ -162,6 +235,23 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_avj2j")
 button_pressed = true
+
+[node name="color_inside" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=871871007]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/color_inside" unique_id=1792795334]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_xp7sd")
+text = "Color Inside"
+
+[node name="color_inside_checkbox" type="CheckBox" parent="PanelContainer/VBoxContainer/color_inside" unique_id=82460996]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_avj2j")
 
 [node name="gradient_mapping" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=947692169]
 layout_mode = 2
@@ -197,6 +287,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_avj2j")
 
+[connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button" to="." method="_on_gradient_menu_button_toggled"]
+[connection signal="index_pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button/PopupMenu" to="." method="_on_popup_menu_index_pressed"]
 [connection signal="toggled" from="PanelContainer/VBoxContainer/gradient_mapping/gradient_mapping_checkbox" to="." method="_on_gradient_mapping_checkbox_toggled"]
 
 [editable path="PanelContainer/VBoxContainer/gradient_repetition"]

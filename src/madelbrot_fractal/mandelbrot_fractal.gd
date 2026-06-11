@@ -1,11 +1,11 @@
 extends ColorRect
 
-enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS, TRIG_COLLATZ, EXTENDED_COLLATZ}
+enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS,}
 
 var OFFSET_MANDELBROT = Vector2(0.7, 0.0)
 var OFFSET_BURNING_SHIP = Vector2(0.5, 0.5)
 
-var DEFAULT_SCALE = 0.4
+var DEFAULT_SCALE = 0.35
 var SCALE_RINGS_FRACTAL = 0.1
 var SCALE_JULIA_RINGS_FRACTAL = 0.2
 
@@ -85,6 +85,7 @@ func set_main_fractal_parameters() -> void:
 	material.set_shader_parameter("smooth_grad", MandelbrotConfig.smooth_grad)
 	material.set_shader_parameter("gradient_mapping", MandelbrotConfig.grad_mapping)
 	material.set_shader_parameter("glow_rainbow", MandelbrotConfig.glow_rainbow)
+	material.set_shader_parameter("color_inside", MandelbrotConfig.color_inside)
 
 	var grad_tex = GradientTexture2D.new()
 	grad_tex.gradient = MandelbrotConfig.grad
@@ -93,14 +94,10 @@ func set_main_fractal_parameters() -> void:
 	var julia = %julia_checkbox.button_pressed
 	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP
 	var rings_fractal = %fractals_option_button.selected == Fractals.RINGS
-	var trigonometric_collatz = %fractals_option_button.selected == Fractals.TRIG_COLLATZ
-	var complex_extension_collatz = %fractals_option_button.selected == Fractals.EXTENDED_COLLATZ
 
 	material.set_shader_parameter("julia", julia)
 	material.set_shader_parameter("burning_ship", burning_ship)
 	material.set_shader_parameter("rings_fractal", rings_fractal)
-	material.set_shader_parameter("trigonometric_collatz", trigonometric_collatz)
-	material.set_shader_parameter("complex_extension_collatz", complex_extension_collatz)
 
 	var offset = OFFSET_MANDELBROT
 	if julia or rings_fractal:

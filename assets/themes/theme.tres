@@ -190,8 +190,10 @@ expand_margin_left = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 shadow_color = Color(0, 0, 0, 0)
-shadow_size = 7
+shadow_size = 5
 shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1xho"]
 
 [resource]
 Button/fonts/font = SubResource("FontVariation_ji1hq")
@@ -210,10 +212,11 @@ OptionButton/styles/normal = SubResource("StyleBoxFlat_fq388")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_hvjga")
 Panel/styles/panel = SubResource("StyleBoxFlat_7egdk")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_p0u25")
-PopupMenu/constants/v_separation = 7
+PopupMenu/constants/v_separation = 5
 PopupMenu/fonts/font = SubResource("FontVariation_fq388")
 PopupMenu/fonts/font_separator = SubResource("FontVariation_hvjga")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_yrt3j")
 PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_w1xho")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_fq388")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_7448a")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_w1xho")
