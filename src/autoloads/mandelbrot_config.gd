@@ -1,6 +1,6 @@
 extends Node
 
-var grad = preload("res://assets/gradients/rainbow_gradient.tres")
+var grad = preload("res://assets/gradients/rainbow.tres")
 var color = Color.WHITE
 var grad_attenuation = 0.36
 var grad_repetition = 500.0

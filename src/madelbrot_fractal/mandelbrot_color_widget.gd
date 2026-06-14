@@ -3,9 +3,9 @@ extends Control
 var DEFAULT_GRADIENT_ATENUATION = 1.0
 var GRADIENT_MAPPING_ATTENUATION = 8.0
 
-var RAINBOW_GRADIENT_INDEX = 2
+var default_grad_index = 0
 
-var POPUP_MENU_OFFSET = Vector2(3, -4)
+var POPUP_MENU_OFFSET = Vector2(1, -4)
 
 var GRADIENTS_PATH = "res://assets/gradients"
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
@@ -18,7 +18,7 @@ func _ready() -> void:
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
 
 	load_gradients()
-	update_gradient(RAINBOW_GRADIENT_INDEX) 
+	update_gradient(default_grad_index) 
 
 func load_gradients() -> void:
 	var dir = DirAccess.open(GRADIENTS_PATH)
@@ -34,7 +34,12 @@ func load_gradients() -> void:
 			var path = GRADIENTS_PATH + "/" + file_name
 			var gradient = load(path)
 
+
 			var id = %PopupMenu.item_count
+
+			if gradient == MandelbrotConfig.grad:
+				default_grad_index = id
+
 			var grad_texture = GradientTexture2D.new()
 			grad_texture.gradient = gradient
 			grad_texture.width = GRADIENT_SIZE_IN_MENU.x
@@ -58,6 +63,9 @@ func capitalize_gradient_name(s: String) -> String:
 			s[i] = " "
 			if i < len(s) - 1:
 				s[i + 1] = s[i + 1].capitalize()
+				
+		elif s[i] == "-":
+			s[i + 1] = s[i + 1].capitalize()
 
 	return s
 

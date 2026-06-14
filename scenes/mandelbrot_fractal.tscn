@@ -304,9 +304,9 @@ mouse_filter = 2
 material = SubResource("ShaderMaterial_q64vy")
 layout_mode = 0
 offset_left = 898.0001
-offset_top = 346.00003
+offset_top = 337.0
 offset_right = 1224.2032
-offset_bottom = 461.00006
+offset_bottom = 452.00003
 scale = Vector2(0.658, 0.658)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0di7l")
 
@@ -346,9 +346,9 @@ allow_lesser = true
 [node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = 858.0
-offset_top = 356.0
+offset_top = 346.99997
 offset_right = 900.0
-offset_bottom = 412.0
+offset_bottom = 402.99997
 text = "x"
 direction = 0
 displacement = Vector2(247, 0)

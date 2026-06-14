@@ -9,15 +9,15 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:	
-	var can_selectors_queue_free = true
-	var selectors_count = 0
-	for child in get_children():
-		if child.is_in_group("single_color_gradient_selector"):
-			selectors_count += 1
+	update_gradient_based_on_selectors()
 
-	if selectors_count <= 2:
-		can_selectors_queue_free = false
+	if Input.is_key_pressed(KEY_F2):
+		var time = Time.get_unix_time_from_system()
+		var path = "res://assets/gradients/gradient_%d.tres" % time
 
+		ResourceSaver.save(grad, path)
+
+func update_gradient_based_on_selectors() -> void:
 	grad = Gradient.new()
 
 	var first_child_i = -1
@@ -25,15 +25,20 @@ func _process(_delta: float) -> void:
 	var min_offset = 1.0
 	var max_offset = 0.0
 
+	var can_queue_free = can_selectors_queue_free()
+
 	for child_i in range(get_child_count()):
 		var child = get_child(child_i)
 		if !child.is_in_group("single_color_gradient_selector"):
 			continue
+
+		var selector_offset = child.size.x / 2.0
+		var error_margin = 0.0001
 		
-		child.can_queue_free = can_selectors_queue_free
-		child.position.x = clamp(child.position.x, -child.size.x / 2.0, %gradient_texture.size.x - child.size.x / 2.0)
+		child.can_queue_free = can_queue_free
+		child.position.x = clamp(child.position.x, -selector_offset + error_margin, %gradient_texture.size.x - selector_offset - error_margin)
 		
-		var offset = (child.position.x) / %gradient_texture.size.x
+		var offset = (child.position.x + selector_offset) / %gradient_texture.size.x
 
 		if offset < min_offset:
 			first_child_i = child_i
@@ -42,9 +47,27 @@ func _process(_delta: float) -> void:
 			last_child_i = child_i
 			max_offset = offset
 
-		offset = max(0.001, offset)
+		offset = max(0, offset)
 		grad.add_point(offset, child.get_color())
 
+	set_correct_colors_in_the_endpoints(first_child_i, last_child_i)
+
+	%gradient_texture.texture.gradient = grad
+
+
+func can_selectors_queue_free() -> bool:
+	var selectors_count = 0
+	for child in get_children():
+		if child.is_in_group("single_color_gradient_selector"):
+			selectors_count += 1
+
+	if selectors_count <= 2:
+		return false
+	
+	return true
+
+
+func set_correct_colors_in_the_endpoints(first_child_i: int, last_child_i: int) -> void:
 	grad.remove_point(0)
 
 	var first_child = get_child(first_child_i)
@@ -54,8 +77,6 @@ func _process(_delta: float) -> void:
 	
 	if last_child.has_method("get_color"):
 		grad.set_color(grad.get_point_count() - 1, last_child.get_color())
-
-	%gradient_texture.texture.gradient = grad
 
 
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
