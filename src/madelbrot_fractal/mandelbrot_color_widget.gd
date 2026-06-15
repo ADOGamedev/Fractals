@@ -16,6 +16,7 @@ func _ready() -> void:
 	%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
 	%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
+	%ColorPickerButton.color = MandelbrotConfig.color
 
 	load_gradients()
 	update_gradient(default_grad_index) 

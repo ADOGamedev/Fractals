@@ -4,7 +4,7 @@ extends Control
 @export var ticks_height = 6
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     queue_redraw()
 
 

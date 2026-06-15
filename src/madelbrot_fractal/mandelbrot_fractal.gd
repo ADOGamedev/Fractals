@@ -12,7 +12,7 @@ var SCALE_JULIA_RINGS_FRACTAL = 0.2
 var Z_RINGS_FRACTAL = Vector2(1.0, 0.0)
 var C_RINGS_FRACTAL = Vector2(sqrt(2), 0.0)
 var Z_MANDELBROT = Vector2(0.0, 0.0)
-var C_MANDELBROT = Vector2(-0.76133, 0.07555)
+var C_MANDELBROT = Vector2(-0.76133, 0.07694)
 var Z_BURNING_SHIP = Vector2(0.0, 0.0)
 var C_BURNING_SHIP = Vector2(-0.4384, 0.07305)
 

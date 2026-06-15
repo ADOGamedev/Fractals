@@ -4,9 +4,6 @@ extends Control
 var COLOR_SELECTOR_SIZE = Vector2(11, 25)
 var grad : Gradient
 
-func _ready() -> void:
-	pass
-
 
 func _process(_delta: float) -> void:	
 	update_gradient_based_on_selectors()
@@ -16,6 +13,7 @@ func _process(_delta: float) -> void:
 		var path = "res://assets/gradients/gradient_%d.tres" % time
 
 		ResourceSaver.save(grad, path)
+
 
 func update_gradient_based_on_selectors() -> void:
 	grad = Gradient.new()
@@ -106,6 +104,6 @@ func set_gradient(gradient: Gradient) -> void:
 		if child.is_in_group("single_color_gradient_selector"):
 			child.queue_free()
 
-	for point_i in range(grad.get_point_count()):
+	for point_i in range(grad.get_point_count() - 1):
 		var offset = grad.get_offset(point_i)
 		add_new_single_color_selector(offset, grad.sample(offset))

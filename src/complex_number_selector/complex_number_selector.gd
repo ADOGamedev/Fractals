@@ -103,6 +103,7 @@ func set_target_complex_num(val: Vector2) -> void:
 	%complex_part.set_value(val.y)
 
 func set_initial_complex_num(val: Vector2) -> void:
+	initial_complex_num = val
 	%real_part.initial_value = val.x
 	%complex_part.initial_value = val.y
 

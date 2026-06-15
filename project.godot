@@ -13,7 +13,10 @@ config_version=5
 config/name="Fractals"
 run/main_scene="uid://rnpr5d1l6bsu"
 config/features=PackedStringArray("4.6")
+boot_splash/stretch_mode=4
+boot_splash/image="uid://bwyliisd1lda0"
 config/icon="uid://b80r2ipuo7g1d"
+boot_splash/minimum_display_time=200
 
 [autoload]
 
@@ -22,6 +25,7 @@ Global="*uid://c2ru27sdvqmn4"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [input]

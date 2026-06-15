@@ -163,7 +163,6 @@ unique_name_in_owner = true
 oversampling_override = 1.0
 position = Vector2i(397, 83)
 size = Vector2i(337, 158)
-visible = true
 theme = ExtResource("2_avj2j")
 theme_override_styles/panel = SubResource("StyleBoxFlat_t1ain")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dh67l")
