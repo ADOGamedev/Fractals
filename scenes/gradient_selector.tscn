@@ -40,6 +40,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_663tl")
 [node name="gradient_texture" type="TextureRect" parent="PanelContainer" unique_id=2010167717]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 0
 texture = SubResource("GradientTexture1D_qib60")
 
 [connection signal="gui_input" from="PanelContainer/gradient_texture" to="." method="_on_texture_rect_gui_input"]

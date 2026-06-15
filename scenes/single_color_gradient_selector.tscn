@@ -40,9 +40,10 @@ expand_margin_bottom = 2.0
 
 [node name="SingleColorGradientSelector" type="VBoxContainer" unique_id=1905952084 groups=["single_color_gradient_selector"]]
 z_index = 1
-offset_right = 11.0
-offset_bottom = 28.0
+offset_right = 300.0
+offset_bottom = 613.0
 size_flags_horizontal = 0
+mouse_filter = 0
 theme_override_constants/separation = 0
 script = ExtResource("1_23oei")
 
@@ -51,6 +52,7 @@ custom_minimum_size = Vector2(1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1aqo2")
 
 [node name="Panel" type="Panel" parent="Panel" unique_id=84924748]
@@ -70,11 +72,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_23oei")
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=375380105]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bypo1")
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="PanelContainer" unique_id=1530094141]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2m6kk")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_23oei")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qx0r5")
@@ -86,5 +90,3 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qx0r5")
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
