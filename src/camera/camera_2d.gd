@@ -5,7 +5,7 @@ extends Camera2D
 @export var zoom_multiplier := 1.05
 
 enum Direction {LEFT, UP, RIGHT, DOWN}
-var limits = [-640, -360, 1920, 1080]
+@export var limits = [-640, -360, 1920, 1080]
 
 var dragging := false
 var last_mouse_pos := Vector2.ZERO

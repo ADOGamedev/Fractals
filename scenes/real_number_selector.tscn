@@ -72,11 +72,13 @@ vertical_alignment = 1
 [node name="hover" type="Panel" parent="." unique_id=134018671]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_juajq")
 
 [node name="disabled" type="Panel" parent="." unique_id=273695745]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o6hvo")
 
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

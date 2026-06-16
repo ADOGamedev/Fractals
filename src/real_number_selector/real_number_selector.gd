@@ -56,7 +56,6 @@ func _input(event: InputEvent) -> void:
 	if $disabled.visible:
 		return
 
-
 	if event is InputEventMouseMotion:
 		$hover.visible = $HSlider.get_global_rect().has_point(event.position)
 

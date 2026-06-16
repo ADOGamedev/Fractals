@@ -25,7 +25,6 @@ Global="*uid://c2ru27sdvqmn4"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch_mode=4
 window/minimum_display_time=200

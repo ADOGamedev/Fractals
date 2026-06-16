@@ -24,8 +24,13 @@ uniform bool rings_fractal = false;
 
 
 uniform bool smooth_grad = true;
+
+// Related to gradient mapping
 uniform bool gradient_mapping = false;
-uniform bool glow_rainbow = false;
+uniform bool grad_mapping_inverted = false;
+uniform bool color_with_angle = false;
+uniform bool color_with_mag = false;
+
 uniform bool color_inside = false;
 
 vec2 complex_sqr(in vec2 z) {
@@ -143,7 +148,7 @@ void fragment() {
 	        get_gradient(initial_z, uv, iterations);
 		
 		float mag = log(pow(length(grad), 1./gradient_attenuation));
-		if (!glow_rainbow) {
+		if (!grad_mapping_inverted) {
 			mag = 1. - mag;
 		}
 		
@@ -152,11 +157,18 @@ void fragment() {
 		float angle = atan(grad.y, grad.x) / (2.*pi) + 0.25;
 		float cicles = float(iterations) / gradient_repetition;
 		angle = fract(angle * cicles);
-		if (!glow_rainbow) {
+		if (!grad_mapping_inverted) {
 			angle = 1. - angle;
 		}
 		
-	    COLOR = vec4(hsv_to_rgb(vec3(angle, 0.5, mag)), 1.0);
+		vec3 color = hsv_to_rgb(vec3(angle, 0.5, mag));
+		if (color_with_angle) {
+			color = texture(gradient, vec2(angle, 0.)).rgb;
+		}
+		else if (color_with_mag) {
+			color = texture(gradient, vec2(mag, 0.)).rgb;
+		}
+	    COLOR = vec4(color, 1.0);
 	}
 	else {
 		float gradient_value = fract(scape_iterations / float(gradient_repetition));

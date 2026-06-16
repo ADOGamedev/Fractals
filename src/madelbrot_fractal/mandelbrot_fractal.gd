@@ -19,8 +19,6 @@ var C_BURNING_SHIP = Vector2(-0.4384, 0.07305)
 var DEFAULT_EXPONENT = Vector2(2.0, 0.0)
 
 var DEFAULT_THRESHOLD = 10
-var GRAD_MAPPING_THRESHOLD = 1000
-
 
 func _ready() -> void:
 	%z.set_shader_parameter("exponent", DEFAULT_EXPONENT)
@@ -83,8 +81,12 @@ func set_main_fractal_parameters() -> void:
 	material.set_shader_parameter("gradient_attenuation", MandelbrotConfig.grad_attenuation)
 	material.set_shader_parameter("gradient_repetition", MandelbrotConfig.grad_repetition)
 	material.set_shader_parameter("smooth_grad", MandelbrotConfig.smooth_grad)
+	
 	material.set_shader_parameter("gradient_mapping", MandelbrotConfig.grad_mapping)
-	material.set_shader_parameter("glow_rainbow", MandelbrotConfig.glow_rainbow)
+	material.set_shader_parameter("grad_mapping_inverted", MandelbrotConfig.grad_mapping_inverted)
+	material.set_shader_parameter("color_with_angle", MandelbrotConfig.color_with_angle)
+	material.set_shader_parameter("color_with_mag", MandelbrotConfig.color_with_mag)
+
 	material.set_shader_parameter("color_inside", MandelbrotConfig.color_inside)
 
 	var grad_tex = GradientTexture2D.new()

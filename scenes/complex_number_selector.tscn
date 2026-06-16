@@ -57,7 +57,7 @@ shader_parameter/burning_ship = false
 shader_parameter/rings_fractal = false
 shader_parameter/smooth_grad = true
 shader_parameter/gradient_mapping = false
-shader_parameter/glow_rainbow = false
+shader_parameter/grad_mapping_inverted = false
 shader_parameter/color_inside = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukmm5"]
@@ -188,11 +188,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ukmm5")
 [node name="Camera2D" type="Camera2D" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=769366961]
 unique_name_in_owner = true
 position = Vector2(128, 128)
+limit_enabled = false
 limit_left = -114
 limit_top = -114
 limit_right = 424
 limit_bottom = 436
 script = ExtResource("4_5bp0b")
+limits = [-114, -114, 415, 410]
 
 [node name="ComplexGrid" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=399308244 node_paths=PackedStringArray("fractal", "camera")]
 z_index = 1

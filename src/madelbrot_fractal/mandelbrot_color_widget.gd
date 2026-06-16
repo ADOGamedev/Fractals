@@ -1,5 +1,7 @@
 extends Control
 
+enum GradMappingConfig {DISABLED, HSV, ANGLE, MAG}
+
 var DEFAULT_GRADIENT_ATENUATION = 1.0
 var GRADIENT_MAPPING_ATTENUATION = 8.0
 
@@ -84,10 +86,24 @@ func _process(_delta: float) -> void:
 	MandelbrotConfig.grad_attenuation = %gradient_attenuation.get_value()
 	MandelbrotConfig.grad_repetition = %gradient_repetition.get_value()
 	MandelbrotConfig.smooth_grad = %smoothened_gradient_checkbox.button_pressed
-	MandelbrotConfig.grad_mapping = %gradient_mapping_checkbox.button_pressed
-	MandelbrotConfig.glow_rainbow = %glow_rainbow_checkbox.button_pressed
+	MandelbrotConfig.grad_mapping_inverted = %grad_mapping_inverted_checkbox.button_pressed
 	MandelbrotConfig.color_inside = %color_inside_checkbox.button_pressed
 
+	MandelbrotConfig.grad_mapping = false
+	MandelbrotConfig.color_with_angle = false
+	MandelbrotConfig.color_with_mag = false
+
+	if %gradient_mapping_button.selected != GradMappingConfig.DISABLED:
+		MandelbrotConfig.grad_mapping = true
+	
+	match %gradient_mapping_button.selected:
+		GradMappingConfig.ANGLE:
+			MandelbrotConfig.color_with_angle = true
+		GradMappingConfig.MAG:
+			MandelbrotConfig.color_with_mag = true
+		_:
+			pass
+		
 	%PopupMenu.position = %gradient_menu_button.global_position + Vector2(0., %gradient_menu_button.size.y) + POPUP_MENU_OFFSET
 
 
@@ -112,3 +128,12 @@ func _on_popup_menu_index_pressed(index: int) -> void:
 func update_gradient(index: int)-> void:
 	MandelbrotConfig.grad = %PopupMenu.get_item_icon(index).gradient
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
+
+
+func _on_gradient_mapping_button_item_selected(index: int) -> void:
+	if index == GradMappingConfig.DISABLED:
+		%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
+		%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
+	else:
+		%gradient_attenuation.initial_value = GRADIENT_MAPPING_ATTENUATION
+		%gradient_attenuation.set_value(GRADIENT_MAPPING_ATTENUATION)

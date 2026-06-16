@@ -56,7 +56,7 @@ shader_parameter/burning_ship = false
 shader_parameter/rings_fractal = false
 shader_parameter/smooth_grad = true
 shader_parameter/gradient_mapping = false
-shader_parameter/glow_rainbow = false
+shader_parameter/grad_mapping_inverted = false
 shader_parameter/color_inside = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukmm5"]
