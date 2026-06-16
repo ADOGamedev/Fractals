@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="4_5bp0b"]
 [ext_resource type="Script" uid="uid://ciog047ujklpr" path="res://src/complex_number_selector/complex_grid.gd" id="4_8nw14"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_aajhq"]
-[ext_resource type="FontFile" uid="uid://ohn5rrj6cwn5" path="res://assets/fonts/latinmodern-math.otf" id="7_5bp0b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1w6jf"]
 shader = ExtResource("1_ww7gh")
@@ -73,9 +72,6 @@ corner_radius_bottom_right = 150
 corner_radius_bottom_left = 150
 shadow_color = Color(0, 0, 0, 0.5686275)
 shadow_size = 6
-
-[sub_resource type="FontVariation" id="FontVariation_aajhq"]
-base_font = ExtResource("7_5bp0b")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nw14"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -188,10 +184,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ukmm5")
 [node name="Camera2D" type="Camera2D" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=769366961]
 unique_name_in_owner = true
 position = Vector2(128, 128)
-limit_left = -114
-limit_top = -114
-limit_right = 424
-limit_bottom = 436
+limit_left = -64
+limit_top = -64
+limit_right = 388
+limit_bottom = 388
 script = ExtResource("4_5bp0b")
 
 [node name="ComplexGrid" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=399308244 node_paths=PackedStringArray("fractal", "camera")]
@@ -204,7 +200,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_8nw14")
-font = SubResource("FontVariation_aajhq")
 fractal = NodePath("../fractal")
 camera = NodePath("../Camera2D")
 
