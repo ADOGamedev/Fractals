@@ -166,6 +166,7 @@ void fragment() {
 			color = texture(gradient, vec2(angle, 0.)).rgb;
 		}
 		else if (color_with_mag) {
+			mag = fract(mag * float(iterations) / (0.1 + gradient_repetition));
 			color = texture(gradient, vec2(mag, 0.)).rgb;
 		}
 	    COLOR = vec4(color, 1.0);

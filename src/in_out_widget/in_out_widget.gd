@@ -8,10 +8,10 @@ enum Direction {LEFT, UP, DOWN, RIGHT}
 @export var displacement := Vector2(-363.0, 0.0)
 @export var TWEEN_TIME = 0.15
 
-var parent_hidden = true
+@export var parent_hidden = true
 
 func _ready() -> void:
-	if get_parent():
+	if get_parent() and parent_hidden:
 		get_parent().position += displacement
 
 	for state in ["normal", "hover", "pressed", "disabled"]:

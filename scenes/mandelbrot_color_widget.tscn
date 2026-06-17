@@ -56,6 +56,7 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.51, 0.51, 0.51, 1)
+corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
@@ -92,7 +93,7 @@ script = ExtResource("1_avj2j")
 material = SubResource("ShaderMaterial_7pcls")
 layout_mode = 0
 offset_right = 448.0
-offset_bottom = 336.0
+offset_bottom = 347.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7pcls")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1837798147]
@@ -119,7 +120,7 @@ selected = 0
 item_count = 4
 popup/item_0/text = "Disabled"
 popup/item_0/id = 1
-popup/item_1/text = "HUE by angle"
+popup/item_1/text = "HSB"
 popup/item_1/id = 2
 popup/item_2/text = "By angle"
 popup/item_2/id = 4
@@ -136,7 +137,8 @@ layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/grad_map_inverted" unique_id=670468851]
+[node name="grad_mapping_inverted_label" type="Label" parent="PanelContainer/VBoxContainer/grad_map_inverted" unique_id=670468851]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_xp7sd")
 text = "Invert Gradient Mapping"
@@ -190,7 +192,7 @@ stretch_mode = 5
 [node name="PopupMenu" type="PopupMenu" parent="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button" unique_id=590800036]
 unique_name_in_owner = true
 oversampling_override = 1.0
-position = Vector2i(397, 83)
+position = Vector2i(422, 0)
 size = Vector2i(337, 158)
 theme = ExtResource("2_avj2j")
 theme_override_styles/panel = SubResource("StyleBoxFlat_t1ain")
@@ -267,7 +269,7 @@ allow_greater = true
 [node name="Control3" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1641024052]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.62
+size_flags_stretch_ratio = 3.43
 
 [node name="smoothened_gradient" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1764302980]
 layout_mode = 2

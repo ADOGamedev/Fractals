@@ -12,6 +12,8 @@ var POPUP_MENU_OFFSET = Vector2(1, -4)
 var GRADIENTS_PATH = "res://assets/gradients"
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
+var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
+
 var gradients = []
 
 func _ready() -> void:
@@ -93,18 +95,28 @@ func _process(_delta: float) -> void:
 	MandelbrotConfig.color_with_angle = false
 	MandelbrotConfig.color_with_mag = false
 
-	if %gradient_mapping_button.selected != GradMappingConfig.DISABLED:
+	
+	if %gradient_mapping_button.selected == GradMappingConfig.DISABLED:
+		%grad_mapping_inverted_label.add_theme_color_override("font_color", LABEL_DISABLED_COLOR)
+		%grad_mapping_inverted_checkbox.disabled = true
+		
+	else:
+		%grad_mapping_inverted_label.add_theme_color_override("font_color", Color.WHITE)
+		%grad_mapping_inverted_checkbox.disabled = false
 		MandelbrotConfig.grad_mapping = true
 	
 	match %gradient_mapping_button.selected:
 		GradMappingConfig.ANGLE:
+			%gradient_attenuation.set_disabled(true)
 			MandelbrotConfig.color_with_angle = true
 		GradMappingConfig.MAG:
+			%gradient_attenuation.set_disabled(false)
 			MandelbrotConfig.color_with_mag = true
 		_:
-			pass
+			%gradient_attenuation.set_disabled(false)
 		
-	%PopupMenu.position = %gradient_menu_button.global_position + Vector2(0., %gradient_menu_button.size.y) + POPUP_MENU_OFFSET
+	%PopupMenu.position = %gradient_menu_button.global_position +  Vector2(%gradient_menu_button.size.x - 3, %gradient_menu_button.size.y / 2.)
+	%PopupMenu.position += Vector2i(0, -%PopupMenu.size.y / 2.)
 
 
 
