@@ -316,7 +316,7 @@ offset_right = 595.12646
 offset_bottom = 296.4828
 scale = Vector2(0.535, 0.535)
 text = " Color "
-displacement = Vector2(-430, 0)
+displacement = Vector2(-425, 0)
 
 [node name="exp" type="Control" parent="CanvasLayer" unique_id=311680584]
 layout_mode = 3
@@ -386,6 +386,11 @@ text = "x"
 direction = 0
 displacement = Vector2(247, 0)
 TWEEN_TIME = 0.17
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1702555798]
+oversampling_override = 1.0
+title = "Save your fractal screenshot"
+initial_position = 2
 
 [connection signal="item_selected" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/julia/julia_checkbox" to="." method="_on_julia_checkbox_pressed"]

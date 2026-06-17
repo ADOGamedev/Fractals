@@ -24,6 +24,9 @@ Also, it can have **exponential edit** which gives more precision for low values
 > - **Drag with Left Click + Ctrl**: like the previous one but with 1000 times more control instead.
 > - **Drag with Left Click + Shift + Ctrl**: like the previous one but with 10000 times more control instead.<br/>
 
+> [!IMPORTANT]
+> If you want to reset a slider to its default value, double ckick it.
+
 ### **Main panel**:
 Located at the bottom-right corner, it allows you to select 4 different things.
 
@@ -68,3 +71,22 @@ In the other case, when **Julia Set** is on, the $c$ value is chosen manually, t
 > These default values have been chosesd for aesthetic reasions.
 
 And this time, $z_0$ is chosen based on the pixel that is being rendered.
+
+
+### **Color Panel**
+
+This is probably the most complex one, but it allows you to give your fractals a wide variety of looks. I'll explain how it works:
+
+<img src="screenshots/color_panel.png" width="400" align="left">
+
+Before anything, we have to clarify one thing: in the context of "Gradient Mapping" I refer that the coloring is related to the **mathematical** meaning of gradient (the direction of steapest increase), in other contexts I refer to a **Color Gradient**.
+<br/><br/><br/><br/><br/><br/><br/>
+
+#### The gradient mapping option allows you to select diferent colorings based on the gradient. These are the options:
+- **HSB**: asigns the **angle** of the gradient vector to the HUE of the color and the **magnitude** of this vector to the brightness.
+- **By angle**: asigns the **angle** of the vector gradient to a position in the **color gradient**.
+- **By magnitude**: asigns the **magnitude** of the vector gradient to a position in the **color gradient**.
+
+#### WHen gradient mapping is not disabled, you can toggle the **Invert Gradient Mapping** checkbox, this will change the angle and magnitude in the next way:
+
+$\alpha' = 1 - \alpha \text{   where alpha is the angle and alpha' the new one}$
