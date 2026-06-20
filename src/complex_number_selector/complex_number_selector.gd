@@ -57,16 +57,16 @@ func _input(event: InputEvent) -> void:
 	if !mouse_in:
 		selecting = false
 		return
-	else:
-		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-			if !event.pressed:
-				return
-			 
-			if (Time.get_ticks_msec() - last_click_time) < double_click_threshold_ms:
-				%real_part.set_value(initial_complex_num.x)
-				%complex_part.set_value(initial_complex_num.y)
 
-			last_click_time = Time.get_ticks_msec()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if !event.pressed:
+			return
+			 
+		if (Time.get_ticks_msec() - last_click_time) < double_click_threshold_ms:
+			%real_part.set_value(initial_complex_num.x)
+			%complex_part.set_value(initial_complex_num.y)
+
+	last_click_time = Time.get_ticks_msec()
 
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:

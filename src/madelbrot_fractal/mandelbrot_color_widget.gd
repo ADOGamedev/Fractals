@@ -9,7 +9,7 @@ var default_grad_index = 0
 
 var POPUP_MENU_OFFSET = Vector2(1, -4)
 
-var GRADIENTS_PATH = "res://assets/gradients"
+var gradients_path = "res://assets/gradients"
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
 var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
@@ -17,6 +17,11 @@ var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
 var gradients = []
 
 func _ready() -> void:
+	if OS.has_feature("editor"):
+		gradients_path = "res://assets/gradients/"
+	else:
+		gradients_path = "gradients/"
+
 	%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
 	%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
@@ -26,7 +31,7 @@ func _ready() -> void:
 	update_gradient(default_grad_index) 
 
 func load_gradients() -> void:
-	var dir = DirAccess.open(GRADIENTS_PATH)
+	var dir = DirAccess.open(gradients_path)
 	if dir == null:
 		return
 
@@ -36,7 +41,7 @@ func load_gradients() -> void:
 
 	while file_name != "":
 		if !dir.current_is_dir() and file_name.ends_with(".tres"):
-			var path = GRADIENTS_PATH + "/" + file_name
+			var path = gradients_path + "/" + file_name
 			var gradient = load(path)
 
 

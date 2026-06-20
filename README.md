@@ -28,7 +28,7 @@ Also, it can have **exponential edit** which gives more precision for low values
 > If you want to reset a slider to its default value, double ckick it.
 
 ### **Main panel**:
-Located at the bottom-right corner, it allows you to select 4 different things.
+Located at the bottom-right corner, it allows you **to** select 4 different things.
 
 <img src="screenshots/main_panel.png" width="400" align="left">
 
@@ -87,6 +87,32 @@ Before anything, we have to clarify one thing: in the context of "Gradient Mappi
 - **By angle**: asigns the **angle** of the vector gradient to a position in the **color gradient**.
 - **By magnitude**: asigns the **magnitude** of the vector gradient to a position in the **color gradient**.
 
-#### WHen gradient mapping is not disabled, you can toggle the **Invert Gradient Mapping** checkbox, this will change the angle and magnitude in the next way:
+#### When gradient mapping is not disabled, you can toggle the **Invert Gradient Mapping** checkbox, this will change the angle and magnitude in the next way:
 
-$\alpha' = 1 - \alpha \text{   where alpha is the angle and alpha' the new one}$
+$\alpha' = 1 - \alpha \text{ where } \alpha \text{ is the angle and } \alpha' \text{ the new one}$<br/>
+$m' = 1 - m \text{ where } m \text{ is the angle and } m' \text{ the new one}$
+
+#### Next, the color gradient selector. This allows you to change the different colors of your gradient.
+
+> [!NOTE]
+> I'll call "selectors" the little indicators that define each color in the gradient.
+
+- If you **Left Click** on a selector, you can change its color.
+- If you **Left Click** on the gradient (but not a selector) you'll add a new selector.
+- If you **Right Click** on a selector, you'll deleate it.
+- If you hold **Left Click** on a selector and move the mouse, you can change the selector's position.
+
+You can also click the three lines at the right of the gradient to load some presets.
+
+#### Just below the color gradient, is the **Color** selector, this just changes the color of the pixels that belong to the set.
+
+You click it and it allows you to select a color, simple.
+
+#### Then, you can see the **Smoothened Gradient** checkbox. If you toggle that off, the color will appear discretly, but when it is on the colors will interpolate smoothly.
+
+It works by applying a formula to the iterations it took to a certain pixel to overcome the threshold. This is the formula:
+
+			float first_log = log(length(current_number)) / log(threshold);
+			vec2 smooth_i = float(i) + 1.0 - complex_log_base(exponent, vec2(first_log, 0.0));
+
+$N_{smooth} = N - log_x($
