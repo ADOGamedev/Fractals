@@ -10,7 +10,7 @@ func _process(_delta: float) -> void:
 
 	if Input.is_key_pressed(KEY_F2):
 		var time = Time.get_unix_time_from_system()
-		var path = "res://assets/gradients/gradient_%d.tres" % time
+		var path = "res://gradients/gradient_%d.tres" % time
 
 		ResourceSaver.save(grad, path)
 

@@ -5,22 +5,18 @@ enum GradMappingConfig {DISABLED, HSV, ANGLE, MAG}
 var DEFAULT_GRADIENT_ATENUATION = 1.0
 var GRADIENT_MAPPING_ATTENUATION = 8.0
 
-var default_grad_index = 0
+@export var default_grad_index = 0
 
 var POPUP_MENU_OFFSET = Vector2(1, -4)
 
-var gradients_path = "res://assets/gradients"
+@export var gradients : Array[Gradient]
+@export var gradients_names : Array[String]
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
 var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
 
-var gradients = []
-
 func _ready() -> void:
-	if OS.has_feature("editor"):
-		gradients_path = "res://assets/gradients/"
-	else:
-		gradients_path = "gradients/"
+	MandelbrotConfig.grad = gradients[default_grad_index]
 
 	%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
 	%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
@@ -30,38 +26,18 @@ func _ready() -> void:
 	load_gradients()
 	update_gradient(default_grad_index) 
 
+
 func load_gradients() -> void:
-	var dir = DirAccess.open(gradients_path)
-	if dir == null:
-		return
+	for grad in gradients:
+		var id = %PopupMenu.item_count
 
-	dir.list_dir_begin()
+		var grad_texture = GradientTexture2D.new()
+		grad_texture.gradient = grad
+		grad_texture.width = GRADIENT_SIZE_IN_MENU.x
+		grad_texture.height = GRADIENT_SIZE_IN_MENU.y
 
-	var file_name = dir.get_next()
-
-	while file_name != "":
-		if !dir.current_is_dir() and file_name.ends_with(".tres"):
-			var path = gradients_path + "/" + file_name
-			var gradient = load(path)
-
-
-			var id = %PopupMenu.item_count
-
-			if gradient == MandelbrotConfig.grad:
-				default_grad_index = id
-
-			var grad_texture = GradientTexture2D.new()
-			grad_texture.gradient = gradient
-			grad_texture.width = GRADIENT_SIZE_IN_MENU.x
-			grad_texture.height = GRADIENT_SIZE_IN_MENU.y
-
-			var label = capitalize_gradient_name(file_name.get_basename())
-			%PopupMenu.add_icon_item(grad_texture, "  " + label, id)
-
-		file_name = dir.get_next()
-
-	dir.list_dir_end()
-	
+		var label = gradients_names[id - 1] # I subtract one because the element 0 is the title
+		%PopupMenu.add_icon_item(grad_texture, "  " + label, id)
 
 func capitalize_gradient_name(s: String) -> String:
 	if s == "":
@@ -139,11 +115,11 @@ func _on_gradient_menu_button_toggled(toggled_on: bool) -> void:
 
 func _on_popup_menu_index_pressed(index: int) -> void:
 	%gradient_menu_button.button_pressed = false
-	update_gradient(index)
+	update_gradient(index - 1) # I subtract one because the element 0 is the title
 
 
 func update_gradient(index: int)-> void:
-	MandelbrotConfig.grad = %PopupMenu.get_item_icon(index).gradient
+	MandelbrotConfig.grad = gradients[index]
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
 
 

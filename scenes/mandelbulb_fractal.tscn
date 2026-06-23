@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://7phhin0lwyhr"]
+
+[ext_resource type="Script" uid="uid://d0kdks871dsvy" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gd" id="1_joax1"]
+[ext_resource type="Shader" uid="uid://pf68fil1itya" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gdshader" id="1_rctea"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_iovtp"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_i5g6i"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_5tp42"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="6_caifj"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_4fdp8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
+shader = ExtResource("1_rctea")
+shader_parameter/ratio = 1.7777778
+shader_parameter/scale = 1.0
+shader_parameter/camPos = Vector3(0, 0, -3)
+shader_parameter/camDir = Vector3(0, 0, 1)
+shader_parameter/initial_z = Vector3(0, 0, 0)
+shader_parameter/constant_c = Vector3(0.5, 0.1, 0.3)
+shader_parameter/lower_bound = 1e-05
+shader_parameter/upper_bound = 100.0
+shader_parameter/ray_march_iterations = 350
+shader_parameter/iterations = 50
+shader_parameter/epsilon = 1e-05
+shader_parameter/exponent = 8.0
+shader_parameter/julia = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s30jy"]
+shader = ExtResource("3_iovtp")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ruy4v"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_v02ts"]
+base_font = ExtResource("6_caifj")
+variation_embolden = 1.1
+
+[node name="MandelbulbFractal" type="ColorRect" unique_id=956662467]
+material = SubResource("ShaderMaterial_var0u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_joax1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2020331631 groups=["canvas_layer"]]
+
+[node name="main_panel" type="Control" parent="CanvasLayer" unique_id=2086388502]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 860.9937
+offset_top = 463.49057
+offset_right = 1146.9937
+offset_bottom = 643.4906
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=554276587]
+material = SubResource("ShaderMaterial_s30jy")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -302.99365
+offset_top = -179.49062
+offset_right = 23.006348
+offset_bottom = 7.7059784
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.84968597, 0.84968597)
+mouse_filter = 2
+theme = ExtResource("4_i5g6i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ruy4v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main_panel/PanelContainer" unique_id=1042783936]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ray_march_iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "r"
+integer = true
+exp_edit = true
+curr_value = 350.0
+exp_maximum = 3000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 1000.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=839433905 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "i"
+integer = true
+exp_edit = true
+curr_value = 50.0
+exp_maximum = 1000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 500.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1970350684]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="julia" type="HBoxContainer" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1823419401]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/julia" unique_id=1515979448]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_v02ts")
+text = "Julia Set"
+
+[node name="julia_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/julia" unique_id=1876190291]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("7_4fdp8")]
+layout_mode = 0
+offset_left = -94.99368
+offset_top = 36.509445
+offset_right = 53.006348
+offset_bottom = 198.50946
+scale = Vector2(0.535, 0.535)
+text = "Main"
+direction = 0
+displacement = Vector2(311, 0)
+parent_hidden = false
+
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]
