@@ -58,6 +58,8 @@ shader_parameter/rings_fractal = false
 shader_parameter/smooth_grad = true
 shader_parameter/gradient_mapping = false
 shader_parameter/grad_mapping_inverted = false
+shader_parameter/color_with_angle = false
+shader_parameter/color_with_mag = false
 shader_parameter/color_inside = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukmm5"]

@@ -22,6 +22,7 @@ boot_splash/minimum_display_time=200
 
 MandelbrotConfig="*uid://cm7t31riprdpv"
 Global="*uid://c2ru27sdvqmn4"
+MandelbulbConfig="*uid://cfjsm4qlhfiye"
 
 [display]
 

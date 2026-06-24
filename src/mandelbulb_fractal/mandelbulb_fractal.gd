@@ -17,9 +17,29 @@ func _process(delta: float) -> void:
 
 
 func update_shader_parameters() -> void:
+	material.set_shader_parameter("hit_pos_strength", MandelbulbConfig.hit_position_strength)
+	material.set_shader_parameter("edge_highlight", MandelbulbConfig.edge_highlight)
+	material.set_shader_parameter("lighting_strength", MandelbulbConfig.lighting_strength)
+
+
+	var julia = %julia_checkbox.button_pressed
 	material.set_shader_parameter("ray_march_iterations", %ray_march_iterations.get_value())
 	material.set_shader_parameter("iterations", %iterations.get_value())
-	material.set_shader_parameter("julia", %julia_checkbox.button_pressed)
+	material.set_shader_parameter("julia", julia)
+	material.set_shader_parameter("exponent", %exp.get_value())
+	
+	material.set_shader_parameter("lower_bound", %lower_bound.get_value())
+	material.set_shader_parameter("upper_bound", %upper_bound.get_value())
+	
+	material.set_shader_parameter("epsilon", %epsilon.get_value())
+	
+	%z.set_disabled(julia)
+	%constant.set_disabled(!julia)
+	%z.get_node("InOutWidget").set_button_disabled(julia)
+	%constant.get_node("InOutWidget").set_button_disabled(!julia)
+
+	material.set_shader_parameter("initial_z", %z.get_complex_num())
+	material.set_shader_parameter("constant_c", %constant.get_complex_num())
 
 
 func update_camera_transform(delta: float) -> void:

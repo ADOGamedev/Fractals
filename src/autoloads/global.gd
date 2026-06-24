@@ -45,3 +45,4 @@ func set_canvas_layers_visibility(visible: bool) -> void:
 func _on_file_dialog_file_selected(path: String):
 	if current_image:
 		current_image.save_png(path)
+		

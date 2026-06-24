@@ -1,4 +1,4 @@
-[gd_resource type="Gradient" format=3]
+[gd_resource type="Gradient" format=3 uid="uid://q0136r0no4j1"]
 
 [resource]
 offsets = PackedFloat32Array(0.0018730499, 0.109073356, 0.22683398, 0.3735521, 0.5028958, 0.6341699, 0.76158303, 0.89285713, 0.9999995, 1)

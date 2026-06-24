@@ -112,5 +112,3 @@ func set_disabled(disabled: bool) -> void:
 
 func set_shader_parameter(parameter: String, value) -> void:
 	%fractal.material.set_shader_parameter(parameter, value)
-
-

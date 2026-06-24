@@ -17,6 +17,11 @@ uniform int iterations = 50;
 uniform float epsilon = 0.00001;
 uniform float exponent = 8.;
 
+
+uniform float hit_pos_strength = 0.33;
+uniform float edge_highlight = 0.33;
+uniform float lighting_strength = 0.33;
+
 uniform bool julia = false;
 
 // ------------------Signed Distance Functions------------------ //
@@ -185,7 +190,7 @@ void fragment() {
     	vec3 n = normals(rayPos);
     	float dp = dot(normalize(-light_source_vector), n);
     	//col = vec3(0.49 * dp + 0.3);
-		COLOR = vec4((hitPos / 2. + .5) * 0.8 + col * 2., 1.);
+		COLOR = vec4((hitPos / 2. + .5) * hit_pos_strength + col * edge_highlight + dp * lighting_strength, 1.);
 	} else {
 	    col = vec3(0.0);
 		COLOR = vec4(col, 1.);

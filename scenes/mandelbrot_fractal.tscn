@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ds5ev0pss41f3"]
 
 [ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="1_sbyhb"]
+[ext_resource type="Gradient" uid="uid://38rwewew0sbg" path="res://gradients/bands_rainbow.tres" id="2_q64vy"]
 [ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/madelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_ak01r"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
@@ -10,11 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
 [ext_resource type="PackedScene" uid="uid://cjqotmay3hwia" path="res://scenes/mandelbrot_color_widget.tscn" id="10_q64vy"]
 
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0di7l"]
+gradient = ExtResource("2_q64vy")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddu1x"]
 shader = ExtResource("1_sbyhb")
 shader_parameter/ratio = 1.7777778
 shader_parameter/iterations = 300
 shader_parameter/scale = 0.4
+shader_parameter/gradient = SubResource("GradientTexture1D_0di7l")
 shader_parameter/set_color = Color(0, 0, 0, 1)
 shader_parameter/gradient_attenuation = 0.8
 shader_parameter/gradient_repetition = 400.0
