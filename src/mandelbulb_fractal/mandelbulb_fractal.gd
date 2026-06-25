@@ -18,9 +18,13 @@ func _process(delta: float) -> void:
 
 func update_shader_parameters() -> void:
 	material.set_shader_parameter("hit_pos_strength", MandelbulbConfig.hit_position_strength)
-	material.set_shader_parameter("edge_highlight", MandelbulbConfig.edge_highlight)
+	material.set_shader_parameter("iteratios_coloring_strength", MandelbulbConfig.iteratios_coloring_strength)
 	material.set_shader_parameter("lighting_strength", MandelbulbConfig.lighting_strength)
+	material.set_shader_parameter("ambient_light", MandelbulbConfig.ambient_light)
 
+	var grad_tex = GradientTexture2D.new()
+	grad_tex.gradient = MandelbulbConfig.gradient
+	material.set_shader_parameter("gradient", grad_tex)
 
 	var julia = %julia_checkbox.button_pressed
 	material.set_shader_parameter("ray_march_iterations", %ray_march_iterations.get_value())
@@ -29,10 +33,7 @@ func update_shader_parameters() -> void:
 	material.set_shader_parameter("exponent", %exp.get_value())
 	
 	material.set_shader_parameter("lower_bound", %lower_bound.get_value())
-	material.set_shader_parameter("upper_bound", %upper_bound.get_value())
-	
-	material.set_shader_parameter("epsilon", %epsilon.get_value())
-	
+		
 	%z.set_disabled(julia)
 	%constant.set_disabled(!julia)
 	%z.get_node("InOutWidget").set_button_disabled(julia)

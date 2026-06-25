@@ -5,9 +5,9 @@ extends Control
 
 
 func _ready() -> void:
-	%real_part.set_variable_name(variable_name + "ᵣ")
-	%i_part.set_variable_name(variable_name + "ᵢ")
-	%j_part.set_variable_name(variable_name + "ⱼ")
+	%real_part.set_variable_name("x(%s)" % str(variable_name))
+	%i_part.set_variable_name("y(%s)" % str(variable_name))
+	%j_part.set_variable_name("z(%s)" % str(variable_name))
 
 	%real_part.set_value(initial_complex_num.x)
 	%i_part.set_value(initial_complex_num.y)

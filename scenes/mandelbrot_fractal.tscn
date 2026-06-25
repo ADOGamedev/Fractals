@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bxum74uw4fp7" path="res://scenes/complex_number_selector.tscn" id="8_3g4xk"]
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
 [ext_resource type="PackedScene" uid="uid://cjqotmay3hwia" path="res://scenes/mandelbrot_color_widget.tscn" id="10_q64vy"]
+[ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="11_0di7l"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0di7l"]
 gradient = ExtResource("2_q64vy")
@@ -106,10 +107,10 @@ script = ExtResource("3_3lt8q")
 [node name="main_panel" type="Control" parent="CanvasLayer" unique_id=1082265057]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 860.9937
-offset_top = 463.49057
-offset_right = 1146.9937
-offset_bottom = 643.4906
+offset_left = 984.0
+offset_top = 516.0
+offset_right = 1270.0
+offset_bottom = 696.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=1494403600]
 material = SubResource("ShaderMaterial_3g4xk")
@@ -160,7 +161,7 @@ size_flags_stretch_ratio = 3.64
 [node name="threshold" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "t"
+variable_name = "Threshold"
 exp_edit = true
 curr_value = 10.0
 exp_maximum = 100000
@@ -180,7 +181,7 @@ size_flags_stretch_ratio = 2.78
 [node name="iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=359612231 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "i"
+variable_name = "Iterations"
 integer = true
 exp_edit = true
 curr_value = 500.0
@@ -222,7 +223,7 @@ offset_bottom = 186.50946
 scale = Vector2(0.535, 0.535)
 text = "Main"
 direction = 0
-displacement = Vector2(311, 0)
+displacement = Vector2(313, 0)
 parent_hidden = false
 
 [node name="constant" parent="CanvasLayer" unique_id=1264587179 instance=ExtResource("8_3g4xk")]
@@ -259,10 +260,12 @@ max_value = 5.0
 [node name="InOutWidget" parent="CanvasLayer/constant" unique_id=647374646 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = 324.86627
-offset_top = 159.0909
-offset_right = 381.86627
+offset_top = 159.09091
+offset_right = 457.2192
 offset_bottom = 258.09088
-text = "c"
+theme_override_font_sizes/font_size = 30
+text = "Constant  
+Term"
 displacement = Vector2(-280, 0)
 TWEEN_TIME = 0.17
 
@@ -297,20 +300,23 @@ allow_lesser = true
 
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=529710540 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = -56.0
-offset_top = 159.0
-offset_right = 1.0
-offset_bottom = 258.0
+offset_left = -127.00527
+offset_top = 157.75401
+offset_right = 2.994728
+offset_bottom = 256.754
+theme_override_font_sizes/font_size = 30
+text = " Initial  
+ Number "
 direction = 0
-displacement = Vector2(280, 0)
+displacement = Vector2(273, 0)
 TWEEN_TIME = 0.17
 
 [node name="MandelbrotColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("10_q64vy")]
 unique_name_in_owner = true
 offset_left = 35.0
-offset_top = 336.0
+offset_top = 386.0
 offset_right = -822.0
-offset_bottom = -200.0
+offset_bottom = -150.0
 scale = Vector2(0.87, 0.87)
 
 [node name="InOutWidget" parent="CanvasLayer/MandelbrotColorWidget" unique_id=440504051 instance=ExtResource("9_ffm43")]
@@ -331,9 +337,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -1144.0
-offset_top = -316.0
+offset_top = -325.0
 offset_right = -1144.0
-offset_bottom = -316.0
+offset_bottom = -325.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
@@ -341,11 +347,11 @@ mouse_filter = 2
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/exp" unique_id=1192069601]
 material = SubResource("ShaderMaterial_q64vy")
 layout_mode = 0
-offset_left = 898.0001
-offset_top = 337.0
-offset_right = 1224.2032
-offset_bottom = 452.00003
-scale = Vector2(0.658, 0.658)
+offset_left = 847.9999
+offset_top = 328.0
+offset_right = 1174.203
+offset_bottom = 443.00003
+scale = Vector2(0.808, 0.808)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0di7l")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/exp/PanelContainer" unique_id=860261930]
@@ -356,7 +362,7 @@ alignment = 1
 [node name="exp_r" parent="CanvasLayer/exp/PanelContainer/VBoxContainer" unique_id=1395074969 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "xᵣ"
+variable_name = "Re(x)"
 sensitivity = 0.005
 curr_value = 2.0
 
@@ -370,7 +376,7 @@ allow_lesser = true
 [node name="exp_i" parent="CanvasLayer/exp/PanelContainer/VBoxContainer" unique_id=2014945059 instance=ExtResource("6_3lt8q")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "xᵢ"
+variable_name = "Im(x)"
 sensitivity = 0.005
 curr_value = 0.0
 
@@ -383,14 +389,22 @@ allow_lesser = true
 
 [node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = 858.0
-offset_top = 346.99997
-offset_right = 900.0
-offset_bottom = 402.99997
-text = "x"
+offset_left = 719.0
+offset_top = 344.0
+offset_right = 850.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 25
+text = " Exponent "
 direction = 0
-displacement = Vector2(247, 0)
+displacement = Vector2(296, 0)
 TWEEN_TIME = 0.17
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=210987517]
+position = Vector2(576, 324)
+limit_enabled = false
+position_smoothing_speed = 50.0
+script = ExtResource("11_0di7l")
+limits = [0, 0, 1280, 720]
 
 [connection signal="item_selected" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/julia/julia_checkbox" to="." method="_on_julia_checkbox_pressed"]

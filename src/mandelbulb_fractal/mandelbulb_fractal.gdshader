@@ -14,14 +14,15 @@ uniform float lower_bound = 0.00001;
 uniform float upper_bound = 100.;
 uniform int ray_march_iterations = 350;
 uniform int iterations = 50;
-uniform float epsilon = 0.00001;
 uniform float exponent = 8.;
 
 
 uniform float hit_pos_strength = 0.33;
-uniform float edge_highlight = 0.33;
+uniform float iteratios_coloring_strength = 0.33;
 uniform float lighting_strength = 0.33;
+uniform float ambient_light = 0.15;
 
+uniform sampler2D gradient;
 uniform bool julia = false;
 
 // ------------------Signed Distance Functions------------------ //
@@ -41,8 +42,8 @@ float sdMandelbulb(vec3 pos) {
 	float r = 0.0;
 	for (int i = 0; i < iterations; i++) {
 		r = length(z);
-		if (r < 0.000001) {
-            r = 0.000001;
+		if (r < 0.0000001) {
+            r = 0.0000001;
         }
 		if (r>4.0) break;
 		
@@ -139,7 +140,7 @@ float map(in vec3 p) {
 }
 
 vec3 normals(in vec3 p) {
-	float e = epsilon;
+	float e = lower_bound;
 	vec2 k = vec2(1, -1);
 	vec3 normals = 
 		k.xyy * map(p + k.xyy * e) +
@@ -149,9 +150,10 @@ vec3 normals(in vec3 p) {
 	return normalize(normals);
 }
 
+
 void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, -1.) * scale;
-	vec3 col;
+	float iters;
 	
 	vec3 camRight = normalize(cross(camDir, vec3(0.0, 1.0, 0.0)));
 	vec3 camUp    = cross(camRight, camDir);
@@ -164,18 +166,15 @@ void fragment() {
 	vec3 rayPos;
 	
 	float t = 0.;
-	vec3 hitPos;
 	bool hit = false;
 
 	for (int i = 0; i < ray_march_iterations; i++) {
     	rayPos = camPos + rayDir * t;
     	float d = map(rayPos);
 		
-		col = vec3(float(i) / float(ray_march_iterations));
-
+		iters = float(i) / float(ray_march_iterations);
 	    if (d < lower_bound) {
         	hit = true;
-			hitPos = rayPos;
         	break;
     	}
 
@@ -183,16 +182,21 @@ void fragment() {
         	break;
     	}
 
-    	t += d;
+    	t += min(2, d);
 	}
 
 	if (hit) {
     	vec3 n = normals(rayPos);
     	float dp = dot(normalize(-light_source_vector), n);
-    	//col = vec3(0.49 * dp + 0.3);
-		COLOR = vec4((hitPos / 2. + .5) * hit_pos_strength + col * edge_highlight + dp * lighting_strength, 1.);
+    	//col = vec3(0.49 * dp + 0.3);vec3(
+		vec3 grad_color = texture(gradient, vec2(iters, 0.)).xyz * iteratios_coloring_strength;
+		//base = vec3(max(0., base.x), max(0., base.y), max(0., base.z));
+		vec3 base = (rayPos / 2. + .5) * hit_pos_strength  + grad_color * iteratios_coloring_strength;
+		COLOR = vec4(max(vec3(0.), base * (ambient_light + dp * lighting_strength)), 1.);
+		//COLOR = ;
+		//COLOR = vec4(grad_color, 1.);
+		//COLOR = vec4(vec3(pow(col.x, 3.) * pow(iteratios_coloring_strength, 3.)), 1.);
 	} else {
-	    col = vec3(0.0);
-		COLOR = vec4(col, 1.);
+		COLOR = vec4(vec3(0.0), 1.);
 	}
 }

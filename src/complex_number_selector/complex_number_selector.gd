@@ -12,8 +12,8 @@ var double_click_threshold_ms = 250
 
 
 func _ready() -> void:	
-	%real_part.set_variable_name(variable_name + "ᵣ")
-	%complex_part.set_variable_name(variable_name + "ᵢ")
+	%real_part.set_variable_name("Re(%s)" % str(variable_name))
+	%complex_part.set_variable_name("Im(%s)" % str(variable_name))
 
 	%real_part.set_value(initial_complex_num.x)
 	%complex_part.set_value(initial_complex_num.y)	
@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 			%real_part.set_value(initial_complex_num.x)
 			%complex_part.set_value(initial_complex_num.y)
 
-	last_click_time = Time.get_ticks_msec()
+		last_click_time = Time.get_ticks_msec()
 
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:

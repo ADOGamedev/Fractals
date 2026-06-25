@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0kdks871dsvy" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gd" id="1_joax1"]
 [ext_resource type="Shader" uid="uid://pf68fil1itya" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gdshader" id="1_rctea"]
+[ext_resource type="Gradient" path="res://gradients/grayscale.tres" id="2_caifj"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_iovtp"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_i5g6i"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_5tp42"]
@@ -9,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_4fdp8"]
 [ext_resource type="PackedScene" uid="uid://piw3jberil5m" path="res://scenes/triplex_number_selector.tscn" id="8_i5g6i"]
 [ext_resource type="PackedScene" uid="uid://ip7m555w5pnt" path="res://scenes/mandelbulb_color_widget.tscn" id="9_5tp42"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_caifj"]
+gradient = ExtResource("2_caifj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
 shader = ExtResource("1_rctea")
@@ -22,11 +26,12 @@ shader_parameter/lower_bound = 1e-05
 shader_parameter/upper_bound = 100.0
 shader_parameter/ray_march_iterations = 350
 shader_parameter/iterations = 50
-shader_parameter/epsilon = 1e-05
 shader_parameter/exponent = 8.0
 shader_parameter/hit_pos_strength = 0.33
-shader_parameter/edge_highlight = 0.33
+shader_parameter/iteratios_coloring_strength = 0.33
 shader_parameter/lighting_strength = 0.33
+shader_parameter/ambient_light = 0.15
+shader_parameter/gradient = SubResource("GradientTexture1D_caifj")
 shader_parameter/julia = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s30jy"]
@@ -78,10 +83,10 @@ script = ExtResource("1_joax1")
 [node name="main_panel" type="Control" parent="CanvasLayer" unique_id=2086388502]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 860.9937
-offset_top = 463.49057
-offset_right = 1146.9937
-offset_bottom = 643.4906
+offset_left = 989.0
+offset_top = 541.0
+offset_right = 1275.0
+offset_bottom = 721.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=554276587]
 material = SubResource("ShaderMaterial_s30jy")
@@ -91,10 +96,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -302.99365
-offset_top = -323.4906
-offset_right = 23.006348
-offset_bottom = 25.509384
+offset_left = -345.99997
+offset_top = -238.52202
+offset_right = 30.61441
+offset_bottom = 10.477982
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.84968597, 0.84968597)
@@ -109,7 +114,7 @@ theme_override_constants/separation = 12
 [node name="ray_march_iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("5_5tp42")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "r"
+variable_name = "Ray March Iterations"
 integer = true
 exp_edit = true
 curr_value = 350.0
@@ -125,7 +130,7 @@ allow_greater = true
 [node name="iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=839433905 instance=ExtResource("5_5tp42")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "i"
+variable_name = "Iterations"
 integer = true
 exp_edit = true
 curr_value = 50.0
@@ -142,26 +147,14 @@ allow_greater = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="upper_bound" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=620557107 instance=ExtResource("5_5tp42")]
-unique_name_in_owner = true
-layout_mode = 2
-variable_name = "u"
-sensitivity = 0.001
-exp_edit = true
-curr_value = 100.0
-exp_maximum = 1000
-
-[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/upper_bound" index="0" unique_id=1601533653]
-max_value = 250.0
-step = 0.0
-value = 10.0
-allow_greater = true
-
 [node name="lower_bound" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1797335931 instance=ExtResource("5_5tp42")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "l"
-curr_value = 0.001
+variable_name = "Collision Threshold"
+decimal_places = 7
+curr_value = 0.7
+divide_by_a_thouand = true
+minimun_inclusive = false
 exp_maximum = 1
 
 [node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/lower_bound" index="0" unique_id=1601533653]
@@ -171,23 +164,6 @@ value = 0.01
 allow_greater = true
 
 [node name="Control2" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=835603486]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="epsilon" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=686096781 instance=ExtResource("5_5tp42")]
-unique_name_in_owner = true
-layout_mode = 2
-variable_name = "e"
-curr_value = 0.001
-exp_maximum = 1000
-
-[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/epsilon" index="0" unique_id=1601533653]
-max_value = 0.1
-step = 0.0
-value = 0.1
-allow_greater = true
-
-[node name="Control" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1970350684]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -210,10 +186,10 @@ focus_mode = 0
 
 [node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -94.99368
-offset_top = -43.490555
-offset_right = 53.006348
-offset_bottom = 118.50946
+offset_left = -138.00003
+offset_top = 2.9999847
+offset_right = 10.0
+offset_bottom = 165.0
 scale = Vector2(0.535, 0.535)
 text = "Main"
 direction = 0
@@ -230,15 +206,22 @@ initial_complex_num = Vector3(0.5, 0.3, 0.4)
 variable_name = "c"
 
 [node name="disabled" parent="CanvasLayer/constant" index="1" unique_id=310232362]
-offset_right = 0.0
-offset_bottom = 0.0
+visible = true
+anchors_preset = -1
+anchor_right = 0.68600005
+anchor_bottom = 0.69100004
+offset_right = -0.14401245
+offset_bottom = 0.069992065
 
 [node name="InOutWidget" parent="CanvasLayer/constant" unique_id=261459061 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
 offset_left = 276.0
 offset_top = 43.0
-offset_right = 319.0
+offset_right = 393.0
 offset_bottom = 117.68421
+theme_override_font_sizes/font_size = 25
+text = "Constant
+Term"
 displacement = Vector2(-313, 0)
 TWEEN_TIME = 0.17
 
@@ -260,10 +243,13 @@ offset_bottom = 0.0
 
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=1510959170 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -41.0
+offset_left = -105.0
 offset_top = 43.0
 offset_right = 2.0
 offset_bottom = 117.68421
+theme_override_font_sizes/font_size = 25
+text = "Initial 
+Number"
 direction = 0
 displacement = Vector2(308, 0)
 TWEEN_TIME = 0.17
@@ -271,10 +257,10 @@ TWEEN_TIME = 0.17
 [node name="exponent" type="Control" parent="CanvasLayer" unique_id=723938037]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 843.0
-offset_top = 225.0
-offset_right = 1119.9778
-offset_bottom = 295.0
+offset_left = 974.0
+offset_top = 291.0
+offset_right = 1250.9778
+offset_bottom = 361.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/exponent" unique_id=2136249577]
 material = SubResource("ShaderMaterial_s30jy")
@@ -305,43 +291,40 @@ value = 1.0
 
 [node name="InOutWidget" parent="CanvasLayer/exponent" unique_id=495871915 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -37.000015
+offset_left = -124.00004
 offset_top = 10.000011
-offset_right = 36.2455
+offset_right = 111.51412
 offset_bottom = 94.11226
 scale = Vector2(0.535, 0.535)
-theme_override_font_sizes/font_size = 80
-text = "x"
+text = "Exponent"
 direction = 0
 displacement = Vector2(312, 0)
 
-[node name="MandelbrotColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("9_5tp42")]
+[node name="MandelbulbColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("9_5tp42")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
 offset_left = 31.0
-offset_top = -200.0
+offset_top = -256.0
 offset_right = 31.0
-offset_bottom = -200.0
+offset_bottom = -256.0
 grow_horizontal = 1
 grow_vertical = 0
+scale = Vector2(0.87, 0.87)
 
-[node name="InOutWidget" parent="CanvasLayer/MandelbrotColorWidget" unique_id=2074639375 instance=ExtResource("7_4fdp8")]
+[node name="InOutWidget" parent="CanvasLayer/MandelbulbColorWidget" unique_id=2074639375 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = 369.00003
-offset_top = 47.0
-offset_right = 517.0
-offset_bottom = 209.00002
-scale = Vector2(0.535, 0.535)
+offset_left = 443.67813
+offset_top = 90.8046
+offset_right = 578.6374
+offset_bottom = 233.89407
+scale = Vector2(0.615, 0.615)
 text = "Color"
-displacement = Vector2(-401, 0)
-parent_hidden = false
+displacement = Vector2(-419, 0)
 
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]
-[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/upper_bound"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/lower_bound"]
-[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/epsilon"]
 [editable path="CanvasLayer/constant"]
 [editable path="CanvasLayer/constant/PanelContainer/VBoxContainer/real_part"]
 [editable path="CanvasLayer/constant/PanelContainer/VBoxContainer/i_part"]

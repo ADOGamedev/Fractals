@@ -15,9 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_xp7sd"]
 [ext_resource type="Gradient" path="res://gradients/orange-blue.tres" id="7_8kix3"]
 [ext_resource type="Texture2D" uid="uid://rjmctmc3xn80" path="res://assets/sprites/menu_icon_pressed.png" id="7_dh67l"]
+[ext_resource type="Gradient" path="res://gradients/grayscale_loop.tres" id="8_66ye8"]
 [ext_resource type="Gradient" path="res://gradients/radioactive.tres" id="8_kyjbt"]
 [ext_resource type="Texture2D" uid="uid://bxakqlug3b46y" path="res://assets/sprites/menu_icon_hover.png" id="8_m6187"]
 [ext_resource type="Gradient" path="res://gradients/pale_red-blue.tres" id="9_waqna"]
+[ext_resource type="Gradient" path="res://gradients/plasma.tres" id="11_lfbkb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7pcls"]
 shader = ExtResource("1_7pcls")
@@ -97,8 +99,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_avj2j")
-gradients = Array[Gradient]([ExtResource("2_wup21"), ExtResource("3_lolw5"), ExtResource("3_dynds"), ExtResource("4_lolw5"), ExtResource("5_66ye8"), ExtResource("6_lfbkb"), ExtResource("7_8kix3"), ExtResource("8_kyjbt"), ExtResource("9_waqna")])
-gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Blue-Orange", "Radioactive", "Pale Red-Blue"])
+gradients = Array[Gradient]([ExtResource("2_wup21"), ExtResource("3_lolw5"), ExtResource("3_dynds"), ExtResource("4_lolw5"), ExtResource("5_66ye8"), ExtResource("6_lfbkb"), ExtResource("8_66ye8"), ExtResource("7_8kix3"), ExtResource("8_kyjbt"), ExtResource("11_lfbkb"), ExtResource("9_waqna")])
+gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Grayscale (loop)", "Blue-Orange", "Radioactive", "Plasma", "Pale Red-Blue"])
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
 material = SubResource("ShaderMaterial_7pcls")
@@ -249,7 +251,7 @@ size_flags_stretch_ratio = 3.98
 [node name="gradient_repetition" parent="PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("6_xp7sd")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "gᵣ"
+variable_name = "Gradient Repetition"
 sensitivity = 0.001
 exp_edit = true
 curr_value = 1500.0
@@ -268,7 +270,7 @@ size_flags_stretch_ratio = 3.04
 [node name="gradient_attenuation" parent="PanelContainer/VBoxContainer" unique_id=2122151627 instance=ExtResource("6_xp7sd")]
 unique_name_in_owner = true
 layout_mode = 2
-variable_name = "gₐ"
+variable_name = "Gradient Attenuation"
 sensitivity = 0.003
 curr_value = 1.0
 

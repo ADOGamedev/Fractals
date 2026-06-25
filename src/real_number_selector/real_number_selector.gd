@@ -9,8 +9,11 @@ extends PanelContainer
 
 @export var exp_edit := false
 
-@export var curr_value: float = 0.35
+@export var decimal_places := 5
 
+@export var curr_value: float = 0.35
+@export var divide_by_a_thouand = false
+@export var minimun_inclusive = true
 var initial_value := 0.0
 var target_value := 0.0
 
@@ -22,12 +25,14 @@ var double_click_threshold_ms = 250
 
 
 func _ready() -> void:
+	var val = (curr_value / 1000.) if divide_by_a_thouand else curr_value
+	
 	$HSlider.exp_edit = exp_edit
-	$HSlider.value = curr_value
-	target_value = curr_value
+	$HSlider.value = val
+	target_value = val
 	update_label_value()
 
-	initial_value = curr_value
+	initial_value = val
 
 
 func _process(delta: float) -> void:
@@ -43,8 +48,9 @@ func _process(delta: float) -> void:
 	if $HSlider.allow_lesser:
 		h_slider_min = -INF
 
-	curr_value = clamp(curr_value, h_slider_min, exp_maximum if exp_edit else h_slider_max)
-	target_value = clamp(target_value, h_slider_min, exp_maximum if exp_edit else h_slider_max)
+	var minimun = h_slider_min if minimun_inclusive else (h_slider_min + pow(10.0, -decimal_places))
+	curr_value = clamp(curr_value, minimun, exp_maximum if exp_edit else h_slider_max)
+	target_value = clamp(target_value, minimun, exp_maximum if exp_edit else h_slider_max)
 
 	if integer:
 		curr_value = roundi(curr_value)
@@ -124,9 +130,9 @@ func _on_h_slider_value_changed(_value: float) -> void:
 
 func update_label_value() -> void:
 	if integer:
-		$HSlider/Label.text = variable_name + " = " + str(int(target_value))
+		$HSlider/Label.text = variable_name + " = " + str(roundi(target_value))
 	else:
-		$HSlider/Label.text = variable_name + " = " + "%.5f" % target_value
+		$HSlider/Label.text = variable_name + " = " + ("%.*f" % [decimal_places, target_value])
 
 
 func set_disabled(disabled: bool) -> void:
