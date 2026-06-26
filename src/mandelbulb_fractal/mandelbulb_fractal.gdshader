@@ -22,7 +22,14 @@ uniform float iteratios_coloring_strength = 0.33;
 uniform float lighting_strength = 0.33;
 uniform float ambient_light = 0.15;
 
+uniform vec3 bg_color = vec3(0.);
+uniform bool single_color_bg = false;
+
 uniform sampler2D gradient;
+uniform float gradient_repetition = 350;
+uniform float gradient_attenuation = 1.;
+uniform float gradient_offset = 0.;
+
 uniform bool julia = false;
 
 // ------------------Signed Distance Functions------------------ //
@@ -172,7 +179,7 @@ void fragment() {
     	rayPos = camPos + rayDir * t;
     	float d = map(rayPos);
 		
-		iters = float(i) / float(ray_march_iterations);
+		iters = fract(float(i) / float(gradient_repetition));
 	    if (d < lower_bound) {
         	hit = true;
         	break;
@@ -185,18 +192,17 @@ void fragment() {
     	t += min(2, d);
 	}
 
-	if (hit) {
+	if (hit || !single_color_bg) {
     	vec3 n = normals(rayPos);
     	float dp = dot(normalize(-light_source_vector), n);
-    	//col = vec3(0.49 * dp + 0.3);vec3(
+		
+		iters = pow(iters, gradient_attenuation);
+		iters = fract(iters + gradient_offset);
 		vec3 grad_color = texture(gradient, vec2(iters, 0.)).xyz * iteratios_coloring_strength;
-		//base = vec3(max(0., base.x), max(0., base.y), max(0., base.z));
+		
 		vec3 base = (rayPos / 2. + .5) * hit_pos_strength  + grad_color * iteratios_coloring_strength;
 		COLOR = vec4(max(vec3(0.), base * (ambient_light + dp * lighting_strength)), 1.);
-		//COLOR = ;
-		//COLOR = vec4(grad_color, 1.);
-		//COLOR = vec4(vec3(pow(col.x, 3.) * pow(iteratios_coloring_strength, 3.)), 1.);
 	} else {
-		COLOR = vec4(vec3(0.0), 1.);
+		COLOR = vec4(bg_color, 1.);
 	}
 }

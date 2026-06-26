@@ -2,6 +2,8 @@ extends PanelContainer
 
 @export var variable_name = "a"
 @export var integer = false
+var alt_integer = false
+var prev_alt_integer = false
 @export var LERP_VALUE = 15.0
 @export var sensitivity = 0.004
 @export var fine_control1 = 0.1
@@ -18,6 +20,7 @@ var initial_value := 0.0
 var target_value := 0.0
 
 var dragging = false
+
 var last_click_time = 0
 var double_click_threshold_ms = 250
 
@@ -36,11 +39,23 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	var mouse_in = $HSlider.get_global_rect().has_point(get_global_mouse_position())
+	$hover.visible = dragging or mouse_in
+
+	alt_integer = Input.is_action_pressed("integer") and dragging
+
+	if prev_alt_integer != alt_integer:
+		target_value = roundi(target_value)
+		$HSlider.value = roundi(target_value)
+
 	if integer:
-		curr_value = target_value
+		curr_value = roundi(target_value)
 	else:
-		curr_value = lerp(curr_value, target_value, LERP_VALUE * delta)
-	
+		if alt_integer:
+			curr_value = lerp(curr_value, roundf(target_value), LERP_VALUE * delta)
+		else:
+			curr_value = lerp(curr_value, target_value, LERP_VALUE * delta)
+
 	var h_slider_min = $HSlider.min_value
 	var h_slider_max = $HSlider.max_value
 	if $HSlider.allow_greater:
@@ -56,14 +71,12 @@ func _process(delta: float) -> void:
 		curr_value = roundi(curr_value)
 
 	update_label_value()
-
+	
+	prev_alt_integer = alt_integer
 
 func _input(event: InputEvent) -> void:
 	if $disabled.visible:
 		return
-
-	if event is InputEventMouseMotion:
-		$hover.visible = $HSlider.get_global_rect().has_point(event.position)
 
 	if event is InputEventMouseMotion and dragging:
 		var shift = Input.is_key_pressed(KEY_SHIFT)
@@ -84,9 +97,10 @@ func _input(event: InputEvent) -> void:
 		else:
 			target_value += event.relative.x * curr_sensitivity * ($HSlider.max_value - $HSlider.min_value)
 
-		
-		$HSlider.value = target_value
-
+		if integer or alt_integer:
+			$HSlider.value = roundi(target_value)
+		else:
+			$HSlider.value = target_value
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if $HSlider.get_global_rect().has_point(event.position):
@@ -129,7 +143,7 @@ func _on_h_slider_value_changed(_value: float) -> void:
 
 
 func update_label_value() -> void:
-	if integer:
+	if integer or alt_integer:
 		$HSlider/Label.text = variable_name + " = " + str(roundi(target_value))
 	else:
 		$HSlider/Label.text = variable_name + " = " + ("%.*f" % [decimal_places, target_value])

@@ -31,7 +31,12 @@ shader_parameter/hit_pos_strength = 0.33
 shader_parameter/iteratios_coloring_strength = 0.33
 shader_parameter/lighting_strength = 0.33
 shader_parameter/ambient_light = 0.15
+shader_parameter/bg_color = Vector3(0, 0, 0)
+shader_parameter/single_color_bg = false
 shader_parameter/gradient = SubResource("GradientTexture1D_caifj")
+shader_parameter/gradient_repetition = 350.0
+shader_parameter/gradient_attenuation = 0.0
+shader_parameter/gradient_offset = 0.0
 shader_parameter/julia = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s30jy"]
@@ -304,20 +309,20 @@ displacement = Vector2(312, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
-offset_left = 31.0
-offset_top = -256.0
-offset_right = 31.0
-offset_bottom = -256.0
+offset_left = 32.0
+offset_top = -445.00003
+offset_right = 32.0
+offset_bottom = -445.00003
 grow_horizontal = 1
 grow_vertical = 0
 scale = Vector2(0.87, 0.87)
 
 [node name="InOutWidget" parent="CanvasLayer/MandelbulbColorWidget" unique_id=2074639375 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = 443.67813
-offset_top = 90.8046
-offset_right = 578.6374
-offset_bottom = 233.89407
+offset_left = 443.67816
+offset_top = 197.70122
+offset_right = 578.63745
+offset_bottom = 340.79068
 scale = Vector2(0.615, 0.615)
 text = "Color"
 displacement = Vector2(-419, 0)

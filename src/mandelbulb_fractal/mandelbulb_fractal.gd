@@ -21,6 +21,11 @@ func update_shader_parameters() -> void:
 	material.set_shader_parameter("iteratios_coloring_strength", MandelbulbConfig.iteratios_coloring_strength)
 	material.set_shader_parameter("lighting_strength", MandelbulbConfig.lighting_strength)
 	material.set_shader_parameter("ambient_light", MandelbulbConfig.ambient_light)
+	material.set_shader_parameter("gradient_repetition", MandelbulbConfig.gradient_repetition)
+	material.set_shader_parameter("gradient_attenuation", MandelbulbConfig.gradient_attenuation)
+	material.set_shader_parameter("gradient_offset", MandelbulbConfig.gradient_offset)
+	material.set_shader_parameter("single_color_bg", MandelbulbConfig.single_color_bg)
+	material.set_shader_parameter("bg_color", MandelbulbConfig.bg_color)
 
 	var grad_tex = GradientTexture2D.new()
 	grad_tex.gradient = MandelbulbConfig.gradient

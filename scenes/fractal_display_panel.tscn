@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://bpk5nyjocbrdu"]
+
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_eubho"]
+[ext_resource type="Script" uid="uid://bwxpufkbas5py" path="res://scenes/fractal_display_panel.gd" id="1_i1spd"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_6ybjy"]
+[ext_resource type="Shader" uid="uid://bxpiau60kxhy8" path="res://src/shaders/round_corners.gdshader" id="2_om8nt"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_6gduq"]
+[ext_resource type="Texture2D" uid="uid://bhokdarrwtqh0" path="res://assets/fractal_images/mandelbrot.png" id="3_i1spd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_om8nt"]
+resource_local_to_scene = true
+shader = ExtResource("1_eubho")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ybjy"]
+resource_local_to_scene = true
+content_margin_left = 35.0
+content_margin_top = 35.0
+content_margin_right = 35.0
+content_margin_bottom = 15.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1spd"]
+bg_color = Color(0.7647059, 0.7647059, 0.7647059, 0.15686275)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.20784314)
+border_blend = true
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 12
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7o7cu"]
+shader = ExtResource("2_om8nt")
+shader_parameter/radius = 100.0
+
+[sub_resource type="FontVariation" id="FontVariation_om8nt"]
+base_font = ExtResource("3_6gduq")
+variation_embolden = 1.1
+
+[node name="FractalDisplayPanel" type="Control" unique_id=597368466]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -890.0
+offset_bottom = -313.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i1spd")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1336320353]
+material = SubResource("ShaderMaterial_om8nt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ybjy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=404543410]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 11
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=214611619]
+layout_mode = 2
+size_flags_stretch_ratio = 6.58
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i1spd")
+
+[node name="image" type="TextureRect" parent="PanelContainer/VBoxContainer/PanelContainer" unique_id=598812386]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_7o7cu")
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_i1spd")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=227207956]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("2_6ybjy")
+theme_override_fonts/font = SubResource("FontVariation_om8nt")
+text = "Fractal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
+[connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer" to="." method="_on_panel_container_mouse_exited"]

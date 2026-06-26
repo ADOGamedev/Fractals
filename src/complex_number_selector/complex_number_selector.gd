@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-		var shader_coords = Vector2(%real_part.get_target_value(), %complex_part.get_target_value())
+		var shader_coords = Vector2(%real_part.get_value(), %complex_part.get_value())
 		%ball_pointer.global_position = shader_coords_to_global_coords(shader_coords) - ball_offset
 
 

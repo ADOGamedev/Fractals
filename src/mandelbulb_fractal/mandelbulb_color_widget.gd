@@ -20,6 +20,11 @@ func _process(delta: float) -> void:
 	MandelbulbConfig.lighting_strength = %lighting.get_value()
 	MandelbulbConfig.ambient_light = %ambient_light.get_value()
 	MandelbulbConfig.gradient = %GradientSelector.grad
+	MandelbulbConfig.bg_color = %bg_color_picker.color
+	MandelbulbConfig.single_color_bg = %single_color_background_checkbox.button_pressed
+	MandelbulbConfig.gradient_repetition = %gradient_repetition.get_value();
+	MandelbulbConfig.gradient_attenuation = %gradient_attenuation.get_value();
+	MandelbulbConfig.gradient_offset = %gradient_offset.get_value();
 
 	%PopupMenu.position = %gradient_menu_button.global_position +  Vector2(%gradient_menu_button.size.x - 3, %gradient_menu_button.size.y / 2.)
 	%PopupMenu.position += Vector2i(0, -%PopupMenu.size.y / 2.)
