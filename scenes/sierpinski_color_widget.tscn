@@ -1,0 +1,320 @@
+[gd_scene format=3 uid="uid://xj7n5iawbntx"]
+
+[ext_resource type="Script" uid="uid://cowlr60xi1yga" path="res://src/sierpinski_triangle/sierpinski_color_widget.gd" id="1_ik427"]
+[ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_8cek4"]
+[ext_resource type="Gradient" uid="uid://38rwewew0sbg" path="res://gradients/bands_rainbow.tres" id="3_cluns"]
+[ext_resource type="Gradient" path="res://gradients/cream.tres" id="4_drp38"]
+[ext_resource type="Gradient" path="res://gradients/fire.tres" id="5_t5qcv"]
+[ext_resource type="Gradient" path="res://gradients/ice.tres" id="6_mihtr"]
+[ext_resource type="Gradient" path="res://gradients/grayscale.tres" id="7_vagwo"]
+[ext_resource type="Gradient" path="res://gradients/grayscale_loop.tres" id="8_i8hv7"]
+[ext_resource type="Gradient" path="res://gradients/orange-blue.tres" id="9_f25gv"]
+[ext_resource type="Gradient" path="res://gradients/radioactive.tres" id="10_b2f4i"]
+[ext_resource type="Gradient" path="res://gradients/plasma.tres" id="11_qfkgw"]
+[ext_resource type="Gradient" path="res://gradients/pale_red-blue.tres" id="12_k3jfn"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="13_id28s"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="14_mav66"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="15_05gq4"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="16_8cek4"]
+[ext_resource type="PackedScene" uid="uid://388ls8jfbkcm" path="res://scenes/gradient_selector.tscn" id="16_mihtr"]
+[ext_resource type="Texture2D" uid="uid://ddjsisbevv2ae" path="res://assets/sprites/menu_icon.png" id="17_vagwo"]
+[ext_resource type="Texture2D" uid="uid://rjmctmc3xn80" path="res://assets/sprites/menu_icon_pressed.png" id="18_i8hv7"]
+[ext_resource type="Texture2D" uid="uid://bxakqlug3b46y" path="res://assets/sprites/menu_icon_hover.png" id="19_f25gv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pcls"]
+shader = ExtResource("13_id28s")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pcls"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 15.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_cluns"]
+base_font = ExtResource("15_05gq4")
+variation_embolden = 1.1
+
+[sub_resource type="FontVariation" id="FontVariation_b2f4i"]
+base_font = ExtResource("15_05gq4")
+variation_embolden = 1.1
+baseline_offset = -0.125
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfkgw"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09, 0.09, 0.09, 0.92941177)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.51, 0.51, 0.51, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 5
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3jfn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.13725491)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 5
+
+[sub_resource type="FontVariation" id="FontVariation_t1ain"]
+base_font = ExtResource("15_05gq4")
+variation_embolden = 1.1
+baseline_offset = -0.125
+
+[sub_resource type="FontVariation" id="FontVariation_xp7sd"]
+base_font = ExtResource("15_05gq4")
+variation_embolden = 1.1
+
+[node name="SierpinskiColorWidget" type="Control" unique_id=374050701]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ik427")
+gradients = Array[Gradient]([ExtResource("2_8cek4"), ExtResource("3_cluns"), ExtResource("4_drp38"), ExtResource("5_t5qcv"), ExtResource("6_mihtr"), ExtResource("7_vagwo"), ExtResource("8_i8hv7"), ExtResource("9_f25gv"), ExtResource("10_b2f4i"), ExtResource("11_qfkgw"), ExtResource("12_k3jfn")])
+gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Grayscale (loop)", "Blue-Orange", "Radioactive", "Plasma", "Plae Red-Blue"])
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
+material = SubResource("ShaderMaterial_7pcls")
+layout_mode = 0
+offset_right = 448.0
+offset_bottom = 312.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pcls")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1837798147]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=715303568]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer3" unique_id=455749018]
+layout_mode = 2
+theme = ExtResource("14_mav66")
+theme_override_fonts/font = SubResource("FontVariation_cluns")
+text = "Coloring Method"
+
+[node name="coloring_method_button" type="OptionButton" parent="PanelContainer/VBoxContainer/HBoxContainer3" unique_id=206989820]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("14_mav66")
+alignment = 1
+selected = 2
+item_count = 3
+popup/item_0/text = "Plain Color"
+popup/item_0/id = 1
+popup/item_1/text = "HUE based on Position"
+popup/item_1/id = 2
+popup/item_2/text = "Gradient"
+popup/item_2/id = 4
+
+[node name="Control7" type="Control" parent="PanelContainer/VBoxContainer" unique_id=526739211]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.35
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1698162656]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer4" unique_id=453907845]
+layout_mode = 2
+theme = ExtResource("14_mav66")
+theme_override_fonts/font = SubResource("FontVariation_b2f4i")
+text = "Gradient"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer4" unique_id=1131884285]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 24
+
+[node name="GradientSelector" parent="PanelContainer/VBoxContainer/HBoxContainer4/MarginContainer" unique_id=873852120 instance=ExtResource("16_mihtr")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="gradient_menu_button" type="TextureButton" parent="PanelContainer/VBoxContainer/HBoxContainer4" unique_id=454393010]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+toggle_mode = true
+texture_normal = ExtResource("17_vagwo")
+texture_pressed = ExtResource("18_i8hv7")
+texture_hover = ExtResource("19_f25gv")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PopupMenu" type="PopupMenu" parent="PanelContainer/VBoxContainer/HBoxContainer4/gradient_menu_button" unique_id=1660138949]
+unique_name_in_owner = true
+oversampling_override = 1.0
+position = Vector2i(422, 0)
+size = Vector2i(337, 158)
+theme = ExtResource("14_mav66")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qfkgw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k3jfn")
+item_count = 1
+item_0/text = "Gradients Presets"
+item_0/id = 0
+item_0/separator = true
+
+[node name="Control8" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1339731791]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.07
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1043683066]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=306460672]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.29
+theme = ExtResource("14_mav66")
+theme_override_fonts/font = SubResource("FontVariation_t1ain")
+text = "Background Color"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1935145166]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BGColorPickerButton" type="ColorPickerButton" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=2004927155]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control6" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1073678701]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.48
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=775451739]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1770361524]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.94
+theme = ExtResource("14_mav66")
+theme_override_fonts/font = SubResource("FontVariation_t1ain")
+text = "Color"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=723645870]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PanelContainer/VBoxContainer/HBoxContainer2/MarginContainer" unique_id=171048177]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1660638526]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.98
+
+[node name="gradient_repetition" parent="PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("16_8cek4")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Gradient Repetition"
+sensitivity = 0.001
+exp_edit = true
+curr_value = 10.0
+
+[node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_repetition" index="0" unique_id=1601533653]
+max_value = 50.0
+step = 0.0
+exp_edit = true
+allow_greater = true
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=2061857445]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.04
+
+[node name="gradient_attenuation" parent="PanelContainer/VBoxContainer" unique_id=631261168 instance=ExtResource("16_8cek4")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Gradient Attenuation"
+sensitivity = 0.003
+curr_value = 1.0
+
+[node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_attenuation" index="0" unique_id=1601533653]
+max_value = 5.0
+step = 0.0
+allow_greater = true
+
+[node name="Control3" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1561898193]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.43
+
+[node name="negative_space" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=871871007]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/negative_space" unique_id=1792795334]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_xp7sd")
+text = "Negative Space"
+
+[node name="negative_space_checkbox" type="CheckBox" parent="PanelContainer/VBoxContainer/negative_space" unique_id=82460996]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("14_mav66")
+
+[node name="Control5" type="Control" parent="PanelContainer/VBoxContainer" unique_id=68680966]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.47
+
+[connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer4/gradient_menu_button" to="." method="_on_gradient_menu_button_toggled"]
+[connection signal="index_pressed" from="PanelContainer/VBoxContainer/HBoxContainer4/gradient_menu_button/PopupMenu" to="." method="_on_popup_menu_index_pressed"]
+
+[editable path="PanelContainer/VBoxContainer/gradient_repetition"]
+[editable path="PanelContainer/VBoxContainer/gradient_attenuation"]

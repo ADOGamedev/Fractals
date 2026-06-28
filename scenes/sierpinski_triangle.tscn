@@ -2,16 +2,31 @@
 
 [ext_resource type="Script" uid="uid://cdei0x18legja" path="res://src/sierpinski_triangle/sierpinski_triangle.gd" id="1_7n8ju"]
 [ext_resource type="Shader" uid="uid://b1fiust5nd40" path="res://src/sierpinski_triangle/sierpinski.gdshader" id="1_iwf3y"]
+[ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_tqlmh"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_1y084"]
+[ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="3_jnh7p"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_jnh7p"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_tqlmh"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="6_k1bsp"]
+[ext_resource type="PackedScene" uid="uid://xj7n5iawbntx" path="res://scenes/sierpinski_color_widget.tscn" id="9_k1bsp"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="10_rgu3i"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k1bsp"]
+gradient = ExtResource("2_tqlmh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5g1au"]
 shader = ExtResource("1_iwf3y")
 shader_parameter/ratio = 1.7777778
-shader_parameter/scale = 0.7
-shader_parameter/iterations = 2
+shader_parameter/scale = 0.77
+shader_parameter/iterations = 7
+shader_parameter/negative_space = false
+shader_parameter/color_by_position = false
+shader_parameter/color_by_iterations = false
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/gradient = SubResource("GradientTexture1D_k1bsp")
+shader_parameter/gradient_repetition = 7.0
+shader_parameter/gradient_attenuation = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rgu3i"]
 shader = ExtResource("3_1y084")
@@ -57,6 +72,13 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_7n8ju")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1289805411]
+position = Vector2(576, 324)
+limit_enabled = false
+position_smoothing_speed = 50.0
+script = ExtResource("3_jnh7p")
+limits = [0, 0, 1280, 720]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1377579895 groups=["canvas_layer"]]
 
 [node name="Panel" type="PanelContainer" parent="CanvasLayer" unique_id=1882319736]
@@ -94,6 +116,7 @@ min_value = 1.0
 max_value = 25.0
 step = 0.0
 value = 1.0
+allow_greater = true
 
 [node name="Control" type="Control" parent="CanvasLayer/Panel/VBoxContainer" unique_id=622958676]
 layout_mode = 2
@@ -116,5 +139,27 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 button_pressed = true
+
+[node name="SierpinskiColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("9_k1bsp")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 31.0
+offset_top = -300.0
+offset_right = 307.0
+offset_bottom = -220.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.87, 0.87)
+
+[node name="InOutWidget" parent="CanvasLayer/SierpinskiColorWidget" unique_id=392686038 instance=ExtResource("10_rgu3i")]
+layout_mode = 0
+offset_left = 448.00003
+offset_top = 116.999985
+offset_right = 596.00006
+offset_bottom = 279.0
+scale = Vector2(0.535, 0.535)
+text = " Color "
+displacement = Vector2(-422, 0)
 
 [editable path="CanvasLayer/Panel/VBoxContainer/iterations"]

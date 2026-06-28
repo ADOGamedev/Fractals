@@ -319,13 +319,13 @@ scale = Vector2(0.87, 0.87)
 
 [node name="InOutWidget" parent="CanvasLayer/MandelbulbColorWidget" unique_id=2074639375 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = 443.67816
+offset_left = 463.21838
 offset_top = 197.70122
-offset_right = 578.63745
+offset_right = 598.1777
 offset_bottom = 340.79068
 scale = Vector2(0.615, 0.615)
 text = "Color"
-displacement = Vector2(-419, 0)
+displacement = Vector2(-437, 0)
 
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]

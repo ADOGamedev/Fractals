@@ -52,7 +52,7 @@ corner_detail = 12
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7o7cu"]
 shader = ExtResource("2_om8nt")
-shader_parameter/radius = 100.0
+shader_parameter/radius = 174.80800830338
 
 [sub_resource type="FontVariation" id="FontVariation_om8nt"]
 base_font = ExtResource("3_6gduq")
@@ -108,6 +108,7 @@ theme_override_fonts/font = SubResource("FontVariation_om8nt")
 text = "Fractal"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
 [connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]

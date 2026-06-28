@@ -38,22 +38,6 @@ func load_gradients() -> void:
 		var label = gradients_names[id - 1] # I subtract one because the element 0 is the title
 		%PopupMenu.add_icon_item(grad_texture, "  " + label, id)
 
-func capitalize_gradient_name(s: String) -> String:
-	if s == "":
-		return ""
-
-	s[0] = s[0].capitalize()
-	for i in range(len(s)):
-		if s[i] == "_":
-			s[i] = " "
-			if i < len(s) - 1:
-				s[i + 1] = s[i + 1].capitalize()
-				
-		elif s[i] == "-":
-			s[i + 1] = s[i + 1].capitalize()
-
-	return s
-
 
 func set_gradient_repetition_initial_value(val: float) -> void:
 	%gradient_repetition.initial_value = val

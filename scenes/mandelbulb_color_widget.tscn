@@ -37,10 +37,10 @@ shader_parameter/edge_width = 3.61600017176
 shader_parameter/chromatic_strength = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pcls"]
-content_margin_left = 25.0
-content_margin_top = 25.0
-content_margin_right = 25.0
-content_margin_bottom = 25.0
+content_margin_left = 35.0
+content_margin_top = 30.0
+content_margin_right = 35.0
+content_margin_bottom = 30.0
 bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="FontVariation" id="FontVariation_xp7sd"]
@@ -106,7 +106,7 @@ gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "I
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
 material = SubResource("ShaderMaterial_7pcls")
 layout_mode = 0
-offset_right = 445.0
+offset_right = 465.0
 offset_bottom = 482.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7pcls")
 
@@ -175,6 +175,7 @@ focus_mode = 0
 [node name="Control8" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1121287708]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.28
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1060211338]
 layout_mode = 2
@@ -321,6 +322,11 @@ max_value = 1.0
 step = 0.0
 allow_greater = true
 allow_lesser = true
+
+[node name="Control9" type="Control" parent="PanelContainer/VBoxContainer" unique_id=645290521]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 
 [connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button" to="." method="_on_gradient_menu_button_toggled"]
 [connection signal="index_pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/gradient_menu_button/PopupMenu" to="." method="_on_popup_menu_index_pressed"]
