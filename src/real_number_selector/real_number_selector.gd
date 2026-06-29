@@ -35,6 +35,7 @@ func _ready() -> void:
 	$HSlider.exp_edit = exp_edit
 	$HSlider.value = val
 	target_value = val
+	curr_value = val
 	update_label_value()
 
 	initial_value = val

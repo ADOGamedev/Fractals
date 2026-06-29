@@ -4,7 +4,11 @@ var MOVE_SPEED_FACTOR = 1.05
 @export var camera_move_speed = 3
 @export var sensitivity = 0.003
 
-var camera_position = Vector3(0, 0, -3)
+var DEFAULT_CAMERA_POSITION = Vector3(0, 0, -3)
+var DEFAULT_CAMERA_YAW = 0
+var DEFAULT_CAMERA_PITCH = 0
+
+var camera_position = DEFAULT_CAMERA_POSITION
 var camera_yaw = 0
 var camera_pitch = 0
 
@@ -14,6 +18,9 @@ func _ready() -> void:
 	%MandelbulbColorWidget.set_gradient_repetition_target_value(%ray_march_iterations.get_value())
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("exit"):
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+
 	update_shader_parameters()
 	update_camera_transform(delta)
 
@@ -64,6 +71,23 @@ func update_camera_transform(delta: float) -> void:
 	material.set_shader_parameter("camPos", camera_position)
 	material.set_shader_parameter("camDir", camera_direction)
 
+func reset_camera() -> void:
+	var tween = get_tree().create_tween().set_parallel(true)
+	var camera_direction = Vector3(
+		cos(DEFAULT_CAMERA_PITCH) * sin(DEFAULT_CAMERA_YAW),
+		sin(DEFAULT_CAMERA_PITCH),
+		cos(DEFAULT_CAMERA_PITCH) * cos(DEFAULT_CAMERA_YAW)
+	).normalized()
+
+	tween.tween_property(self, "material:shader_parameter/camPos", DEFAULT_CAMERA_POSITION, 0.15)
+	tween.tween_property(self, "material:shader_parameter/camDir", camera_direction, 0.15)
+
+	await tween.finished
+
+	camera_position = DEFAULT_CAMERA_POSITION
+	camera_yaw = DEFAULT_CAMERA_YAW
+	camera_pitch = DEFAULT_CAMERA_PITCH
+
 
 func get_input_direction(cam_dir: Vector3) -> Vector3:
 	var world_up = Vector3.UP
@@ -103,3 +127,7 @@ func _gui_input(event: InputEvent) -> void:
 		camera_pitch -= event.relative.y * sensitivity
 
 		camera_pitch = clamp(camera_pitch, deg_to_rad(-89), deg_to_rad(89))
+
+
+func _on_utilities_panel_restart_camera() -> void:
+	reset_camera()

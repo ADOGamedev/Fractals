@@ -4,6 +4,8 @@ var ui_hidden = false
 var file_dialog : FileDialog
 var current_image : Image
 
+var prev_windows_mode = DisplayServer.WINDOW_MODE_MAXIMIZED
+
 
 func _ready() -> void:
 	file_dialog = FileDialog.new()
@@ -22,6 +24,14 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("fullscreen"):
+		var mode = DisplayServer.window_get_mode()
+		if mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(prev_windows_mode)
+		else:
+			prev_windows_mode = mode
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 	if Input.is_action_just_pressed("hide_ui"):
 		ui_hidden = !ui_hidden
 		set_canvas_layers_visibility(!ui_hidden)

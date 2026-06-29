@@ -2,6 +2,8 @@ extends ColorRect
 
 enum Fractals {NONE, MANDELBROT, BURNING_SHIP, RINGS,}
 
+var DEFAULT_CAMERA_ZOOM = Vector2.ONE
+
 var OFFSET_MANDELBROT = Vector2(0.7, 0.0)
 var OFFSET_BURNING_SHIP = Vector2(0.5, 0.5)
 
@@ -33,6 +35,9 @@ func _process(_delta: float) -> void:
 	if !visible:
 		$CanvasLayer.visible = false
 
+	if Input.is_action_just_pressed("exit"):
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+		
 	set_complex_selectors_parameters()
 	disable_complex_selectors_accordingly()
 	set_main_fractal_parameters()
@@ -143,3 +148,9 @@ func update_widgets_values() -> void:
 
 func _on_fractals_option_button_item_selected(_index: int) -> void:
 	update_widgets_values()
+
+
+func _on_utilities_panel_restart_camera() -> void:
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property($Camera2D, "zoom", DEFAULT_CAMERA_ZOOM, 0.1)
+	tween.tween_property($Camera2D, "position", size / 2., 0.1)

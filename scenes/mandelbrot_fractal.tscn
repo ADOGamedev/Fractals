@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="9_ffm43"]
 [ext_resource type="PackedScene" uid="uid://cjqotmay3hwia" path="res://scenes/mandelbrot_color_widget.tscn" id="10_q64vy"]
 [ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="11_0di7l"]
+[ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="12_rdkqa"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0di7l"]
 gradient = ExtResource("2_q64vy")
@@ -103,7 +104,7 @@ mouse_filter = 2
 script = ExtResource("3_3lt8q")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=210987517]
-position = Vector2(576, 324)
+position = Vector2(640, 360)
 limit_enabled = false
 position_smoothing_speed = 50.0
 script = ExtResource("11_0di7l")
@@ -409,8 +410,11 @@ direction = 0
 displacement = Vector2(296, 0)
 TWEEN_TIME = 0.17
 
+[node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("12_rdkqa")]
+
 [connection signal="item_selected" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/julia/julia_checkbox" to="." method="_on_julia_checkbox_pressed"]
+[connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/threshold"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]

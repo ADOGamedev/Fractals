@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0kdks871dsvy" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gd" id="1_joax1"]
 [ext_resource type="Shader" uid="uid://pf68fil1itya" path="res://src/mandelbulb_fractal/mandelbulb_fractal.gdshader" id="1_rctea"]
-[ext_resource type="Gradient" path="res://gradients/grayscale.tres" id="2_caifj"]
+[ext_resource type="Gradient" uid="uid://dx7rpk6r5t1c7" path="res://gradients/grayscale.tres" id="2_caifj"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_iovtp"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_i5g6i"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_5tp42"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_4fdp8"]
 [ext_resource type="PackedScene" uid="uid://piw3jberil5m" path="res://scenes/triplex_number_selector.tscn" id="8_i5g6i"]
 [ext_resource type="PackedScene" uid="uid://ip7m555w5pnt" path="res://scenes/mandelbulb_color_widget.tscn" id="9_5tp42"]
+[ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="11_4fdp8"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_caifj"]
 gradient = ExtResource("2_caifj")
@@ -328,6 +329,10 @@ offset_bottom = 365.90973
 scale = Vector2(0.615, 0.615)
 text = "Color"
 displacement = Vector2(-437, 0)
+
+[node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("11_4fdp8")]
+
+[connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]

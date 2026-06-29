@@ -1,8 +1,12 @@
 extends ColorRect
 
 var auto_iterations = true
+var DEFAULT_CAMERA_ZOOM = Vector2.ONE
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("exit"):
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+
 	update_iterations()
 	set_main_fractal_parameters()
 
@@ -44,3 +48,9 @@ func set_main_fractal_parameters() -> void:
 
 func log2(n: float) -> float:
 	return log(n) / log(2)
+
+
+func _on_utilities_panel_restart_camera() -> void:
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property($Camera2D, "zoom", DEFAULT_CAMERA_ZOOM, 0.1)
+	tween.tween_property($Camera2D, "position", size / 2., 0.1)

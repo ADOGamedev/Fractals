@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="6_k1bsp"]
 [ext_resource type="PackedScene" uid="uid://xj7n5iawbntx" path="res://scenes/sierpinski_color_widget.tscn" id="9_k1bsp"]
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="10_rgu3i"]
+[ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="11_cigia"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_k1bsp"]
 gradient = ExtResource("2_tqlmh")
@@ -182,5 +183,9 @@ offset_bottom = 278.09198
 scale = Vector2(0.535, 0.535)
 text = " Color "
 displacement = Vector2(-422, 0)
+
+[node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("11_cigia")]
+
+[connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 
 [editable path="CanvasLayer/main_panel/Panel/VBoxContainer/iterations"]

@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var MIN_ZOOM = Vector2(1.0, 1.0)
+@export var min_zoom = Vector2(1.0, 1.0)
 @export var drag_speed := 1.0
 @export var zoom_multiplier := 1.05
 
@@ -16,8 +16,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if zoom < MIN_ZOOM:
-		zoom = MIN_ZOOM
+	if zoom < min_zoom:
+		zoom = min_zoom
 		clamp_position()
 		
 	if dragging:

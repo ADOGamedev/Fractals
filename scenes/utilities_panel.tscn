@@ -1,0 +1,235 @@
+[gd_scene format=3 uid="uid://gp1svmtktnw2"]
+
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_d2mi6"]
+[ext_resource type="Script" uid="uid://dk7utdqw8jmhb" path="res://src/utilities_panel/utilities_panel.gd" id="1_dv00b"]
+[ext_resource type="Texture2D" uid="uid://f2dpqdxkbe67" path="res://assets/sprites/cross.png" id="2_qo2f3"]
+[ext_resource type="Texture2D" uid="uid://c21087dramgtv" path="res://assets/sprites/restart_camera_button.png" id="3_raht5"]
+[ext_resource type="Texture2D" uid="uid://dtfcw5rsid85w" path="res://assets/sprites/restart_button.png" id="4_dv00b"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="6_brem2"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_b87lo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_raht5"]
+shader = ExtResource("1_d2mi6")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 1.0
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2mi6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dv00b"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo2f3"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.36078432)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0re4"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 0.16078432)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brem2"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+corner_radius_top_left = 17
+corner_radius_top_right = 17
+corner_radius_bottom_right = 17
+corner_radius_bottom_left = 17
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_tik6r"]
+base_font = ExtResource("7_b87lo")
+variation_embolden = 1.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b87lo"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+corner_radius_top_left = 17
+corner_radius_top_right = 17
+corner_radius_bottom_right = 17
+corner_radius_bottom_left = 17
+corner_detail = 16
+
+[node name="UtilitiesPanel" type="Control" unique_id=990072235]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_dv00b")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1134664860]
+material = SubResource("ShaderMaterial_raht5")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = 21.0
+offset_right = 80.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d2mi6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=1236945642]
+layout_mode = 2
+
+[node name="exit_button" type="Button" parent="PanelContainer/HBoxContainer" unique_id=820091293]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
+icon = ExtResource("2_qo2f3")
+icon_alignment = 1
+expand_icon = true
+
+[node name="restart_camera_button" type="Button" parent="PanelContainer/HBoxContainer" unique_id=1152078362]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
+icon = ExtResource("3_raht5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="restart_button" type="Button" parent="PanelContainer/HBoxContainer" unique_id=1363455162]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
+icon = ExtResource("4_dv00b")
+icon_alignment = 1
+expand_icon = true
+
+[node name="close_fractal_panel" type="Panel" parent="." unique_id=1952804074]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -96.0
+offset_top = 65.0
+offset_right = -5.0
+offset_bottom = 92.0
+theme = ExtResource("6_brem2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_brem2")
+
+[node name="Label" type="Label" parent="close_fractal_panel" unique_id=1982147930]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "Close Fractal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="reset_camera_panel" type="Panel" parent="." unique_id=1412301020]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -45.0
+offset_top = 65.0
+offset_right = 46.0
+offset_bottom = 92.0
+theme = ExtResource("6_brem2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
+
+[node name="Label" type="Label" parent="reset_camera_panel" unique_id=1693653530]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "Reset Camera"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="reset_panel" type="Panel" parent="." unique_id=5716802]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 65.0
+offset_right = 97.0
+offset_bottom = 92.0
+theme = ExtResource("6_brem2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
+
+[node name="Label" type="Label" parent="reset_panel" unique_id=2023473624]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "Reset Fractal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/restart_camera_button" to="." method="_on_restart_camera_button_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/restart_camera_button" to="." method="_on_restart_camera_button_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/restart_camera_button" to="." method="_on_restart_camera_button_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
