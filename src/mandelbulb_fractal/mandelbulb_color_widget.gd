@@ -59,6 +59,12 @@ func capitalize_gradient_name(s: String) -> String:
 	return s
 
 
+func set_gradient_repetition_initial_value(val: float) -> void:
+	%gradient_repetition.initial_value = val
+
+func set_gradient_repetition_target_value(val: float) -> void:
+	%gradient_repetition.set_value(val)
+	
 
 func _on_gradient_menu_button_toggled(toggled_on: bool) -> void:
 	%PopupMenu.visible = toggled_on

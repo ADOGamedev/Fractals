@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpk5nyjocbrdu"]
 
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_eubho"]
-[ext_resource type="Script" uid="uid://bwxpufkbas5py" path="res://scenes/fractal_display_panel.gd" id="1_i1spd"]
+[ext_resource type="Script" uid="uid://bwxpufkbas5py" path="res://src/fractal_display_panel/fractal_display_panel.gd" id="1_i1spd"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_6ybjy"]
 [ext_resource type="Shader" uid="uid://bxpiau60kxhy8" path="res://src/shaders/round_corners.gdshader" id="2_om8nt"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_6gduq"]

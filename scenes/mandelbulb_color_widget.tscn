@@ -47,6 +47,12 @@ bg_color = Color(0, 0, 0, 0)
 base_font = ExtResource("5_vplqs")
 variation_embolden = 1.1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ach6r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqope"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px0xi"]
+
 [sub_resource type="FontVariation" id="FontVariation_t1ain"]
 base_font = ExtResource("5_vplqs")
 variation_embolden = 1.1
@@ -148,6 +154,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("4_vpflw")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ach6r")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vqope")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_px0xi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1461575525]
 layout_mode = 2

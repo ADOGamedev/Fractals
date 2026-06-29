@@ -24,6 +24,8 @@ var dragging = false
 var last_click_time = 0
 var double_click_threshold_ms = 250
 
+var lag_threshold_fps = 15
+
 @export var exp_maximum = 10000000
 
 
@@ -39,6 +41,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Engine.get_frames_per_second() <= lag_threshold_fps:
+		curr_value = target_value
+
+		
 	var mouse_in = $HSlider.get_global_rect().has_point(get_global_mouse_position())
 	$hover.visible = dragging or mouse_in
 

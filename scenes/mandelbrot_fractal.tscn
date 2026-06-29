@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ds5ev0pss41f3"]
 
-[ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="1_sbyhb"]
+[ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/mandelbrot_fractal/mandelbrot.gdshader" id="1_sbyhb"]
 [ext_resource type="Gradient" uid="uid://38rwewew0sbg" path="res://gradients/bands_rainbow.tres" id="2_q64vy"]
-[ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/madelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
+[ext_resource type="Script" uid="uid://ccpg2d3baghrc" path="res://src/mandelbrot_fractal/mandelbrot_fractal.gd" id="3_3lt8q"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_ak01r"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_7bf1l"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_3lt8q"]
@@ -145,6 +145,7 @@ theme_override_constants/separation = -2
 [node name="fractals_option_button" type="OptionButton" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=449397764]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("5_7bf1l")
 alignment = 1
 selected = 1
@@ -220,6 +221,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 
 [node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("9_ffm43")]
 layout_mode = 0
@@ -267,8 +269,8 @@ max_value = 5.0
 [node name="InOutWidget" parent="CanvasLayer/constant" unique_id=647374646 instance=ExtResource("9_ffm43")]
 layout_mode = 0
 offset_left = 324.86627
-offset_top = 159.09091
-offset_right = 457.2192
+offset_top = 145.72192
+offset_right = 487.9679
 offset_bottom = 258.09088
 theme_override_font_sizes/font_size = 30
 text = "Constant  
@@ -307,10 +309,10 @@ allow_lesser = true
 
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=529710540 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = -127.00527
+offset_left = -159.09084
 offset_top = 157.75401
-offset_right = 2.994728
-offset_bottom = 256.754
+offset_right = 4.0111694
+offset_bottom = 270.12302
 theme_override_font_sizes/font_size = 30
 text = " Initial  
  Number "
@@ -328,11 +330,12 @@ scale = Vector2(0.87, 0.87)
 
 [node name="InOutWidget" parent="CanvasLayer/MandelbrotColorWidget" unique_id=440504051 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = 447.12643
-offset_top = 134.48277
-offset_right = 595.12646
-offset_bottom = 296.4828
+offset_left = 444.8276
+offset_top = 118.390785
+offset_right = 627.44653
+offset_bottom = 316.04898
 scale = Vector2(0.535, 0.535)
+theme_override_font_sizes/font_size = 54
 text = " Color "
 displacement = Vector2(-425, 0)
 
@@ -396,11 +399,11 @@ allow_lesser = true
 
 [node name="InOutWidget" parent="CanvasLayer/exp" unique_id=251772585 instance=ExtResource("9_ffm43")]
 layout_mode = 0
-offset_left = 719.0
-offset_top = 344.0
-offset_right = 850.0
-offset_bottom = 400.0
-theme_override_font_sizes/font_size = 25
+offset_left = 713.0
+offset_top = 346.0
+offset_right = 851.0
+offset_bottom = 402.0
+theme_override_font_sizes/font_size = 24
 text = " Exponent "
 direction = 0
 displacement = Vector2(296, 0)

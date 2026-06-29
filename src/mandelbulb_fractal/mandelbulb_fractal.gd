@@ -10,10 +10,14 @@ var camera_pitch = 0
 
 var dragging = false
 
+func _ready() -> void:
+	%MandelbulbColorWidget.set_gradient_repetition_target_value(%ray_march_iterations.get_value())
 
 func _process(delta: float) -> void:
 	update_shader_parameters()
 	update_camera_transform(delta)
+
+	%MandelbulbColorWidget.set_gradient_repetition_initial_value(%ray_march_iterations.get_value())
 
 
 func update_shader_parameters() -> void:

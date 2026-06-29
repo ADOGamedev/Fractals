@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://2ifel0tvcpcw" path="res://src/complex_number_selector/complex_number_selector.gd" id="1_7iar7"]
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_ww7gh"]
 [ext_resource type="Shader" uid="uid://bxpiau60kxhy8" path="res://src/shaders/round_corners.gdshader" id="2_7iar7"]
-[ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/madelbrot_fractal/mandelbrot.gdshader" id="3_8nw14"]
+[ext_resource type="Shader" uid="uid://c80s5w5giyso1" path="res://src/mandelbrot_fractal/mandelbrot.gdshader" id="3_8nw14"]
 [ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="4_5bp0b"]
 [ext_resource type="Script" uid="uid://ciog047ujklpr" path="res://src/complex_number_selector/complex_grid.gd" id="4_8nw14"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_aajhq"]

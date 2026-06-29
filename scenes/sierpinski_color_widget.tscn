@@ -96,6 +96,12 @@ baseline_offset = -0.125
 base_font = ExtResource("15_05gq4")
 variation_embolden = 1.1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mihtr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vagwo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8hv7"]
+
 [node name="SierpinskiColorWidget" type="Control" unique_id=374050701]
 layout_mode = 3
 anchors_preset = 15
@@ -132,13 +138,14 @@ text = "Coloring Method"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme = ExtResource("14_mav66")
 alignment = 1
 selected = 2
 item_count = 3
 popup/item_0/text = "Plain Color"
 popup/item_0/id = 1
-popup/item_1/text = "HUE based on Position"
+popup/item_1/text = "HUE"
 popup/item_1/id = 2
 popup/item_2/text = "Gradient"
 popup/item_2/id = 4
@@ -175,6 +182,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+focus_mode = 0
 toggle_mode = true
 texture_normal = ExtResource("17_vagwo")
 texture_pressed = ExtResource("18_i8hv7")
@@ -221,6 +229,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 
 [node name="Control6" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1073678701]
 layout_mode = 2
@@ -248,6 +257,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 color = Color(1, 1, 1, 1)
 
 [node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1660638526]
@@ -306,7 +316,11 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("14_mav66")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mihtr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vagwo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i8hv7")
 
 [node name="Control5" type="Control" parent="PanelContainer/VBoxContainer" unique_id=68680966]
 layout_mode = 2

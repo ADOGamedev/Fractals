@@ -198,7 +198,7 @@ offset_bottom = 165.0
 scale = Vector2(0.535, 0.535)
 text = "Main"
 direction = 0
-displacement = Vector2(311, 0)
+displacement = Vector2(351, 0)
 parent_hidden = false
 
 [node name="constant" parent="CanvasLayer" unique_id=1407435493 instance=ExtResource("8_i5g6i")]
@@ -219,11 +219,12 @@ offset_right = -0.14401245
 offset_bottom = 0.069992065
 
 [node name="InOutWidget" parent="CanvasLayer/constant" unique_id=261459061 instance=ExtResource("7_4fdp8")]
+custom_minimum_size = Vector2(122, 89)
 layout_mode = 0
-offset_left = 276.0
-offset_top = 43.0
-offset_right = 393.0
-offset_bottom = 117.68421
+offset_left = 275.0
+offset_top = 36.0
+offset_right = 410.0
+offset_bottom = 125.0
 theme_override_font_sizes/font_size = 25
 text = "Constant
 Term"
@@ -248,10 +249,10 @@ offset_bottom = 0.0
 
 [node name="InOutWidget" parent="CanvasLayer/z" unique_id=1510959170 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -105.0
-offset_top = 43.0
+offset_left = -131.0
+offset_top = 36.0
 offset_right = 2.0
-offset_bottom = 117.68421
+offset_bottom = 125.0
 theme_override_font_sizes/font_size = 25
 text = "Initial 
 Number"
@@ -296,16 +297,17 @@ value = 1.0
 
 [node name="InOutWidget" parent="CanvasLayer/exponent" unique_id=495871915 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -124.00004
-offset_top = 10.000011
-offset_right = 111.51412
-offset_bottom = 94.11226
+offset_left = -139.99994
+offset_top = 9.000021
+offset_right = 125.42059
+offset_bottom = 98.71963
 scale = Vector2(0.535, 0.535)
 text = "Exponent"
 direction = 0
-displacement = Vector2(312, 0)
+displacement = Vector2(307, 0)
 
 [node name="MandelbulbColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("9_5tp42")]
+unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
@@ -321,8 +323,8 @@ scale = Vector2(0.87, 0.87)
 layout_mode = 0
 offset_left = 463.21838
 offset_top = 197.70122
-offset_right = 598.1777
-offset_bottom = 340.79068
+offset_right = 614.6061
+offset_bottom = 365.90973
 scale = Vector2(0.615, 0.615)
 text = "Color"
 displacement = Vector2(-437, 0)

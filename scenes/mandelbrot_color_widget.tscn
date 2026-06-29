@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cjqotmay3hwia"]
 
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_7pcls"]
-[ext_resource type="Script" uid="uid://dtpmonlq4n2v2" path="res://src/madelbrot_fractal/mandelbrot_color_widget.gd" id="1_avj2j"]
+[ext_resource type="Script" uid="uid://dtpmonlq4n2v2" path="res://src/mandelbrot_fractal/mandelbrot_color_widget.gd" id="1_avj2j"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_avj2j"]
 [ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_wup21"]
 [ext_resource type="Gradient" path="res://gradients/cream.tres" id="3_dynds"]
@@ -50,6 +50,14 @@ variation_embolden = 1.1
 [sub_resource type="FontVariation" id="FontVariation_xp7sd"]
 base_font = ExtResource("3_xp7sd")
 variation_embolden = 1.1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_66ye8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfbkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8kix3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kyjbt"]
 
 [sub_resource type="FontVariation" id="FontVariation_t1ain"]
 base_font = ExtResource("3_xp7sd")
@@ -127,6 +135,7 @@ text = "Gradient Mapping "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme = ExtResource("2_avj2j")
 alignment = 1
 selected = 0
@@ -161,7 +170,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("2_avj2j")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_66ye8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lfbkb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8kix3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kyjbt")
 
 [node name="Control7" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1162859938]
 layout_mode = 2
@@ -195,6 +209,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+focus_mode = 0
 toggle_mode = true
 texture_normal = ExtResource("6_t1ain")
 texture_pressed = ExtResource("7_dh67l")
@@ -241,6 +256,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 color = Color(1, 1, 1, 1)
 
 [node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1660638526]
@@ -299,7 +315,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("2_avj2j")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_66ye8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lfbkb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8kix3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kyjbt")
 button_pressed = true
 
 [node name="color_inside" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=871871007]
@@ -317,7 +338,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("2_avj2j")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_66ye8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lfbkb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8kix3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kyjbt")
 
 [node name="Control6" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1073678701]
 layout_mode = 2

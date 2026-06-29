@@ -14,7 +14,7 @@ border_blend = true
 shadow_size = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmoh6"]
-bg_color = Color(0.31, 0.31, 0.31, 0.54901963)
+bg_color = Color(0, 0, 0, 0.54901963)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
