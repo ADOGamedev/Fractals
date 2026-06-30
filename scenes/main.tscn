@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://ds5ev0pss41f3" path="res://scenes/mandelbrot_fractal.tscn" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://gd5oqyinimrw" path="res://assets/fractal_images/mandelbulb.png" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://7phhin0lwyhr" path="res://scenes/mandelbulb_fractal.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://y17qe67c5klj" path="res://scenes/n_flake.tscn" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://bbgroli1cecq" path="res://assets/fractal_images/sierpinski.png" id="10_ya4ey"]
-[ext_resource type="PackedScene" uid="uid://c3tw8sb50jac" path="res://scenes/sierpinski_triangle.tscn" id="11_eb6dy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
 shader = ExtResource("2_0wfyh")
@@ -85,15 +85,15 @@ secondary_label = "Includes:
 With Julia mode."
 scene = ExtResource("8_tipki")
 
-[node name="sierpinski_display_panel" parent="MarginContainer/GridContainer" unique_id=257197875 instance=ExtResource("3_sugp2")]
+[node name="n_flake_display_panel" parent="MarginContainer/GridContainer" unique_id=257197875 instance=ExtResource("3_sugp2")]
 z_index = -1
 custom_minimum_size = Vector2(234.585, 234.585)
 layout_mode = 2
 size_flags_vertical = 4
 image = ExtResource("10_ya4ey")
-label = "Sierpinski Triangle"
+label = "Sierpinski Polyflakes"
 secondary_label = "Includes:
     · Siperinski's Triangle
     · Vicsek's Fractal
     · Any other N-Flake"
-scene = ExtResource("11_eb6dy")
+scene = ExtResource("9_85g3d")

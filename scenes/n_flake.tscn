@@ -1,21 +1,276 @@
 [gd_scene format=3 uid="uid://y17qe67c5klj"]
 
 [ext_resource type="Shader" uid="uid://dhrb821i1fux5" path="res://src/n_flake/n_flake.gdshader" id="1_ajs3g"]
+[ext_resource type="Script" uid="uid://ca0dmhsx6mnnn" path="res://src/n_flake/n_flake.gd" id="2_3g4sd"]
+[ext_resource type="Script" uid="uid://c1xt5o30utjl7" path="res://src/camera/camera_2d.gd" id="2_eqfkk"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="3_3g4sd"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="4_7y71y"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="5_et7kj"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="6_3h7sy"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_hk775"]
+[ext_resource type="PackedScene" uid="uid://xj7n5iawbntx" path="res://scenes/n_flake_color_widget.tscn" id="8_a2pt7"]
+[ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="9_vhm6x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64vu0"]
 shader = ExtResource("1_ajs3g")
 shader_parameter/iterations = 5
-shader_parameter/sides = 6
-shader_parameter/scale = 0.5
+shader_parameter/sides = 5
+shader_parameter/scale = 0.38
 shader_parameter/radius = 0.4
 shader_parameter/include_center = false
+shader_parameter/auto_scale = true
+shader_parameter/negative_space = false
+shader_parameter/color_by_position = false
+shader_parameter/color_by_iterations = false
+shader_parameter/color_by_overlap = false
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/gradient_repetition = 7.0
+shader_parameter/gradient_attenuation = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc2rp"]
+shader = ExtResource("3_3g4sd")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lbs0"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_mcxrb"]
+base_font = ExtResource("6_3h7sy")
+variation_embolden = 1.1
 
 [node name="NFlake" type="ColorRect" unique_id=563610797]
 material = SubResource("ShaderMaterial_64vu0")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_3g4sd")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1163327720]
+position = Vector2(576, 324)
+limit_enabled = false
+position_smoothing_speed = 50.0
+script = ExtResource("2_eqfkk")
+limits = [0, 0, 1280, 720]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=243320051 groups=["canvas_layer"]]
+
+[node name="main_panel" type="Control" parent="CanvasLayer" unique_id=1697433551]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=373068901]
+material = SubResource("ShaderMaterial_yc2rp")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 884.0
+offset_top = 374.0
+offset_right = 1210.0
+offset_bottom = 655.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("4_7y71y")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7lbs0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main_panel/Panel" unique_id=1244142182]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -2
+
+[node name="iterations" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("5_et7kj")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Iterations"
+integer = true
+curr_value = 10.0
+exp_maximum = 50000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/Panel/VBoxContainer/iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 25.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control3" type="Control" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1370604030]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
+
+[node name="sides" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=109668394 instance=ExtResource("5_et7kj")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Sides"
+integer = true
+exp_edit = true
+curr_value = 3.0
+exp_maximum = 2500
+
+[node name="HSlider" parent="CanvasLayer/main_panel/Panel/VBoxContainer/sides" index="0" unique_id=1601533653]
+min_value = 3.0
+max_value = 10.0
+step = 0.0
+value = 3.0
+allow_greater = true
+
+[node name="Control6" type="Control" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=965027133]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
+
+[node name="scale" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1886312153 instance=ExtResource("5_et7kj")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Scale"
+curr_value = 0.5
+exp_maximum = 50000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/Panel/VBoxContainer/scale" index="0" unique_id=1601533653]
+max_value = 1.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control4" type="Control" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1565692808]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.83
+
+[node name="auto_iterations" type="HBoxContainer" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1990713234]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/Panel/VBoxContainer/auto_iterations" unique_id=167391696]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_mcxrb")
+text = "Auto Iterations"
+
+[node name="auto_iterations_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/Panel/VBoxContainer/auto_iterations" unique_id=414431380]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+button_pressed = true
+
+[node name="Control2" type="Control" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1272933259]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.18
+
+[node name="include_center" type="HBoxContainer" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1017276286]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/Panel/VBoxContainer/include_center" unique_id=1713402717]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_mcxrb")
+text = "Include Center"
+
+[node name="include_center_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/Panel/VBoxContainer/include_center" unique_id=933094804]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="Control5" type="Control" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=921600841]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.18
+
+[node name="auto_scale" type="HBoxContainer" parent="CanvasLayer/main_panel/Panel/VBoxContainer" unique_id=1011864609]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/Panel/VBoxContainer/auto_scale" unique_id=1358459100]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_mcxrb")
+text = "Auto Scale"
+
+[node name="auto_scale_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/Panel/VBoxContainer/auto_scale" unique_id=1378710843]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("7_hk775")]
+layout_mode = 0
+offset_left = 848.00006
+offset_top = 521.00006
+offset_right = 994.29913
+offset_bottom = 664.92523
+scale = Vector2(0.535, 0.535)
+theme_override_font_sizes/font_size = 40
+text = "Main"
+direction = 0
+displacement = Vector2(357, 0)
+parent_hidden = false
+
+[node name="NFlakeColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("8_a2pt7")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 31.0
+offset_top = -300.0
+offset_right = 307.0
+offset_bottom = -220.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.87, 0.87)
+metadata/_edit_use_anchors_ = true
+
+[node name="InOutWidget" parent="CanvasLayer/NFlakeColorWidget" unique_id=1086680021 instance=ExtResource("7_hk775")]
+layout_mode = 0
+offset_left = 447.12646
+offset_top = 116.091965
+offset_right = 599.12646
+offset_bottom = 278.09198
+scale = Vector2(0.535, 0.535)
+text = " Color "
+displacement = Vector2(-422, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("9_vhm6x")]
+metadata/_edit_use_anchors_ = true
+
+[connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
+
+[editable path="CanvasLayer/main_panel/Panel/VBoxContainer/iterations"]
+[editable path="CanvasLayer/main_panel/Panel/VBoxContainer/sides"]
+[editable path="CanvasLayer/main_panel/Panel/VBoxContainer/scale"]
