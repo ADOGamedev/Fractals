@@ -1,21 +1,21 @@
 [gd_scene format=3 uid="uid://y17qe67c5klj"]
 
-[ext_resource type="Shader" uid="uid://tpsmpwoo1k4c" path="res://n_flake.gdshader" id="1_ajs3g"]
+[ext_resource type="Shader" uid="uid://dhrb821i1fux5" path="res://src/n_flake/n_flake.gdshader" id="1_ajs3g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64vu0"]
 shader = ExtResource("1_ajs3g")
-shader_parameter/u_sides = 6
-shader_parameter/u_radius = 1.0
-shader_parameter/u_scale = 0.33
-shader_parameter/u_include_center = true
-shader_parameter/u_iterations = 10
-shader_parameter/u_color_inside = Vector4(0.8, 0.9, 1, 1)
-shader_parameter/u_color_outside = Vector4(0, 0, 0, 1)
+shader_parameter/iterations = 5
+shader_parameter/sides = 6
+shader_parameter/scale = 0.5
+shader_parameter/radius = 0.4
+shader_parameter/include_center = false
 
 [node name="NFlake" type="ColorRect" unique_id=563610797]
 material = SubResource("ShaderMaterial_64vu0")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2

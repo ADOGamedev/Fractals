@@ -18,6 +18,8 @@ func _ready() -> void:
 	%MandelbulbColorWidget.set_gradient_repetition_target_value(%ray_march_iterations.get_value())
 
 func _process(delta: float) -> void:
+	Global.current_shader_material = material
+	
 	if Input.is_action_just_pressed("exit"):
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 

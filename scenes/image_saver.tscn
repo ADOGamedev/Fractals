@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://8bfgchru2cr2"]
+
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_72vo0"]
+[ext_resource type="Script" uid="uid://crvbp8icy67dv" path="res://src/image_saver/image_saver.gd" id="1_wd3pt"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_wd3pt"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_3u3ms"]
+[ext_resource type="Texture2D" uid="uid://du1oh6xjemlhv" path="res://assets/sprites/folder_button.png" id="5_icukn"]
+[ext_resource type="Texture2D" uid="uid://b2f62w4upyv7g" path="res://assets/sprites/folder_button_pressed.png" id="6_irtgy"]
+[ext_resource type="Texture2D" uid="uid://o1fn46ihl8le" path="res://assets/sprites/folder_button_hover.png" id="7_jhgei"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0id5"]
+shader = ExtResource("1_72vo0")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72vo0"]
+content_margin_left = 35.0
+content_margin_top = 35.0
+content_margin_right = 35.0
+content_margin_bottom = 35.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_icukn"]
+base_font = ExtResource("3_3u3ms")
+variation_embolden = 1.1
+
+[node name="ImageSaver" type="Control" unique_id=1187054237]
+process_mode = 3
+z_index = 11
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -131.0
+offset_right = 192.0
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wd3pt")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1743799983]
+process_mode = 3
+z_index = 11
+material = SubResource("ShaderMaterial_h0id5")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -130.5
+offset_right = 192.0
+offset_bottom = 130.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_72vo0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1151683583]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="resolution_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=138159634]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="resolution_label" type="Label" parent="Panel/VBoxContainer/resolution_hbox_cont" unique_id=1931218187]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+theme = ExtResource("2_wd3pt")
+theme_override_fonts/font = SubResource("FontVariation_icukn")
+text = "Resolution"
+
+[node name="resolutions_option_button" type="OptionButton" parent="Panel/VBoxContainer/resolution_hbox_cont" unique_id=75494289]
+unique_name_in_owner = true
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wd3pt")
+alignment = 1
+
+[node name="name_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=39104855]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="name_label" type="Label" parent="Panel/VBoxContainer/name_hbox_cont" unique_id=1889892734]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.39
+theme = ExtResource("2_wd3pt")
+theme_override_fonts/font = SubResource("FontVariation_icukn")
+text = "Name"
+
+[node name="name_line_edit" type="LineEdit" parent="Panel/VBoxContainer/name_hbox_cont" unique_id=771843951]
+unique_name_in_owner = true
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wd3pt")
+placeholder_text = "Name of the file"
+
+[node name="path_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=340730253]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="path_label" type="Label" parent="Panel/VBoxContainer/path_hbox_cont" unique_id=844221057]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.45
+theme = ExtResource("2_wd3pt")
+theme_override_fonts/font = SubResource("FontVariation_icukn")
+text = "Path"
+
+[node name="path_line_edit" type="LineEdit" parent="Panel/VBoxContainer/path_hbox_cont" unique_id=2099552674]
+unique_name_in_owner = true
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wd3pt")
+placeholder_text = "Path to the folder"
+
+[node name="folder_button" type="TextureButton" parent="Panel/VBoxContainer/path_hbox_cont" unique_id=1809915272]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.17
+texture_normal = ExtResource("5_icukn")
+texture_pressed = ExtResource("6_irtgy")
+texture_hover = ExtResource("7_jhgei")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=641858218]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="cancel_button" type="Button" parent="Panel/VBoxContainer/HBoxContainer4" unique_id=1182698036]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wd3pt")
+text = "Cancel"
+
+[node name="accept_button" type="Button" parent="Panel/VBoxContainer/HBoxContainer4" unique_id=815471944]
+unique_name_in_owner = true
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wd3pt")
+text = "Accept"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1539342035]
+process_mode = 3
+oversampling_override = 1.0
+title = "Select a Folder"
+initial_position = 4
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[connection signal="pressed" from="Panel/VBoxContainer/path_hbox_cont/folder_button" to="." method="_on_folder_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer4/cancel_button" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer4/accept_button" to="." method="_on_accept_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]

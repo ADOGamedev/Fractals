@@ -44,6 +44,8 @@ func _process(_delta: float) -> void:
 
 	%MandelbrotColorWidget.set_gradient_repetition_initial_value(%iterations.get_value())
 
+	Global.current_shader_material = material
+
 
 func set_complex_selectors_parameters() -> void:
 	var burning_ship = %fractals_option_button.selected == Fractals.BURNING_SHIP

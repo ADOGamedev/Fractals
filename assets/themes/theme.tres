@@ -13,6 +13,83 @@
 base_font = ExtResource("6_w1xho")
 variation_embolden = 1.1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jiit0"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.64705884)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.20368072, 0.20368096, 0.20368084, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsg80"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.37, 0.37, 0.37, 0.5254902)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5069202, 0.5069202, 0.5069202, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yvtd"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.5254902)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5069202, 0.5069202, 0.5069202, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx5bd"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09, 0.09, 0.09, 0.92941177)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.51, 0.51, 0.51, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_offset = Vector2(0, -10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jxxn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yq78"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ggvm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx550"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hooha"]
 bg_color = Color(1, 1, 1, 0.25882354)
 border_color = Color(1, 1, 1, 0.61960787)
@@ -59,6 +136,46 @@ expand_margin_bottom = 18.0
 [sub_resource type="FontVariation" id="FontVariation_p0u25"]
 base_font = ExtResource("1_7egdk")
 baseline_offset = -0.125
+
+[sub_resource type="FontVariation" id="FontVariation_yrt3j"]
+base_font = ExtResource("6_w1xho")
+variation_embolden = 1.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hf3ik"]
+content_margin_left = 9.0
+bg_color = Color(0.10224319, 0.10224321, 0.10224321, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.88453114, 0.88453114, 0.884531, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.23921569)
+shadow_size = 3
+shadow_offset = Vector2(0, 3.725)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkvlu"]
+content_margin_left = 9.0
+bg_color = Color(0.10224319, 0.10224321, 0.10224321, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6419339, 0.64193404, 0.64193374, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.23921569)
+shadow_size = 3
+shadow_offset = Vector2(0, 3.725)
 
 [sub_resource type="FontVariation" id="FontVariation_w1xho"]
 base_font = ExtResource("6_w1xho")
@@ -195,14 +312,20 @@ shadow_color = Color(0, 0, 0, 0)
 shadow_size = 5
 shadow_offset = Vector2(0, 10)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1xho"]
-
 [resource]
 Button/fonts/font = SubResource("FontVariation_7448a")
+Button/styles/disabled = SubResource("StyleBoxFlat_jiit0")
+Button/styles/hover = SubResource("StyleBoxFlat_qsg80")
+Button/styles/normal = SubResource("StyleBoxFlat_5yvtd")
+Button/styles/pressed = SubResource("StyleBoxFlat_sx5bd")
 CheckBox/icons/checked = ExtResource("1_ji1hq")
 CheckBox/icons/checked_disabled = ExtResource("3_hvjga")
 CheckBox/icons/unchecked = ExtResource("2_w1xho")
 CheckBox/icons/unchecked_disabled = ExtResource("4_fq388")
+CheckBox/styles/hover = SubResource("StyleBoxFlat_4jxxn")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_2yq78")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_5ggvm")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_sx550")
 HSlider/icons/grabber = ExtResource("1_pdjgs")
 HSlider/icons/grabber_highlight = ExtResource("2_hooha")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_hooha")
@@ -210,6 +333,9 @@ HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_ji1hq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_pdjgs")
 Label/font_sizes/font_size = 20
 Label/fonts/font = SubResource("FontVariation_p0u25")
+LineEdit/fonts/font = SubResource("FontVariation_yrt3j")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_hf3ik")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_rkvlu")
 OptionButton/fonts/font = SubResource("FontVariation_w1xho")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_w1xho")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_fq388")
@@ -223,4 +349,3 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_yrt3j")
 PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_w1xho")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_fq388")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_7448a")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_w1xho")
