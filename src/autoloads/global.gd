@@ -22,11 +22,14 @@ func _process(_delta: float) -> void:
 		ui_hidden = !ui_hidden
 		set_canvas_layers_visibility(!ui_hidden)
 
-	if Input.is_action_just_pressed("screenshot") and img_saver == null and current_shader_material != null:
-		img_saver = file_saver_scene.instantiate()
-		get_tree().root.add_child(img_saver)
+	if Input.is_action_just_pressed("save_img") and img_saver == null and current_shader_material != null:
+		save_img_pressed()
 
 
 func set_canvas_layers_visibility(visible: bool) -> void:
 	get_tree().call_group("canvas_layer", "show" if visible else "hide")
 
+
+func save_img_pressed() -> void:
+	img_saver = file_saver_scene.instantiate()
+	get_tree().root.add_child(img_saver)

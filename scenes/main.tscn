@@ -29,6 +29,7 @@ mouse_filter = 2
 script = ExtResource("1_jyhfs")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1124986254]
+z_index = -100
 material = SubResource("ShaderMaterial_sugp2")
 layout_mode = 1
 anchors_preset = 15
@@ -46,37 +47,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 75
-theme_override_constants/margin_top = 75
-theme_override_constants/margin_right = 75
+theme_override_constants/margin_left = 108
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 108
 theme_override_constants/margin_bottom = 75
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=1653557943]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/h_separation = 40
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 65
 columns = 4
 
-[node name="mandelbrot_display_panel" parent="MarginContainer/GridContainer" unique_id=597368466 instance=ExtResource("3_sugp2")]
-custom_minimum_size = Vector2(252.065, 272.635)
+[node name="mandelbrot_display_panel" parent="MarginContainer/GridContainer" unique_id=928070062 instance=ExtResource("3_sugp2")]
+z_index = -1
+custom_minimum_size = Vector2(234.585, 234.585)
 layout_mode = 2
 size_flags_vertical = 4
 image = ExtResource("4_jyhfs")
 label = "Complex Fractals 2D"
+secondary_label = "Includes:
+    · Mandelbrot Fractal
+    · Burning Ship Fractal
+    · Rings Fractal
+All with their respective Julia modes"
 scene = ExtResource("5_tefeu")
 
 [node name="mandelbulb_display_panel" parent="MarginContainer/GridContainer" unique_id=72433992 instance=ExtResource("3_sugp2")]
-custom_minimum_size = Vector2(252.065, 272.635)
+z_index = -1
+custom_minimum_size = Vector2(234.585, 234.585)
 layout_mode = 2
 size_flags_vertical = 4
 image = ExtResource("7_o6xl0")
 label = "Complex Fractals 3D"
+secondary_label = "Includes:
+    · The Mandelbulb
+With Julia mode."
 scene = ExtResource("8_tipki")
 
 [node name="sierpinski_display_panel" parent="MarginContainer/GridContainer" unique_id=257197875 instance=ExtResource("3_sugp2")]
-custom_minimum_size = Vector2(252.065, 272.635)
+z_index = -1
+custom_minimum_size = Vector2(234.585, 234.585)
 layout_mode = 2
 size_flags_vertical = 4
 image = ExtResource("10_ya4ey")
 label = "Sierpinski Triangle"
+secondary_label = "Includes:
+    · Siperinski's Triangle
+    · Vicsek's Fractal
+    · Any other N-Flake"
 scene = ExtResource("11_eb6dy")

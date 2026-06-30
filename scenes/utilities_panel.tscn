@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://f2dpqdxkbe67" path="res://assets/sprites/cross.png" id="2_qo2f3"]
 [ext_resource type="Texture2D" uid="uid://c21087dramgtv" path="res://assets/sprites/restart_camera_button.png" id="3_raht5"]
 [ext_resource type="Texture2D" uid="uid://dtfcw5rsid85w" path="res://assets/sprites/restart_button.png" id="4_dv00b"]
+[ext_resource type="Texture2D" uid="uid://bruvv1t117odj" path="res://assets/sprites/save_img_icon.png" id="6_b87lo"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="6_brem2"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_b87lo"]
 
@@ -111,9 +112,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -78.0
+offset_left = -94.0
 offset_top = 21.0
-offset_right = 80.0
+offset_right = 95.0
 offset_bottom = 65.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -155,12 +156,23 @@ icon = ExtResource("4_dv00b")
 icon_alignment = 1
 expand_icon = true
 
+[node name="save_img_button" type="Button" parent="PanelContainer/HBoxContainer" unique_id=1967601019]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
+icon = ExtResource("6_b87lo")
+icon_alignment = 1
+expand_icon = true
+
 [node name="close_fractal_panel" type="Panel" parent="." unique_id=1952804074]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -96.0
+offset_left = -112.0
 offset_top = 65.0
-offset_right = -5.0
+offset_right = -21.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_brem2")
@@ -170,6 +182,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = SubResource("FontVariation_tik6r")
@@ -181,9 +195,9 @@ vertical_alignment = 1
 [node name="reset_camera_panel" type="Panel" parent="." unique_id=1412301020]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -45.0
+offset_left = -68.0
 offset_top = 65.0
-offset_right = 46.0
+offset_right = 23.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -204,9 +218,9 @@ vertical_alignment = 1
 [node name="reset_panel" type="Panel" parent="." unique_id=5716802]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 6.0
+offset_left = -21.0
 offset_top = 65.0
-offset_right = 97.0
+offset_right = 70.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -224,6 +238,40 @@ text = "Reset Fractal"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="save_img_panel" type="Panel" parent="." unique_id=798069485]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -2.0
+offset_top = 65.0
+offset_right = 141.0
+offset_bottom = 92.0
+theme = ExtResource("6_brem2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="save_img_panel" unique_id=723274494]
+layout_mode = 0
+offset_right = 143.0
+offset_bottom = 26.0
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="save_img_panel/HBoxContainer" unique_id=1970457696]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "Save Fractal Image"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="save_img_panel/HBoxContainer" unique_id=1469673183]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6288588, 0.62885886, 0.6288588, 1)
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "[F3]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="mouse_entered" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]
@@ -233,3 +281,6 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/save_img_button" to="." method="_on_save_img_button_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/save_img_button" to="." method="_on_save_img_button_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/save_img_button" to="." method="_on_save_img_button_pressed"]
