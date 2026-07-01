@@ -1,13 +1,15 @@
 shader_type canvas_item;
 
-const vec3 light_source_vector = vec3(-1., -1., -1.);
+const vec3 light_dir = normalize(vec3(-1., -1., -1.));
 
-uniform float mandelboox_space_scale = 0.1;
+const float mandelboox_space_scale = 10.;
 
 uniform float ratio = 1.77777777777;
 uniform float scale = 1.;
 uniform vec3 camPos = vec3(0., 0., -3.);
 uniform vec3 camDir = vec3(0., 0., 1.);
+uniform vec3 camRight = vec3(0., 0., 0.);
+uniform vec3 camUp = vec3(0., 0., 0.);
 
 uniform vec3 initial_z = vec3(0.);
 uniform vec3 constant_c = vec3(0.5, 0.1, 0.3);
@@ -40,27 +42,15 @@ uniform float mandelbox_s = 2.;
 uniform float mandelbox_r = 0.5;
 uniform float mandelbox_or = 1.0;
 
-vec3 boxFold(vec3 z){
-    return clamp(z, -1.0, 1.0) * 2.0 - z;
-}
-
-vec3 sphereFold(in vec3 z, inout float dz) {
+void sphereFold(inout vec3 z, inout float dz) {
     float r2 = dot(z, z);
-    float inv_r2 = inversesqrt(r2 + 1e-8);
-    float r = r2 * inv_r2;
-
-    float cond1 = step(r, mandelbox_r);
-    float cond2 = step(r, mandelbox_or) * (1.0 - cond1);
-
-    float scale1 = 4.0;
-    float scale2 = 1.0 / (r2 + 1e-8);
-
-    float s = cond1 * scale1 + cond2 * scale2 + (1.0 - cond1 - cond2);
-
-    z *= s;
-    dz *= s;
-
-    return z;
+    float min_r2 = mandelbox_r * mandelbox_r;
+    float fixed_r2 = mandelbox_or * mandelbox_or;
+    
+    float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
+    
+    z *= factor;
+    dz *= factor;
 }
 
 
@@ -91,7 +81,8 @@ float sdMandelbulb(vec3 pos) {
 		z+=pos;
 	}
 
-	return 0.5*log(r)*r/dr;
+	float lr = log(max(r,1e-6));
+	return 0.5*lr*r/dr;
 }
 
 float sdJuliaMandelbulb(vec3 pos) {
@@ -126,14 +117,24 @@ float sdJuliaMandelbulb(vec3 pos) {
 float sdMandelbox(vec3 pos) {
 	vec3 z = initial_z;
 	float s = mandelbox_s;
-	vec3 c = pos;
 	float dr = 1.0;
 	
+	float min_r2 = mandelbox_r * mandelbox_r;
+    float fixed_r2 = mandelbox_or * mandelbox_or;
+    int max_i = int(iterations);
+	
 	for (int n = 0; n < int(iterations); n++) {
-		z = mandelbox_f * boxFold(z);
-		z = sphereFold(z, dr);
-		z = s * z + c;
-		dr = dr * abs(s) + 1.0;
+        z = clamp(mandelbox_f * z, -1.0, 1.0) * 2.0 - mandelbox_f * z;
+        
+        float r2 = dot(z, z);
+        if (r2 > 400.0) break;
+        
+        float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
+        z *= factor;
+        dr *= factor;
+        
+        z = s * z + pos;
+        dr = dr * abs(s) + 1.0;
 	}
 	
 	float r = length(z);
@@ -143,14 +144,24 @@ float sdMandelbox(vec3 pos) {
 float sdJuliaMandelbox(vec3 pos) {
 	vec3 z = pos;
 	float s = mandelbox_s;
-	vec3 c = constant_c;
 	float dr = 1.0;
+	
+	float min_r2 = mandelbox_r * mandelbox_r;
+    float fixed_r2 = mandelbox_or * mandelbox_or;
+    int max_i = int(iterations);
+	
 	for (int n = 0; n < int(iterations); n++) {
-
-		z = boxFold(z);
-		z = sphereFold(z, dr);
-		z = s * z + c;
-		dr = dr * abs(s) + 1.0;
+        z = clamp(mandelbox_f * z, -1.0, 1.0) * 2.0 - mandelbox_f * z;
+        
+        float r2 = dot(z, z);
+        if (r2 > 400.0) break;
+        
+        float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
+        z *= factor;
+        dr *= factor;
+        
+        z = s * z + constant_c;
+        dr = dr * abs(s) + 1.0;
 	}
 	
 	float r = length(z);
@@ -201,7 +212,7 @@ float map(in vec3 p) {
 		p *= mandelboox_space_scale;
 		float d = julia ? sdJuliaMandelbox(p) : sdMandelbox(p);
 	
-		return d / mandelboox_space_scale;
+		return abs(d) / mandelboox_space_scale;
 	}
 	
 	return julia ? sdJuliaMandelbulb(p) : sdMandelbulb(p);
@@ -222,9 +233,7 @@ vec3 normals(in vec3 p) {
 void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, -1.) * scale;
 	float iters;
-	
-	vec3 camRight = normalize(cross(camDir, vec3(0.0, 1.0, 0.0)));
-	vec3 camUp    = cross(camRight, camDir);
+	float dt = mandelbox ? 0.02 : 3.;
 
 	vec3 rayDir = normalize(
     	camDir +
@@ -238,7 +247,7 @@ void fragment() {
 
 	for (int i = 0; i < int(ray_march_iterations); i++) {
     	rayPos = camPos + rayDir * t;
-    	float d = map(rayPos);
+    	float d = false ? map(rayPos) * mandelboox_space_scale : map(rayPos);
 		
 		iters = fract(float(i) / float(gradient_repetition));
 	    if (d < lower_bound) {
@@ -250,18 +259,22 @@ void fragment() {
         	break;
     	}
 
-    	t += min(2, d);
+    	t += clamp(d, lower_bound, dt);
 	}
 
 	if (hit || !single_color_bg) {
-    	vec3 n = normals(rayPos);
-    	float dp = dot(normalize(-light_source_vector), n);
+		float dp = 0.;
+		vec3 n;
+		if (hit) {
+    		n = normals(rayPos);
+    		dp = dot(light_dir, n);
+		}
 		
 		iters = pow(iters, gradient_attenuation);
 		iters = fract(iters + gradient_offset);
 		vec3 grad_color = texture(gradient, vec2(iters, 0.)).xyz * iteratios_coloring_strength;
 		
-		vec3 base = (rayPos / 2. + .5) * hit_pos_strength  + grad_color * iteratios_coloring_strength;
+		vec3 base = (rayPos * 0.5 + .5) * hit_pos_strength  + grad_color * iteratios_coloring_strength;
 		COLOR = vec4(max(vec3(0.), base * (ambient_light + dp * lighting_strength)), 1.);
 	} else {
 		COLOR = vec4(bg_color, 1.);

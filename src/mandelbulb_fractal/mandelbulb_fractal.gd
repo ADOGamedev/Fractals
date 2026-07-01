@@ -17,8 +17,33 @@ var camera_pitch = 0
 
 var dragging = false
 
+@onready var ray_march_iterations = %ray_march_iterations
+@onready var iterations = %iterations
+@onready var exp = %exp
+@onready var exponent = %exponent
+@onready var lower_bound = %lower_bound
+@onready var fractals_option_button = %fractals_option_button
+@onready var julia_checkbox = %julia_checkbox
+
+@onready var z = %z
+@onready var constant = %constant
+
+@onready var mandelbox_s = %mandelbox_s
+@onready var mandelbox_r = %mandelbox_r
+@onready var mandelbox_or = %mandelbox_or
+@onready var mandelbox_f = %mandelbox_f
+@onready var mandelbox_parameters = %mandelbox_parameters
+
+@onready var mandelbulb_color_widget = %MandelbulbColorWidget
+
+var gradient_tex := GradientTexture2D.new()
+
+var last_mandelbox = null
+var last_julia = null
+
+
 func _ready() -> void:
-	%MandelbulbColorWidget.set_gradient_repetition_target_value(%ray_march_iterations.get_value())
+	mandelbulb_color_widget.set_gradient_repetition_target_value(ray_march_iterations.get_value())
 
 func _process(delta: float) -> void:
 	Global.current_shader_material = material
@@ -29,7 +54,7 @@ func _process(delta: float) -> void:
 	update_shader_parameters()
 	update_camera_transform(delta)
 
-	%MandelbulbColorWidget.set_gradient_repetition_initial_value(%ray_march_iterations.get_value())
+	mandelbulb_color_widget.set_gradient_repetition_initial_value(ray_march_iterations.get_value())
 
 
 func update_shader_parameters() -> void:
@@ -47,91 +72,104 @@ func update_shader_parameters() -> void:
 	grad_tex.gradient = MandelbulbConfig.gradient
 	material.set_shader_parameter("gradient", grad_tex)
 
-	var julia = %julia_checkbox.button_pressed
-	material.set_shader_parameter("ray_march_iterations", %ray_march_iterations.get_value())
-	material.set_shader_parameter("iterations", %iterations.get_value())
+	var julia = julia_checkbox.button_pressed
+	material.set_shader_parameter("ray_march_iterations", ray_march_iterations.get_value())
+	material.set_shader_parameter("iterations", iterations.get_value())
 	material.set_shader_parameter("julia", julia)
-	material.set_shader_parameter("exponent", %exp.get_value())
+	material.set_shader_parameter("exponent", exp.get_value())
 	
-	material.set_shader_parameter("lower_bound", %lower_bound.get_value())
+	material.set_shader_parameter("lower_bound", lower_bound.get_value())
 		
-	%z.set_disabled(julia)
-	%constant.set_disabled(!julia)
-	%z.get_node("InOutWidget").set_button_disabled(julia)
-	%constant.get_node("InOutWidget").set_button_disabled(!julia)
+	z.set_disabled(julia)
+	constant.set_disabled(!julia)
+	z.get_node("InOutWidget").set_button_disabled(julia)
+	constant.get_node("InOutWidget").set_button_disabled(!julia)
 
-	material.set_shader_parameter("initial_z", %z.get_complex_num())
-	material.set_shader_parameter("constant_c", %constant.get_complex_num())
+	material.set_shader_parameter("initial_z", z.get_complex_num())
+	material.set_shader_parameter("constant_c", constant.get_complex_num())
 
-	material.set_shader_parameter("mandelbox_s", %mandelbox_s.get_value())
-	material.set_shader_parameter("mandelbox_r", %mandelbox_r.get_value())
-	material.set_shader_parameter("mandelbox_or", %mandelbox_or.get_value())
-	material.set_shader_parameter("mandelbox_f", %mandelbox_f.get_value())
+	material.set_shader_parameter("mandelbox_s", mandelbox_s.get_value())
+	material.set_shader_parameter("mandelbox_r", mandelbox_r.get_value())
+	material.set_shader_parameter("mandelbox_or", mandelbox_or.get_value())
+	material.set_shader_parameter("mandelbox_f", mandelbox_f.get_value())
 
-	var mandelbox = %fractals_option_button.selected == MANDELBOX_INDEX
+	var mandelbox = fractals_option_button.selected == MANDELBOX_INDEX
 	material.set_shader_parameter("mandelbox", mandelbox)
 
-	%exp.set_disabled(mandelbox)
-	%exponent.get_node("InOutWidget").set_button_disabled(mandelbox)
+	exp.set_disabled(mandelbox)
+	exponent.get_node("InOutWidget").set_button_disabled(mandelbox)
 
-	%mandelbox_s.set_disabled(!mandelbox)
-	%mandelbox_r.set_disabled(!mandelbox)
-	%mandelbox_or.set_disabled(!mandelbox)
-	%mandelbox_f.set_disabled(!mandelbox)
-	%mandelbox_parameters.get_node("InOutWidget").set_button_disabled(!mandelbox)
+	mandelbox_s.set_disabled(!mandelbox)
+	mandelbox_r.set_disabled(!mandelbox)
+	mandelbox_or.set_disabled(!mandelbox)
+	mandelbox_f.set_disabled(!mandelbox)
+	mandelbox_parameters.get_node("InOutWidget").set_button_disabled(!mandelbox)
 
 
 func update_camera_transform(delta: float) -> void:
-	var camera_direction = Vector3(
-		cos(camera_pitch) * sin(camera_yaw),
-		sin(camera_pitch),
-		cos(camera_pitch) * cos(camera_yaw)
-	).normalized()
+	var cp = cos(camera_pitch)
+	var sp = sin(camera_pitch)
+	var cy = cos(camera_yaw)
+	var sy = sin(camera_yaw)
 
-	camera_position += get_input_direction(camera_direction) * camera_move_speed * delta
+	var camera_direction := Vector3(
+		cp * sy,
+		sp,
+		cp * cy
+	)
+
+	var world_up := Vector3.UP
+
+	var camera_right := camera_direction.cross(world_up)
+	if camera_right.length_squared() > 0.0:
+		camera_right = camera_right.normalized()
+
+	var camera_up := camera_right.cross(camera_direction)
+	if camera_up.length_squared() > 0.0:
+		camera_up = camera_up.normalized()
+
+	camera_position += get_input_direction(camera_direction, camera_right) * camera_move_speed * delta
 
 	material.set_shader_parameter("camPos", camera_position)
 	material.set_shader_parameter("camDir", camera_direction)
-
-func reset_camera() -> void:
-	var tween = get_tree().create_tween().set_parallel(true)
-	var camera_direction = Vector3(
-		cos(DEFAULT_CAMERA_PITCH) * sin(DEFAULT_CAMERA_YAW),
-		sin(DEFAULT_CAMERA_PITCH),
-		cos(DEFAULT_CAMERA_PITCH) * cos(DEFAULT_CAMERA_YAW)
-	).normalized()
-
-	tween.tween_property(self, "material:shader_parameter/camPos", DEFAULT_CAMERA_POSITION, 0.15)
-	tween.tween_property(self, "material:shader_parameter/camDir", camera_direction, 0.15)
-
-	await tween.finished
-
-	camera_position = DEFAULT_CAMERA_POSITION
-	camera_yaw = DEFAULT_CAMERA_YAW
-	camera_pitch = DEFAULT_CAMERA_PITCH
+	material.set_shader_parameter("camRight", camera_right)
+	material.set_shader_parameter("camUp", camera_up)
 
 
-func get_input_direction(cam_dir: Vector3) -> Vector3:
-	var world_up = Vector3.UP
-	var camera_right = cam_dir.cross(world_up).normalized()
-
+func get_input_direction(cam_dir: Vector3, cam_right: Vector3) -> Vector3:
 	var dir := Vector3.ZERO
-	if Input.is_action_pressed("left"):
-		dir -= camera_right
-	if Input.is_action_pressed("right"):
-		dir += camera_right
 
-	if Input.is_action_pressed("up"):
-		dir += Vector3.UP
-	if Input.is_action_pressed("down"):
-		dir += Vector3.DOWN
+	if Input.is_action_pressed("left"):
+		dir -= cam_right
+	if Input.is_action_pressed("right"):
+		dir += cam_right
 
 	if Input.is_action_pressed("forward"):
 		dir += cam_dir
 	if Input.is_action_pressed("backward"):
 		dir -= cam_dir
 
+	if Input.is_action_pressed("up"):
+		dir += Vector3.UP
+	if Input.is_action_pressed("down"):
+		dir += Vector3.DOWN
+
 	return dir.normalized()
+
+
+func reset_camera() -> void:
+	var tween := create_tween().set_parallel(true)
+
+	tween.tween_property(self, "camera_position", DEFAULT_CAMERA_POSITION, 0.15)
+	tween.tween_property(self, "camera_yaw", DEFAULT_CAMERA_YAW, 0.15)
+	tween.tween_property(self, "camera_pitch", DEFAULT_CAMERA_PITCH, 0.15)
+
+	tween.finished.connect(func():
+		camera_position = DEFAULT_CAMERA_POSITION
+		camera_yaw = DEFAULT_CAMERA_YAW
+		camera_pitch = DEFAULT_CAMERA_PITCH
+	)
+
 
 
 func _gui_input(event: InputEvent) -> void:

@@ -278,7 +278,7 @@ size_flags_stretch_ratio = 0.0
 unique_name_in_owner = true
 layout_mode = 2
 variable_name = "Gradient Attenuation"
-curr_value = 1.0
+curr_value = 1.7
 
 [node name="HSlider" parent="PanelContainer/VBoxContainer/gradient_attenuation" index="0" unique_id=1601533653]
 max_value = 5.0

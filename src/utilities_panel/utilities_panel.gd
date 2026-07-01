@@ -3,6 +3,14 @@ extends Control
 signal restart_camera
 
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("show_fps"):
+		$fps.visible = !$fps.visible
+
+	if $fps.visible:
+		$fps.text = str(Engine.get_frames_per_second()) + " FPS"
+
+
 func _on_exit_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
