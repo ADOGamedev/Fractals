@@ -1,5 +1,8 @@
 extends ColorRect
 
+var MANDELBOX_INDEX = 2
+
+
 var MOVE_SPEED_FACTOR = 1.05
 @export var camera_move_speed = 3
 @export var sensitivity = 0.003
@@ -59,6 +62,23 @@ func update_shader_parameters() -> void:
 
 	material.set_shader_parameter("initial_z", %z.get_complex_num())
 	material.set_shader_parameter("constant_c", %constant.get_complex_num())
+
+	material.set_shader_parameter("mandelbox_s", %mandelbox_s.get_value())
+	material.set_shader_parameter("mandelbox_r", %mandelbox_r.get_value())
+	material.set_shader_parameter("mandelbox_or", %mandelbox_or.get_value())
+	material.set_shader_parameter("mandelbox_f", %mandelbox_f.get_value())
+
+	var mandelbox = %fractals_option_button.selected == MANDELBOX_INDEX
+	material.set_shader_parameter("mandelbox", mandelbox)
+
+	%exp.set_disabled(mandelbox)
+	%exponent.get_node("InOutWidget").set_button_disabled(mandelbox)
+
+	%mandelbox_s.set_disabled(!mandelbox)
+	%mandelbox_r.set_disabled(!mandelbox)
+	%mandelbox_or.set_disabled(!mandelbox)
+	%mandelbox_f.set_disabled(!mandelbox)
+	%mandelbox_parameters.get_node("InOutWidget").set_button_disabled(!mandelbox)
 
 
 func update_camera_transform(delta: float) -> void:

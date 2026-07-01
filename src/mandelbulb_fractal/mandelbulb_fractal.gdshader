@@ -2,6 +2,8 @@ shader_type canvas_item;
 
 const vec3 light_source_vector = vec3(-1., -1., -1.);
 
+uniform float mandelboox_space_scale = 0.1;
+
 uniform float ratio = 1.77777777777;
 uniform float scale = 1.;
 uniform vec3 camPos = vec3(0., 0., -3.);
@@ -31,18 +33,38 @@ uniform float gradient_attenuation = 1.;
 uniform float gradient_offset = 0.;
 
 uniform bool julia = false;
+uniform bool mandelbox = false;
+
+uniform float mandelbox_f = 1.;
+uniform float mandelbox_s = 2.;
+uniform float mandelbox_r = 0.5;
+uniform float mandelbox_or = 1.0;
+
+vec3 boxFold(vec3 z){
+    return clamp(z, -1.0, 1.0) * 2.0 - z;
+}
+
+vec3 sphereFold(in vec3 z, inout float dz) {
+    float r2 = dot(z, z);
+    float inv_r2 = inversesqrt(r2 + 1e-8);
+    float r = r2 * inv_r2;
+
+    float cond1 = step(r, mandelbox_r);
+    float cond2 = step(r, mandelbox_or) * (1.0 - cond1);
+
+    float scale1 = 4.0;
+    float scale2 = 1.0 / (r2 + 1e-8);
+
+    float s = cond1 * scale1 + cond2 * scale2 + (1.0 - cond1 - cond2);
+
+    z *= s;
+    dz *= s;
+
+    return z;
+}
+
 
 // ------------------Signed Distance Functions------------------ //
-float sdSphere(in vec3 p, in float r) {
-	return length(p) - r;
-}
-
-// d is half the dimension of the box, since we take the space to be simetric
-float sdBox(in vec3 p, in vec3 d) {
-	vec3 q = abs(p) - d;
-	return length(max(q, 0.)) + min(max(q.x, max(q.y, q.z)), 0.0);
-}
-
 float sdMandelbulb(vec3 pos) {
 	vec3 z = initial_z;
 	float dr = 1.0;
@@ -86,7 +108,7 @@ float sdJuliaMandelbulb(vec3 pos) {
 		// convert to polar coordinates
 		float theta = acos(z.z/r);
 		float phi = atan(z.y,z.x);
-		dr =  pow( r, exponent-1.0)*exponent*dr + 1.0;
+		dr =  pow(r, exponent-1.0) * exponent * dr + 1.0;
 		
 		// scale and rotate the point
 		float zr = pow( r,exponent);
@@ -95,10 +117,44 @@ float sdJuliaMandelbulb(vec3 pos) {
 		
 		// convert back to cartesian coordinates
 		z = zr*vec3(sin(theta)*cos(phi), sin(phi)*sin(theta), cos(theta));
-		z+=constant_c;
+		z += constant_c;
 	}
 
 	return 0.5*log(r)*r/dr;
+}
+
+float sdMandelbox(vec3 pos) {
+	vec3 z = initial_z;
+	float s = mandelbox_s;
+	vec3 c = pos;
+	float dr = 1.0;
+	
+	for (int n = 0; n < int(iterations); n++) {
+		z = mandelbox_f * boxFold(z);
+		z = sphereFold(z, dr);
+		z = s * z + c;
+		dr = dr * abs(s) + 1.0;
+	}
+	
+	float r = length(z);
+	return r / abs(dr);
+}
+
+float sdJuliaMandelbox(vec3 pos) {
+	vec3 z = pos;
+	float s = mandelbox_s;
+	vec3 c = constant_c;
+	float dr = 1.0;
+	for (int n = 0; n < int(iterations); n++) {
+
+		z = boxFold(z);
+		z = sphereFold(z, dr);
+		z = s * z + c;
+		dr = dr * abs(s) + 1.0;
+	}
+	
+	float r = length(z);
+	return r / abs(dr);
 }
 
 // ------------------OP Funtions------------------ //
@@ -141,9 +197,14 @@ mat2 rot2D(float angle) {
 }
 
 float map(in vec3 p) {
-	float sphere = julia ? sdJuliaMandelbulb(p) : sdMandelbulb(p);
+	if (mandelbox) {
+		p *= mandelboox_space_scale;
+		float d = julia ? sdJuliaMandelbox(p) : sdMandelbox(p);
 	
-	return sphere;
+		return d / mandelboox_space_scale;
+	}
+	
+	return julia ? sdJuliaMandelbulb(p) : sdMandelbulb(p);
 }
 
 vec3 normals(in vec3 p) {

@@ -17,6 +17,7 @@ gradient = ExtResource("2_caifj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
 shader = ExtResource("1_rctea")
+shader_parameter/mandelboox_space_scale = 7.0
 shader_parameter/ratio = 1.7777778
 shader_parameter/scale = 1.0
 shader_parameter/camPos = Vector3(0, 0, -3)
@@ -25,20 +26,25 @@ shader_parameter/initial_z = Vector3(0, 0, 0)
 shader_parameter/constant_c = Vector3(0.5, 0.1, 0.3)
 shader_parameter/lower_bound = 1e-05
 shader_parameter/upper_bound = 100.0
-shader_parameter/ray_march_iterations = 350
-shader_parameter/iterations = 50
+shader_parameter/ray_march_iterations = 350.0
+shader_parameter/iterations = 50.0
 shader_parameter/exponent = 8.0
-shader_parameter/hit_pos_strength = 0.33
+shader_parameter/hit_pos_strength = 8.19
 shader_parameter/iteratios_coloring_strength = 0.33
-shader_parameter/lighting_strength = 0.33
-shader_parameter/ambient_light = 0.15
+shader_parameter/lighting_strength = 0.16
+shader_parameter/ambient_light = 0.215
 shader_parameter/bg_color = Vector3(0, 0, 0)
-shader_parameter/single_color_bg = false
+shader_parameter/single_color_bg = true
 shader_parameter/gradient = SubResource("GradientTexture1D_caifj")
 shader_parameter/gradient_repetition = 350.0
-shader_parameter/gradient_attenuation = 0.0
+shader_parameter/gradient_attenuation = 1.0
 shader_parameter/gradient_offset = 0.0
 shader_parameter/julia = false
+shader_parameter/mandelbox = false
+shader_parameter/mandelbox_f = 1.0
+shader_parameter/mandelbox_s = -1.5
+shader_parameter/mandelbox_r = 0.5
+shader_parameter/mandelbox_or = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s30jy"]
 shader = ExtResource("3_iovtp")
@@ -90,9 +96,9 @@ script = ExtResource("1_joax1")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 989.0
-offset_top = 541.0
+offset_top = 564.0
 offset_right = 1275.0
-offset_bottom = 721.0
+offset_bottom = 744.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=554276587]
 material = SubResource("ShaderMaterial_s30jy")
@@ -103,9 +109,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -345.99997
-offset_top = -238.52202
+offset_top = -291.52203
 offset_right = 30.61441
-offset_bottom = 10.477982
+offset_bottom = 10.477966
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.84968597, 0.84968597)
@@ -116,6 +122,28 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ruy4v")
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main_panel/PanelContainer" unique_id=1042783936]
 layout_mode = 2
 theme_override_constants/separation = 12
+
+[node name="fractals_option_button" type="OptionButton" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=545756279]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("4_i5g6i")
+alignment = 1
+selected = 1
+item_count = 3
+popup/item_0/text = "Select type of fractal"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Mandelbrot"
+popup/item_1/id = 1
+popup/item_2/text = "Mandelbox"
+popup/item_2/id = 2
+
+[node name="Control4" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=829524616]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.64
 
 [node name="ray_march_iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("5_5tp42")]
 unique_name_in_owner = true
@@ -139,7 +167,7 @@ layout_mode = 2
 variable_name = "Iterations"
 integer = true
 exp_edit = true
-curr_value = 50.0
+curr_value = 25.0
 exp_maximum = 1000
 
 [node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations" index="0" unique_id=1601533653]
@@ -202,12 +230,109 @@ direction = 0
 displacement = Vector2(351, 0)
 parent_hidden = false
 
+[node name="mandelbox_parameters" type="Control" parent="CanvasLayer" unique_id=117349303]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 989.0
+offset_top = 262.0
+offset_right = 1275.0
+offset_bottom = 442.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/mandelbox_parameters" unique_id=1950689711]
+material = SubResource("ShaderMaterial_s30jy")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -345.99997
+offset_top = -179.89369
+offset_right = 30.61441
+offset_bottom = 0.10630798
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.84968597, 0.84968597)
+mouse_filter = 2
+theme = ExtResource("4_i5g6i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ruy4v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/mandelbox_parameters/PanelContainer" unique_id=1736185146]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="mandelbox_s" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer" unique_id=377131329 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Scale"
+curr_value = 2.0
+
+[node name="HSlider" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_s" index="0" unique_id=1601533653]
+min_value = -2.0
+max_value = 2.0
+step = 0.0
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="mandelbox_r" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer" unique_id=1074291305 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Inner Radius"
+curr_value = 0.5
+
+[node name="HSlider" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_r" index="0" unique_id=1601533653]
+max_value = 2.0
+step = 0.0
+value = 0.01
+allow_greater = true
+
+[node name="mandelbox_or" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer" unique_id=1724217291 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Outer Radius"
+curr_value = 1.0
+
+[node name="HSlider" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_or" index="0" unique_id=1601533653]
+max_value = 2.0
+step = 0.0
+value = 0.01
+allow_greater = true
+
+[node name="mandelbox_f" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer" unique_id=1545241163 instance=ExtResource("5_5tp42")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Fold"
+curr_value = 1.0
+
+[node name="HSlider" parent="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_f" index="0" unique_id=1601533653]
+min_value = -2.0
+max_value = 2.0
+step = 0.0
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="InOutWidget" parent="CanvasLayer/mandelbox_parameters" unique_id=1411006017 instance=ExtResource("7_4fdp8")]
+layout_mode = 0
+offset_left = -190.00005
+offset_top = 31.999985
+offset_right = 58.9626
+offset_bottom = 194.0
+scale = Vector2(0.535, 0.535)
+theme_override_font_sizes/font_size = 38
+text = "Mandelbox
+Parameters"
+direction = 0
+displacement = Vector2(351, 0)
+
 [node name="constant" parent="CanvasLayer" unique_id=1407435493 instance=ExtResource("8_i5g6i")]
 unique_name_in_owner = true
 offset_left = 32.0
-offset_top = 40.0
+offset_top = 21.0
 offset_right = -844.0
-offset_bottom = -450.0
+offset_bottom = -469.0
 initial_complex_num = Vector3(0.5, 0.3, 0.4)
 variable_name = "c"
 
@@ -238,9 +363,9 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_bottom = 0.0
 offset_left = -308.0
-offset_top = 40.0
+offset_top = 21.0
 offset_right = -31.0
-offset_bottom = 199.0
+offset_bottom = 180.0
 grow_horizontal = 0
 grow_vertical = 1
 
@@ -262,12 +387,13 @@ displacement = Vector2(308, 0)
 TWEEN_TIME = 0.17
 
 [node name="exponent" type="Control" parent="CanvasLayer" unique_id=723938037]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = 974.0
-offset_top = 291.0
-offset_right = 1250.9778
-offset_bottom = 361.0
+offset_left = 32.0
+offset_top = 202.0
+offset_right = 308.97778
+offset_bottom = 272.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/exponent" unique_id=2136249577]
 material = SubResource("ShaderMaterial_s30jy")
@@ -298,14 +424,13 @@ value = 1.0
 
 [node name="InOutWidget" parent="CanvasLayer/exponent" unique_id=495871915 instance=ExtResource("7_4fdp8")]
 layout_mode = 0
-offset_left = -139.99994
-offset_top = 9.000021
-offset_right = 125.42059
-offset_bottom = 98.71963
+offset_left = 271.0
+offset_top = 9.000006
+offset_right = 536.42053
+offset_bottom = 98.71961
 scale = Vector2(0.535, 0.535)
 text = "Exponent"
-direction = 0
-displacement = Vector2(307, 0)
+displacement = Vector2(-307, 0)
 
 [node name="MandelbulbColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("9_5tp42")]
 unique_name_in_owner = true
@@ -313,9 +438,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
 offset_left = 32.0
-offset_top = -445.00003
+offset_top = -430.0
 offset_right = 32.0
-offset_bottom = -445.00003
+offset_bottom = -430.0
 grow_horizontal = 1
 grow_vertical = 0
 scale = Vector2(0.87, 0.87)
@@ -337,6 +462,10 @@ displacement = Vector2(-437, 0)
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/lower_bound"]
+[editable path="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_s"]
+[editable path="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_r"]
+[editable path="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_or"]
+[editable path="CanvasLayer/mandelbox_parameters/PanelContainer/VBoxContainer/mandelbox_f"]
 [editable path="CanvasLayer/constant"]
 [editable path="CanvasLayer/constant/PanelContainer/VBoxContainer/real_part"]
 [editable path="CanvasLayer/constant/PanelContainer/VBoxContainer/i_part"]
