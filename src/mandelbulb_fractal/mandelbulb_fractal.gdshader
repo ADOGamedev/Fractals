@@ -12,8 +12,8 @@ uniform vec3 constant_c = vec3(0.5, 0.1, 0.3);
 
 uniform float lower_bound = 0.00001;
 uniform float upper_bound = 100.;
-uniform int ray_march_iterations = 350;
-uniform int iterations = 50;
+uniform float ray_march_iterations = 350;
+uniform float iterations = 50;
 uniform float exponent = 8.;
 
 
@@ -47,7 +47,7 @@ float sdMandelbulb(vec3 pos) {
 	vec3 z = initial_z;
 	float dr = 1.0;
 	float r = 0.0;
-	for (int i = 0; i < iterations; i++) {
+	for (int i = 0; i < int(iterations); i++) {
 		r = length(z);
 		if (r < 0.0000001) {
             r = 0.0000001;
@@ -76,7 +76,7 @@ float sdJuliaMandelbulb(vec3 pos) {
 	vec3 z = pos;
 	float dr = 1.0;
 	float r = 0.0;
-	for (int i = 0; i < iterations ; i++) {
+	for (int i = 0; i < int(iterations); i++) {
 		r = length(z);
 		if (r < 0.000001) {
             r = 0.000001;
@@ -175,7 +175,7 @@ void fragment() {
 	float t = 0.;
 	bool hit = false;
 
-	for (int i = 0; i < ray_march_iterations; i++) {
+	for (int i = 0; i < int(ray_march_iterations); i++) {
     	rayPos = camPos + rayDir * t;
     	float d = map(rayPos);
 		

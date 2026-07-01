@@ -58,7 +58,7 @@ variation_embolden = 1.1
 
 [node name="ImageSaver" type="Control" unique_id=1187054237]
 process_mode = 3
-z_index = 11
+z_index = 5
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -75,7 +75,7 @@ script = ExtResource("1_wd3pt")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1743799983]
 process_mode = 3
-z_index = 11
+z_index = 5
 material = SubResource("ShaderMaterial_h0id5")
 layout_mode = 1
 anchors_preset = 8
@@ -209,7 +209,7 @@ text = "Accept"
 
 [node name="overwrite_dialog" type="PanelContainer" parent="." unique_id=1641257791]
 visible = false
-z_index = 46
+z_index = 5
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -225,14 +225,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_icukn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="overwrite_dialog" unique_id=1037572753]
 process_mode = 3
-z_index = 47
+z_index = 5
 layout_mode = 2
 theme_override_constants/separation = 31
 alignment = 1
 
 [node name="Label" type="Label" parent="overwrite_dialog/VBoxContainer" unique_id=117356230]
 process_mode = 3
-z_index = 47
+z_index = 5
 layout_mode = 2
 theme = ExtResource("2_wd3pt")
 theme_override_fonts/font = SubResource("FontVariation_irtgy")
@@ -243,12 +243,12 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="overwrite_dialog/VBoxContainer" unique_id=1560005981]
 process_mode = 3
-z_index = 47
+z_index = 5
 layout_mode = 2
 
 [node name="overwrite_cancel_button" type="Button" parent="overwrite_dialog/VBoxContainer/HBoxContainer" unique_id=359163353]
 process_mode = 3
-z_index = 47
+z_index = 5
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_wd3pt")
@@ -256,7 +256,7 @@ text = "Cancel"
 
 [node name="overwrite_accept_button" type="Button" parent="overwrite_dialog/VBoxContainer/HBoxContainer" unique_id=1838366494]
 process_mode = 3
-z_index = 47
+z_index = 5
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_wd3pt")
@@ -265,7 +265,7 @@ text = "Overwrite"
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1539342035]
 process_mode = 3
 oversampling_override = 1.0
-title = "Select a Folder"
+title = "Open a Directory"
 initial_position = 4
 file_mode = 2
 access = 2

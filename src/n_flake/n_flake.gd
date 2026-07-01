@@ -18,18 +18,6 @@ func update_main_fractal_parameters() -> void:
 
 	if !visible:
 		$CanvasLayer.visible = false
-		
-	var iterations = 1
-	auto_iterations = %auto_iterations_checkbox.button_pressed
-
-	if auto_iterations:
-		%iterations.set_disabled(true)
-		iterations = min(25, roundi(log2(zoom)) + 10)
-		%iterations.set_value(iterations)
-	else:
-		%iterations.set_disabled(false)
-		iterations = %iterations.get_value()
-
 
 	var auto_scale = %auto_scale_checkbox.button_pressed
 	var fractal_scale = %scale.get_value()
@@ -38,6 +26,19 @@ func update_main_fractal_parameters() -> void:
 		%scale.set_value(fractal_scale)
 
 	%scale.set_disabled(auto_scale)
+		
+	var iterations = 1
+	auto_iterations = %auto_iterations_checkbox.button_pressed
+
+	if auto_iterations:
+		%iterations.set_disabled(true)
+		iterations = min(25, roundi(log_base(1 / fractal_scale, zoom)) + 13 - roundi(%sides.get_value() / 2.))
+		%iterations.set_value(iterations)
+	else:
+		%iterations.set_disabled(false)
+		iterations = %iterations.get_value()
+
+
 		
 	material.set_shader_parameter("iterations", iterations)
 
@@ -74,8 +75,8 @@ func get_auto_scale() -> float:
 	return 1. / s;
 
 
-func log2(n: float) -> float:
-	return log(n) / log(2)
+func log_base(base: float, n: float) -> float:
+	return log(n) / log(base)
 
 
 func _on_utilities_panel_restart_camera() -> void:

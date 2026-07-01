@@ -2,8 +2,8 @@ shader_type canvas_item;
 
 const float ratio = 1.777777777;
 
-uniform int iterations = 5;
-uniform int sides = 6;
+uniform float iterations = 5;
+uniform float sides = 6;
 uniform float scale = 0.5;
 uniform float radius = 0.4;
 uniform bool include_center = false;
@@ -48,7 +48,7 @@ vec2 rotate(in vec2 p, in float angle) {
     );
 }
 
-bool is_inside_regular_polygon(in vec2 p, in float r, in int n) {
+bool is_inside_regular_polygon(in vec2 p, in float r, in float n) {
 	float delta = 2. * PI / float(n);
 	float ap = r * cos(delta / 2.);
 	
@@ -72,11 +72,11 @@ float n_flake(in vec2 p) {
 	float s = get_scale();
 	
 	float overlap_accum = 0.0;
-	for (int i = 0; i < iterations; i++) {
-		int hits = 0;
+	for (int i = 0; i < int(iterations); i++) {
+		bool hit = false;
 		
 		int overlaps = 0;
-        for (int k = 0; k < sides; k++) {
+        for (int k = 0; k < int(sides); k++) {
             vec2 child_test = inverse_child_transform(p, k, s, radius);
             if (is_inside_regular_polygon(child_test, radius, sides)) {
                 overlaps++;
@@ -92,24 +92,37 @@ float n_flake(in vec2 p) {
 			vec2 center = p / s;
 			if (is_inside_regular_polygon(center, radius, sides)) {
 				p = center;
-				hits++;
+				hit = true;
 			}
 		}
 		
-		for (int k = 0; k < sides; k++) {
+		float best_dist = 1e20;
+		bool found = false;
+		vec2 best_child;
+		
+		for (int k = 0; k < int(sides); k++) {
 			vec2 child = inverse_child_transform(p, k, s, radius);
 			if (i == 0) {
 				child = p;
 			}
 			
 			if (is_inside_regular_polygon(child, radius, sides)) {
-				p = child;
-				hits++;
-				break;
+        		float d = length(child);
+
+        		if (d < best_dist) {
+            		best_dist = d;
+            		best_child = child;
+            		found = true;
+        		}
 			}
 		}
 		
-		if (hits <= 0) {
+		if (found) {
+    		p = best_child;
+    		hit = true;
+		}
+		
+		if (!hit) {
 			if (color_by_iterations) {
 				return fract(float(i) / gradient_repetition);
 			}

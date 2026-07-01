@@ -4,7 +4,7 @@ const float pi = 3.141592653589793238;
 const float phi = 1.618033988749;
 uniform float ratio = 1.77777777777777;
 
-uniform int iterations = 300;
+uniform float iterations = 300.;
 uniform float scale = 0.4;
 uniform sampler2D gradient;
 uniform vec4 set_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
@@ -68,12 +68,12 @@ vec2 complex_cos(vec2 z) {
     return vec2(cos(z.x) * cosh(z.y), -sin(z.x) * sinh(z.y));
 }
 
-float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
+float get_point_scape_iterations(in vec2 z, in vec2 c, in float iters) {
 	vec2 current_number = vec2(z);
 	
 	bool is_default_exp = abs(exponent.x - 2.0) < 1e-4 && abs(exponent.y) < 1e-4;
 	
-	for (int i = 0; i < iters; i++) {
+	for (int i = 0; i < int(iters); i++) {
 		if (length(current_number) > threshold) {
 			if (!smooth_grad) {
 				return float(i);
@@ -110,7 +110,7 @@ float get_point_scape_iterations(in vec2 z, in vec2 c, in int iters) {
 	}
 }
 
-vec2 get_gradient(in vec2 z, in vec2 c, in int iters) {
+vec2 get_gradient(in vec2 z, in vec2 c, in float iters) {
 	float h = 0.000005;
 	float fx1 = julia
 		? get_point_scape_iterations(z - vec2(h, 0.0), c, iters)
