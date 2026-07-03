@@ -2,12 +2,15 @@ extends ColorRect
 
 var MANDELBOX_INDEX = 2
 
+var MANDELBULB_DEFAULT_C = Vector3(0, -1, 0)
+var MANDELBOX_DEFAULT_C = Vector3(0, 8.9, 0)
 
 var MOVE_SPEED_FACTOR = 1.05
 @export var camera_move_speed = 3
 @export var sensitivity = 0.003
 
 var DEFAULT_CAMERA_POSITION = Vector3(0, 0, -3)
+var DEFAULT_CAMERA_SPEED = 3
 var DEFAULT_CAMERA_YAW = 0
 var DEFAULT_CAMERA_PITCH = 0
 
@@ -45,6 +48,9 @@ var last_julia = null
 func _ready() -> void:
 	mandelbulb_color_widget.set_gradient_repetition_target_value(ray_march_iterations.get_value())
 
+	constant.set_initial_complex_num(MANDELBULB_DEFAULT_C)
+	constant.set_target_complex_num(MANDELBULB_DEFAULT_C)
+
 func _process(delta: float) -> void:
 	Global.current_shader_material = material
 	
@@ -77,13 +83,13 @@ func update_shader_parameters() -> void:
 	material.set_shader_parameter("iterations", iterations.get_value())
 	material.set_shader_parameter("julia", julia)
 	material.set_shader_parameter("exponent", exp.get_value())
-	
-	material.set_shader_parameter("lower_bound", lower_bound.get_value())
-		
+
 	z.set_disabled(julia)
 	constant.set_disabled(!julia)
 	z.get_node("InOutWidget").set_button_disabled(julia)
 	constant.get_node("InOutWidget").set_button_disabled(!julia)
+	
+	material.set_shader_parameter("lower_bound", lower_bound.get_value())
 
 	material.set_shader_parameter("initial_z", z.get_complex_num())
 	material.set_shader_parameter("constant_c", constant.get_complex_num())
@@ -104,6 +110,7 @@ func update_shader_parameters() -> void:
 	mandelbox_or.set_disabled(!mandelbox)
 	mandelbox_f.set_disabled(!mandelbox)
 	mandelbox_parameters.get_node("InOutWidget").set_button_disabled(!mandelbox)
+	
 
 
 func update_camera_transform(delta: float) -> void:
@@ -158,6 +165,8 @@ func get_input_direction(cam_dir: Vector3, cam_right: Vector3) -> Vector3:
 
 
 func reset_camera() -> void:
+	camera_move_speed = DEFAULT_CAMERA_SPEED
+
 	var tween := create_tween().set_parallel(true)
 
 	tween.tween_property(self, "camera_position", DEFAULT_CAMERA_POSITION, 0.15)
@@ -191,3 +200,12 @@ func _gui_input(event: InputEvent) -> void:
 
 func _on_utilities_panel_restart_camera() -> void:
 	reset_camera()
+
+
+func _on_fractals_option_button_item_selected(index: int) -> void:
+	if index == MANDELBOX_INDEX:
+		constant.set_initial_complex_num(MANDELBOX_DEFAULT_C)
+		constant.set_target_complex_num(MANDELBOX_DEFAULT_C)
+	else:
+		constant.set_initial_complex_num(MANDELBULB_DEFAULT_C)
+		constant.set_target_complex_num(MANDELBULB_DEFAULT_C)

@@ -60,9 +60,13 @@ variation_embolden = 1.1
 process_mode = 3
 z_index = 5
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_right = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wd3pt")
@@ -203,15 +207,15 @@ text = "Accept"
 
 [node name="overwrite_dialog" type="PanelContainer" parent="." unique_id=1641257791]
 visible = false
-z_index = 5
+z_index = 40
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = 26.0
-offset_right = -22.0
-offset_bottom = -27.0
+offset_left = -25.0
+offset_top = -104.0
+offset_right = 28.0
+offset_bottom = 106.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -219,14 +223,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_icukn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="overwrite_dialog" unique_id=1037572753]
 process_mode = 3
-z_index = 5
+z_index = 40
 layout_mode = 2
 theme_override_constants/separation = 31
 alignment = 1
 
 [node name="Label" type="Label" parent="overwrite_dialog/VBoxContainer" unique_id=117356230]
 process_mode = 3
-z_index = 5
+z_index = 40
 layout_mode = 2
 theme = ExtResource("2_wd3pt")
 theme_override_fonts/font = SubResource("FontVariation_irtgy")
@@ -237,12 +241,12 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="overwrite_dialog/VBoxContainer" unique_id=1560005981]
 process_mode = 3
-z_index = 5
+z_index = 40
 layout_mode = 2
 
 [node name="overwrite_cancel_button" type="Button" parent="overwrite_dialog/VBoxContainer/HBoxContainer" unique_id=359163353]
 process_mode = 3
-z_index = 5
+z_index = 40
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_wd3pt")
@@ -250,7 +254,7 @@ text = "Cancel"
 
 [node name="overwrite_accept_button" type="Button" parent="overwrite_dialog/VBoxContainer/HBoxContainer" unique_id=1838366494]
 process_mode = 3
-z_index = 5
+z_index = 40
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_wd3pt")

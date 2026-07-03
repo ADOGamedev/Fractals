@@ -42,24 +42,15 @@ uniform float mandelbox_s = 2.;
 uniform float mandelbox_r = 0.5;
 uniform float mandelbox_or = 1.0;
 
-void sphereFold(inout vec3 z, inout float dz) {
-    float r2 = dot(z, z);
-    float min_r2 = mandelbox_r * mandelbox_r;
-    float fixed_r2 = mandelbox_or * mandelbox_or;
-    
-    float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
-    
-    z *= factor;
-    dz *= factor;
-}
-
 
 // ------------------Signed Distance Functions------------------ //
 float sdMandelbulb(vec3 pos) {
 	vec3 z = initial_z;
 	float dr = 1.0;
 	float r = 0.0;
-	for (int i = 0; i < int(iterations); i++) {
+	int max_i = int(iterations);
+	
+	for (int i = 0; i < max_i; i++) {
 		r = length(z);
 		if (r < 0.0000001) {
             r = 0.0000001;
@@ -89,7 +80,9 @@ float sdJuliaMandelbulb(vec3 pos) {
 	vec3 z = pos;
 	float dr = 1.0;
 	float r = 0.0;
-	for (int i = 0; i < int(iterations); i++) {
+	int max_i = int(iterations);
+	
+	for (int i = 0; i < max_i; i++) {
 		r = length(z);
 		if (r < 0.000001) {
             r = 0.000001;
@@ -99,7 +92,7 @@ float sdJuliaMandelbulb(vec3 pos) {
 		// convert to polar coordinates
 		float theta = acos(z.z/r);
 		float phi = atan(z.y,z.x);
-		dr =  pow(r, exponent-1.0) * exponent * dr + 1.0;
+		dr =  pow(r, exponent-1.0) * exponent * dr + 1.;
 		
 		// scale and rotate the point
 		float zr = pow( r,exponent);
@@ -110,23 +103,25 @@ float sdJuliaMandelbulb(vec3 pos) {
 		z = zr*vec3(sin(theta)*cos(phi), sin(phi)*sin(theta), cos(theta));
 		z += constant_c;
 	}
-
-	return 0.5*log(r)*r/dr;
+	
+	float lr = log(max(r, 1e-6));
+    return 0.5 * lr * r / dr;
 }
 
 float sdMandelbox(vec3 pos) {
 	vec3 z = initial_z;
 	float s = mandelbox_s;
 	float dr = 1.0;
+	float r2;
 	
 	float min_r2 = mandelbox_r * mandelbox_r;
     float fixed_r2 = mandelbox_or * mandelbox_or;
     int max_i = int(iterations);
 	
-	for (int n = 0; n < int(iterations); n++) {
+	for (int n = 0; n < max_i; n++) {
         z = clamp(mandelbox_f * z, -1.0, 1.0) * 2.0 - mandelbox_f * z;
         
-        float r2 = dot(z, z);
+        r2 = dot(z, z);
         if (r2 > 400.0) break;
         
         float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
@@ -134,26 +129,26 @@ float sdMandelbox(vec3 pos) {
         dr *= factor;
         
         z = s * z + pos;
-        dr = dr * abs(s) + 1.0;
+        dr = dr * abs(s) + 1.;
 	}
 	
-	float r = length(z);
-	return r / abs(dr);
+	return sqrt(r2) / abs(dr);
 }
 
 float sdJuliaMandelbox(vec3 pos) {
 	vec3 z = pos;
 	float s = mandelbox_s;
 	float dr = 1.0;
+	float r2;
 	
 	float min_r2 = mandelbox_r * mandelbox_r;
     float fixed_r2 = mandelbox_or * mandelbox_or;
     int max_i = int(iterations);
 	
-	for (int n = 0; n < int(iterations); n++) {
+	for (int n = 0; n < max_i; n++) {
         z = clamp(mandelbox_f * z, -1.0, 1.0) * 2.0 - mandelbox_f * z;
         
-        float r2 = dot(z, z);
+       r2 = dot(z, z);
         if (r2 > 400.0) break;
         
         float factor = fixed_r2 / clamp(r2, min_r2, fixed_r2);
@@ -164,8 +159,7 @@ float sdJuliaMandelbox(vec3 pos) {
         dr = dr * abs(s) + 1.0;
 	}
 	
-	float r = length(z);
-	return r / abs(dr);
+	return sqrt(r2) / abs(dr);
 }
 
 // ------------------OP Funtions------------------ //
@@ -209,10 +203,10 @@ mat2 rot2D(float angle) {
 
 float map(in vec3 p) {
 	if (mandelbox) {
-		p *= mandelboox_space_scale;
+		//p *= mandelboox_space_scale;
 		float d = julia ? sdJuliaMandelbox(p) : sdMandelbox(p);
 	
-		return abs(d) / mandelboox_space_scale;
+		return abs(d);
 	}
 	
 	return julia ? sdJuliaMandelbulb(p) : sdMandelbulb(p);
@@ -233,8 +227,10 @@ vec3 normals(in vec3 p) {
 void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, -1.) * scale;
 	float iters;
-	float dt = mandelbox ? 0.02 : 3.;
+	
+	float d_factor = mandelbox ? (julia ? 0.5 : 1.) : 0.7;
 
+	vec3 camera_position = camPos * (mandelbox ? mandelboox_space_scale : 1.);
 	vec3 rayDir = normalize(
     	camDir +
     	uv.x * camRight +
@@ -244,10 +240,12 @@ void fragment() {
 	
 	float t = 0.;
 	bool hit = false;
+	
+	int max_i = int(ray_march_iterations);
 
-	for (int i = 0; i < int(ray_march_iterations); i++) {
-    	rayPos = camPos + rayDir * t;
-    	float d = false ? map(rayPos) * mandelboox_space_scale : map(rayPos);
+	for (int i = 0; i < max_i; i++) {
+    	rayPos =  camera_position + rayDir * t;
+    	float d = map(rayPos);
 		
 		iters = fract(float(i) / float(gradient_repetition));
 	    if (d < lower_bound) {
@@ -255,11 +253,11 @@ void fragment() {
         	break;
     	}
 
-    	if (d > upper_bound) {
+    	if (t > upper_bound) {
         	break;
     	}
 
-    	t += clamp(d, lower_bound, dt);
+    	t += d * d_factor;
 	}
 
 	if (hit || !single_color_bg) {

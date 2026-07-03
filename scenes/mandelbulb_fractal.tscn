@@ -152,7 +152,7 @@ layout_mode = 2
 variable_name = "Ray March Iterations"
 integer = true
 exp_edit = true
-curr_value = 200.0
+curr_value = 300.0
 exp_maximum = 3000
 
 [node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations" index="0" unique_id=1601533653]
@@ -336,7 +336,7 @@ offset_left = 32.0
 offset_top = 21.0
 offset_right = -844.0
 offset_bottom = -469.0
-initial_complex_num = Vector3(0.5, 0.3, 0.4)
+initial_complex_num = Vector3(0, 8.9, 0)
 variable_name = "c"
 
 [node name="disabled" parent="CanvasLayer/constant" index="1" unique_id=310232362]
@@ -460,6 +460,7 @@ displacement = Vector2(-437, 0)
 
 [node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("11_4fdp8")]
 
+[connection signal="item_selected" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 
 [editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
