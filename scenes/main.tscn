@@ -47,9 +47,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 108
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 108
+theme_override_constants/margin_left = 264
+theme_override_constants/margin_top = 145
+theme_override_constants/margin_right = 264
 theme_override_constants/margin_bottom = 75
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=1653557943]
@@ -57,7 +57,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 65
-columns = 4
+columns = 3
 
 [node name="mandelbrot_display_panel" parent="MarginContainer/GridContainer" unique_id=928070062 instance=ExtResource("3_sugp2")]
 z_index = -1

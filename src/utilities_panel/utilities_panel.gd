@@ -62,3 +62,54 @@ func _on_save_img_button_mouse_exited() -> void:
 
 func _on_save_img_button_pressed() -> void:
 	Global.save_img_pressed()
+
+
+
+func _on_hide_ui_icon_mouse_entered() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($hide_ui_panel, "modulate", Color(1, 1, 1, 1), 0.15)
+
+func _on_hide_ui_icon_mouse_exited() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($hide_ui_panel, "modulate", Color(1, 1, 1, 0), 0.15)
+
+func _on_hide_ui_icon_pressed() -> void:
+	Global.toggle_canvas_layers_visibility()
+
+
+func _on_fullscreen_icon_mouse_entered() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($fullscreen_panel, "modulate", Color(1, 1, 1, 1), 0.15)
+
+func _on_fullscreen_icon_mouse_exited() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($fullscreen_panel, "modulate", Color(1, 1, 1, 0), 0.15)
+
+func _on_fullscreen_icon_pressed() -> void:
+	Global.toggle_fullscreen()
+
+
+func _on_fps_icon_mouse_entered() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($fps_panel, "modulate", Color(1, 1, 1, 1), 0.15)
+
+func _on_fps_icon_mouse_exited() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($fps_panel, "modulate", Color(1, 1, 1, 0), 0.15)
+
+func _on_fps_icon_pressed() -> void:
+	$fps.visible = !$fps.visible
+
+
+func _on_manual_icon_mouse_entered() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($manual_panel, "modulate", Color(1, 1, 1, 1), 0.15)
+
+func _on_manual_icon_mouse_exited() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($manual_panel, "modulate", Color(1, 1, 1, 0), 0.15)
+	
+func _on_manual_icon_pressed() -> void:
+	pass
+
+

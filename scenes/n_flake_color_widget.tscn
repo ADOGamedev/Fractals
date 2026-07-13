@@ -143,15 +143,19 @@ focus_mode = 0
 theme = ExtResource("14_u2uug")
 alignment = 1
 selected = 2
-item_count = 4
+item_count = 6
 popup/item_0/text = "Plain Color"
 popup/item_0/id = 1
 popup/item_1/text = "HUE"
 popup/item_1/id = 2
-popup/item_2/text = "Gradient"
-popup/item_2/id = 4
+popup/item_2/text = "Iterations"
+popup/item_2/id = 3
 popup/item_3/text = "Overlap"
-popup/item_3/id = 3
+popup/item_3/id = 4
+popup/item_4/text = "Unsigned Distance"
+popup/item_4/id = 5
+popup/item_5/text = "Signed Distance"
+popup/item_5/id = 6
 
 [node name="Control7" type="Control" parent="PanelContainer/VBoxContainer" unique_id=526739211]
 layout_mode = 2

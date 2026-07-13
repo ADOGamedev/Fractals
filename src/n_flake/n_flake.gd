@@ -61,6 +61,8 @@ func update_color_fractal_parameters() -> void:
 	material.set_shader_parameter("color_by_position", NFlakeConfig.color_by_position)
 	material.set_shader_parameter("color_by_iterations", NFlakeConfig.color_by_iterations)
 	material.set_shader_parameter("color_by_overlap", NFlakeConfig.color_by_overlap)
+	material.set_shader_parameter("color_by_distance", NFlakeConfig.color_by_distance)
+	material.set_shader_parameter("sdf_coloring", NFlakeConfig.sdf_coloring)
 
 
 func get_auto_scale() -> float:

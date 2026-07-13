@@ -1,7 +1,7 @@
 extends Control
 
 
-enum ColoringMethod {PLAIN, HUE, GRADIENT, OVERLAP}
+enum ColoringMethod {PLAIN, HUE, ITERATIONS, OVERLAP, DISTANCE, SIGNED_DISTANCE}
 
 var DEFAULT_GRADIENT_ATENUATION = 1.0
 var GRADIENT_MAPPING_ATTENUATION = 8.0
@@ -39,16 +39,23 @@ func _process(_delta: float) -> void:
 	NFlakeConfig.color_by_position = false
 	NFlakeConfig.color_by_iterations = false
 	NFlakeConfig.color_by_overlap = false
+	NFlakeConfig.color_by_distance = false
+	NFlakeConfig.sdf_coloring = false
 
 	match %coloring_method_button.selected:
 		ColoringMethod.PLAIN:
 			pass
 		ColoringMethod.HUE:
 			NFlakeConfig.color_by_position = true
-		ColoringMethod.GRADIENT: 
+		ColoringMethod.ITERATIONS: 
 			NFlakeConfig.color_by_iterations = true
 		ColoringMethod.OVERLAP: 
 			NFlakeConfig.color_by_overlap = true
+		ColoringMethod.DISTANCE: 
+			NFlakeConfig.color_by_distance = true
+		ColoringMethod.SIGNED_DISTANCE: 
+			NFlakeConfig.color_by_distance = true
+			NFlakeConfig.sdf_coloring = true
 
 	%PopupMenu.position = %gradient_menu_button.global_position +  Vector2(%gradient_menu_button.size.x - 3, %gradient_menu_button.size.y / 2.)
 	%PopupMenu.position += Vector2i(0, -%PopupMenu.size.y / 2.)

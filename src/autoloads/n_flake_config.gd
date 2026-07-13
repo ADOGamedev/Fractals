@@ -10,3 +10,5 @@ var negative_space = false
 var color_by_position = false
 var color_by_iterations = false
 var color_by_overlap = false
+var color_by_distance = false
+var sdf_coloring = false

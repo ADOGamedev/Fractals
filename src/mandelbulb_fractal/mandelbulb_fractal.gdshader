@@ -20,7 +20,6 @@ uniform float ray_march_iterations = 350;
 uniform float iterations = 50;
 uniform float exponent = 8.;
 
-
 uniform float hit_pos_strength = 0.33;
 uniform float iteratios_coloring_strength = 0.33;
 uniform float lighting_strength = 0.33;
