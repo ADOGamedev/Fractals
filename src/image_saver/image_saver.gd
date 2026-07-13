@@ -32,6 +32,8 @@ var MAX_POPUP_Y_SIZE = 292
 var DEFUALT_RESOLUTION_INDEX = 4
 var MAX_IMAGE_PIXELS = 268435456
 
+var extension = ".png"
+
 func _ready() -> void:
 	get_tree().paused = true
 
@@ -137,7 +139,7 @@ func _on_cancel_button_pressed() -> void:
 
 func _on_accept_button_pressed() -> void:
 	var res = get_vec2_resolution(%resolutions_option_button.selected)
-	var path = %path_line_edit.text + "/" + %name_line_edit.text + ".png"
+	var path = %path_line_edit.text + "/" + %name_line_edit.text + extension
 
 	if FileAccess.file_exists(path):
 		$overwrite_dialog.visible = true
@@ -148,7 +150,7 @@ func _on_accept_button_pressed() -> void:
 
 func _on_overwrite_accept_button_pressed() -> void:
 	var res = get_vec2_resolution(%resolutions_option_button.selected)
-	var path = %path_line_edit.text + "/" + %name_line_edit.text + ".png"
+	var path = %path_line_edit.text + "/" + %name_line_edit.text + extension
 
 	render_image(res.x, res.y, path)
 
@@ -156,3 +158,6 @@ func _on_overwrite_accept_button_pressed() -> void:
 func _on_overwrite_cancel_button_pressed() -> void:
 	$overwrite_dialog.visible = false
 
+
+func _on_extensions_option_button_item_selected(index: int) -> void:
+	extension = %extensions_option_button.get_item_text(index)

@@ -157,6 +157,9 @@ void fragment() {
 		float angle = atan(grad.y, grad.x) / (2.*pi) + 0.25;
 		float cicles = float(iterations) / gradient_repetition;
 		angle = fract(angle * cicles);
+		if (color_with_angle) {
+			angle = pow(angle, gradient_attenuation);
+		}
 		if (!grad_mapping_inverted) {
 			angle = 1. - angle;
 		}
@@ -167,6 +170,7 @@ void fragment() {
 		}
 		else if (color_with_mag) {
 			mag = fract(mag * float(iterations) / (0.1 + gradient_repetition));
+			mag = pow(mag, gradient_attenuation);
 			color = texture(gradient, vec2(mag, 0.)).rgb;
 		}
 	    COLOR = vec4(color, 1.0);

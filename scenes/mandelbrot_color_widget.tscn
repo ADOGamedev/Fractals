@@ -269,7 +269,6 @@ size_flags_stretch_ratio = 3.98
 unique_name_in_owner = true
 layout_mode = 2
 variable_name = "Gradient Repetition"
-short_variable_name = "gᵣ"
 sensitivity = 0.001
 exp_edit = true
 curr_value = 1500.0
@@ -289,7 +288,6 @@ size_flags_stretch_ratio = 3.04
 unique_name_in_owner = true
 layout_mode = 2
 variable_name = "Gradient Attenuation"
-short_variable_name = "gₐ"
 sensitivity = 0.003
 curr_value = 1.0
 

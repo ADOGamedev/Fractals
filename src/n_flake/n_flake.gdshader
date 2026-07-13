@@ -92,7 +92,7 @@ float n_flake(in vec2 p) {
 
         for (int k = 0; k < int(sides); k++) {
             vec2 child = inverse_child_transform(p, k, s, radius);
-            float dist_sdf = regular_polygon_sdf(child, radius, sides); // SDF local
+            float dist_sdf = regular_polygon_sdf(child, radius, sides);
 
             if (dist_sdf < 0.0) {
                 float geo = length(child);
@@ -163,6 +163,7 @@ float n_flake(in vec2 p) {
 
     return (d <= 0.) ? 1. : 0.;
 }
+
 
 vec3 hsv_to_rgb(vec3 hsv) {
 	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);

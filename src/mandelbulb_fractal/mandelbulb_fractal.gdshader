@@ -202,7 +202,6 @@ mat2 rot2D(float angle) {
 
 float map(in vec3 p) {
 	if (mandelbox) {
-		//p *= mandelboox_space_scale;
 		float d = julia ? sdJuliaMandelbox(p) : sdMandelbox(p);
 	
 		return abs(d);
@@ -262,7 +261,7 @@ void fragment() {
 	if (hit || !single_color_bg) {
 		float dp = 0.;
 		vec3 n;
-		if (hit) {
+		if (hit && abs(lighting_strength) > 1e-10) {
     		n = normals(rayPos);
     		dp = dot(light_dir, n);
 		}

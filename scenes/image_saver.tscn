@@ -94,7 +94,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_72vo0")
 process_mode = 3
 z_index = 11
 layout_mode = 2
-theme_override_constants/separation = 26
+theme_override_constants/separation = 19
 
 [node name="resolution_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=138159634]
 process_mode = 3
@@ -142,8 +142,53 @@ process_mode = 3
 z_index = 11
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.08
 theme = ExtResource("2_wd3pt")
 placeholder_text = "Name of the file"
+
+[node name="extension_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1859241035]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="name_label" type="Label" parent="Panel/VBoxContainer/extension_hbox_cont" unique_id=1738624681]
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.39
+theme = ExtResource("2_wd3pt")
+theme_override_fonts/font = SubResource("FontVariation_icukn")
+text = "Extension"
+
+[node name="extensions_option_button" type="OptionButton" parent="Panel/VBoxContainer/extension_hbox_cont" unique_id=703153249]
+unique_name_in_owner = true
+process_mode = 3
+z_index = 11
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.16
+theme = ExtResource("2_wd3pt")
+alignment = 1
+selected = 0
+item_count = 5
+popup/item_0/text = ".png"
+popup/item_0/id = 0
+popup/item_1/text = ".jpg"
+popup/item_1/id = 1
+popup/item_2/text = ".bmp"
+popup/item_2/id = 2
+popup/item_3/text = ".tif"
+popup/item_3/id = 3
+popup/item_4/text = ".webp"
+popup/item_4/id = 4
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer/extension_hbox_cont" unique_id=1887904234]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.74
 
 [node name="path_hbox_cont" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=340730253]
 process_mode = 3
@@ -213,9 +258,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -25.0
-offset_top = -104.0
+offset_top = -118.0
 offset_right = 28.0
-offset_bottom = 106.0
+offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -269,6 +314,7 @@ file_mode = 2
 access = 2
 use_native_dialog = true
 
+[connection signal="item_selected" from="Panel/VBoxContainer/extension_hbox_cont/extensions_option_button" to="." method="_on_extensions_option_button_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/path_hbox_cont/folder_button" to="." method="_on_folder_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer4/cancel_button" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer4/accept_button" to="." method="_on_accept_button_pressed"]

@@ -1,11 +1,13 @@
 extends Control
 
-enum GradMappingConfig {DISABLED, HSV, ANGLE, MAG}
+enum GradMappingConfig {DISABLED, HSB, ANGLE, MAG}
 
 var DEFAULT_GRADIENT_ATENUATION = 1.0
 var GRADIENT_MAPPING_ATTENUATION = 8.0
 
 @export var default_grad_index = 0
+
+var last_smoothened_grad = false
 
 @export var gradients : Array[Gradient]
 @export var gradients_names : Array[String]
@@ -47,6 +49,9 @@ func set_gradient_repetition_target_value(val: float) -> void:
 
 
 func _process(_delta: float) -> void:
+	if !%smoothened_gradient_checkbox.disabled:
+		last_smoothened_grad = %smoothened_gradient_checkbox.button_pressed
+
 	MandelbrotConfig.grad = %GradientSelector.grad
 	MandelbrotConfig.color = %ColorPickerButton.color
 	MandelbrotConfig.grad_attenuation = %gradient_attenuation.get_value()
@@ -71,13 +76,11 @@ func _process(_delta: float) -> void:
 	
 	match %gradient_mapping_button.selected:
 		GradMappingConfig.ANGLE:
-			%gradient_attenuation.set_disabled(true)
 			MandelbrotConfig.color_with_angle = true
 		GradMappingConfig.MAG:
-			%gradient_attenuation.set_disabled(false)
 			MandelbrotConfig.color_with_mag = true
 		_:
-			%gradient_attenuation.set_disabled(false)
+			pass
 		
 	%PopupMenu.position = %gradient_menu_button.global_position +  Vector2(%gradient_menu_button.size.x - 3, %gradient_menu_button.size.y / 2.)
 	%PopupMenu.position += Vector2i(0, -%PopupMenu.size.y / 2.)
@@ -110,6 +113,15 @@ func _on_gradient_mapping_button_item_selected(index: int) -> void:
 	if index == GradMappingConfig.DISABLED:
 		%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
 		%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
-	else:
+		%smoothened_gradient_checkbox.button_pressed = last_smoothened_grad
+		%smoothened_gradient_checkbox.disabled = false
+	elif index == GradMappingConfig.HSB:
 		%gradient_attenuation.initial_value = GRADIENT_MAPPING_ATTENUATION
 		%gradient_attenuation.set_value(GRADIENT_MAPPING_ATTENUATION)
+		%smoothened_gradient_checkbox.button_pressed = true
+		%smoothened_gradient_checkbox.disabled = true
+	else:
+		%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
+		%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
+		%smoothened_gradient_checkbox.button_pressed = true
+		%smoothened_gradient_checkbox.disabled = true
