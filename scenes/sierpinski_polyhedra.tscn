@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cafy2kbs61d30"]
+
+[ext_resource type="Shader" uid="uid://18y2u20pacvw" path="res://src/sierpinski_polyhedra/sierpinski_polyhedra.gdshader" id="1_e4822"]
+[ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_8bndb"]
+[ext_resource type="Script" uid="uid://dohucvim1mlu7" path="res://scenes/sierpinski_polyhedra.gd" id="2_ac7lt"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ac7lt"]
+gradient = ExtResource("2_8bndb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
+shader = ExtResource("1_e4822")
+shader_parameter/polyhedron_index = 4
+shader_parameter/radius = 0.4
+shader_parameter/ratio = 1.7777778
+shader_parameter/scale = 0.485
+shader_parameter/camPos = Vector3(0, 0, -3)
+shader_parameter/camDir = Vector3(0, 0, 1)
+shader_parameter/camRight = Vector3(1, 0, 0)
+shader_parameter/camUp = Vector3(0, 1, 0)
+shader_parameter/lower_bound = 1e-05
+shader_parameter/upper_bound = 100.0
+shader_parameter/ray_march_iterations = 300.0
+shader_parameter/iterations = 3.0
+shader_parameter/exponent = 8.0
+shader_parameter/include_center = false
+shader_parameter/auto_scale = true
+shader_parameter/hit_pos_strength = 0.33
+shader_parameter/iteratios_coloring_strength = 0.665
+shader_parameter/lighting_strength = 0.52
+shader_parameter/ambient_light = 0.985
+shader_parameter/bg_color = Vector3(0, 0, 0)
+shader_parameter/single_color_bg = true
+shader_parameter/gradient = SubResource("GradientTexture1D_ac7lt")
+shader_parameter/gradient_repetition = 350.0
+shader_parameter/gradient_attenuation = 1.0
+shader_parameter/gradient_offset = 0.0
+
+[node name="SierpinskiPolyhedra" type="ColorRect" unique_id=56268143]
+material = SubResource("ShaderMaterial_var0u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ac7lt")
