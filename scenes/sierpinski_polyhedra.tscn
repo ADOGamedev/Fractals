@@ -2,14 +2,22 @@
 
 [ext_resource type="Shader" uid="uid://18y2u20pacvw" path="res://src/sierpinski_polyhedra/sierpinski_polyhedra.gdshader" id="1_e4822"]
 [ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_8bndb"]
-[ext_resource type="Script" uid="uid://dohucvim1mlu7" path="res://scenes/sierpinski_polyhedra.gd" id="2_ac7lt"]
+[ext_resource type="Script" uid="uid://dohucvim1mlu7" path="res://src/sierpinski_polyhedra/sierpinski_polyhedra.gd" id="2_ac7lt"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="4_l1x7u"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="5_ekt0p"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_rpyai"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_ekt0p"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_h5hhv"]
+[ext_resource type="PackedScene" uid="uid://c83658xvs5o5g" path="res://scenes/sierpinski_polyhedra_color_widget.tscn" id="8_l1x7u"]
+[ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="9_bmqtg"]
+[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="11_rpyai"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ac7lt"]
 gradient = ExtResource("2_8bndb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
 shader = ExtResource("1_e4822")
-shader_parameter/polyhedron_index = 4
+shader_parameter/polyhedron_index = 0
 shader_parameter/radius = 0.4
 shader_parameter/ratio = 1.7777778
 shader_parameter/scale = 0.485
@@ -35,6 +43,41 @@ shader_parameter/gradient_repetition = 350.0
 shader_parameter/gradient_attenuation = 1.0
 shader_parameter/gradient_offset = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8utgf"]
+shader = ExtResource("4_l1x7u")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1x7u"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_rpyai"]
+base_font = ExtResource("7_ekt0p")
+variation_embolden = 1.1
+
 [node name="SierpinskiPolyhedra" type="ColorRect" unique_id=56268143]
 material = SubResource("ShaderMaterial_var0u")
 anchors_preset = 15
@@ -43,3 +86,228 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_ac7lt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1338407871 groups=["canvas_layer"]]
+
+[node name="main_panel" type="Control" parent="CanvasLayer" unique_id=1890959153]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 989.0
+offset_top = 564.0
+offset_right = 1275.0
+offset_bottom = 744.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=1594876557]
+material = SubResource("ShaderMaterial_8utgf")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -345.99997
+offset_top = -375.0
+offset_right = 30.61441
+offset_bottom = -4.828247
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.84968597, 0.84968597)
+mouse_filter = 2
+theme = ExtResource("5_ekt0p")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1x7u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main_panel/PanelContainer" unique_id=820267486]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="polyhedra_option_button" type="OptionButton" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1426449130]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("5_ekt0p")
+alignment = 1
+selected = 1
+item_count = 6
+popup/item_0/text = "Select polyhedron"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Tetrahedron"
+popup/item_1/id = 1
+popup/item_2/text = "Hexahedon"
+popup/item_2/id = 2
+popup/item_3/text = "Octohedron"
+popup/item_3/id = 3
+popup/item_4/text = "Dodecahedron"
+popup/item_4/id = 4
+popup/item_5/text = "Icosahedron"
+popup/item_5/id = 5
+
+[node name="Control4" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1571902309]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.44
+
+[node name="ray_march_iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=691124258 instance=ExtResource("6_rpyai")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Ray March Iterations"
+integer = true
+exp_edit = true
+curr_value = 100.0
+exp_maximum = 3000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 1000.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control7" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=110131562]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.65
+
+[node name="iterations" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1230422720 instance=ExtResource("6_rpyai")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Iterations"
+integer = true
+exp_edit = true
+curr_value = 25.0
+exp_maximum = 1000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations" index="0" unique_id=1601533653]
+min_value = 1.0
+max_value = 500.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control3" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=457832858]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="lower_bound" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1280457454 instance=ExtResource("6_rpyai")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Collision Threshold"
+decimal_places = 7
+curr_value = 0.7
+divide_by_a_thouand = true
+minimun_inclusive = false
+exp_maximum = 1
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/lower_bound" index="0" unique_id=1601533653]
+max_value = 0.01
+step = 0.0
+value = 0.01
+allow_greater = true
+
+[node name="Control6" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=916341972]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="scale" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1032082605 instance=ExtResource("6_rpyai")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "Scale"
+curr_value = 0.5
+exp_maximum = 50000
+
+[node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/scale" index="0" unique_id=1601533653]
+max_value = 1.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control2" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=625877539]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.18
+
+[node name="include_center" type="HBoxContainer" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1593610477]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/include_center" unique_id=408284352]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_rpyai")
+text = "Include Center"
+
+[node name="include_center_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/include_center" unique_id=1607270811]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="Control5" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1554230656]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="auto_scale" type="HBoxContainer" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=133180579]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/auto_scale" unique_id=473504669]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_rpyai")
+text = "Auto Scale"
+
+[node name="auto_scale_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/auto_scale" unique_id=876234919]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("7_h5hhv")]
+layout_mode = 0
+offset_left = -137.00003
+offset_top = -77.000015
+offset_right = 11.0
+offset_bottom = 85.0
+scale = Vector2(0.535, 0.535)
+text = "Main"
+direction = 0
+displacement = Vector2(351, 0)
+parent_hidden = false
+
+[node name="SierpinskiPolyhedraColorWidget" parent="CanvasLayer" unique_id=374050701 instance=ExtResource("8_l1x7u")]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 32.0
+offset_top = -431.0
+offset_right = 32.0
+offset_bottom = -431.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.87, 0.87)
+
+[node name="InOutWidget" parent="CanvasLayer/SierpinskiPolyhedraColorWidget" unique_id=392463537 instance=ExtResource("7_h5hhv")]
+layout_mode = 0
+offset_left = 463.21838
+offset_top = 197.70122
+offset_right = 614.6061
+offset_bottom = 365.90973
+scale = Vector2(0.615, 0.615)
+text = "Color"
+displacement = Vector2(-437, 0)
+
+[node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("9_bmqtg")]
+
+[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_rpyai")]
+
+[connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
+
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/ray_march_iterations"]
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations"]
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/lower_bound"]
+[editable path="CanvasLayer/main_panel/PanelContainer/VBoxContainer/scale"]

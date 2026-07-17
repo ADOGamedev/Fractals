@@ -9,8 +9,8 @@ var GRADIENT_MAPPING_ATTENUATION = 8.0
 
 var last_smoothened_grad = false
 
-@export var gradients : Array[Gradient]
-@export var gradients_names : Array[String]
+var gradients : Array[Gradient]
+var gradients_names : Array[String]
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
 var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
@@ -29,6 +29,9 @@ func _ready() -> void:
 
 
 func load_gradients() -> void:
+	gradients = Gradients.gradients
+	gradients_names = Gradients.gradients_names
+	
 	for grad in gradients:
 		var id = %PopupMenu.item_count
 

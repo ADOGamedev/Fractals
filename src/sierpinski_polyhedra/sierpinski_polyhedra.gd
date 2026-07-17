@@ -4,7 +4,7 @@ var MOVE_SPEED_FACTOR = 1.05
 @export var camera_move_speed = 3
 @export var sensitivity = 0.003
 
-var DEFAULT_CAMERA_POSITION = Vector3(0, 0, -3)
+var DEFAULT_CAMERA_POSITION = Vector3(0, 0, -1.7)
 var DEFAULT_CAMERA_SPEED = 3
 var DEFAULT_CAMERA_YAW = 0
 var DEFAULT_CAMERA_PITCH = 0
@@ -15,6 +15,8 @@ var camera_pitch = 0
 
 var dragging = false
 
+func _ready() -> void:
+	%SierpinskiPolyhedraColorWidget.set_gradient_repetition_target_value(%ray_march_iterations.get_value())
 
 
 func _process(delta: float) -> void:
@@ -26,9 +28,32 @@ func _process(delta: float) -> void:
 	update_shader_parameters()
 	update_camera_transform(delta)
 
+	%SierpinskiPolyhedraColorWidget.set_gradient_repetition_initial_value(%ray_march_iterations.get_value())
+
 
 func update_shader_parameters() -> void:
-	pass
+	material.set_shader_parameter("hit_pos_strength", SierpinskiPolyhedraConfig.hit_position_strength)
+	material.set_shader_parameter("iteratios_coloring_strength", SierpinskiPolyhedraConfig.iteratios_coloring_strength)
+	material.set_shader_parameter("lighting_strength", SierpinskiPolyhedraConfig.lighting_strength)
+	material.set_shader_parameter("ambient_light", SierpinskiPolyhedraConfig.ambient_light)
+	material.set_shader_parameter("gradient_repetition", SierpinskiPolyhedraConfig.gradient_repetition)
+	material.set_shader_parameter("gradient_attenuation", SierpinskiPolyhedraConfig.gradient_attenuation)
+	material.set_shader_parameter("gradient_offset", SierpinskiPolyhedraConfig.gradient_offset)
+	material.set_shader_parameter("single_color_bg", SierpinskiPolyhedraConfig.single_color_bg)
+	material.set_shader_parameter("bg_color", SierpinskiPolyhedraConfig.bg_color)
+
+	var grad_tex = GradientTexture2D.new()
+	grad_tex.gradient = SierpinskiPolyhedraConfig.gradient
+	material.set_shader_parameter("gradient", grad_tex)
+
+	material.set_shader_parameter("lower_bound", %lower_bound.get_value())
+	material.set_shader_parameter("iterations", %iterations.get_value())
+	material.set_shader_parameter("ray_march_iterations", %ray_march_iterations.get_value())
+	material.set_shader_parameter("include_center", %include_center_checkbox.button_pressed)
+	material.set_shader_parameter("auto_scale", %auto_scale_checkbox.button_pressed)
+	material.set_shader_parameter("scale", %scale.get_value())
+
+	material.set_shader_parameter("polyhedron_index", %polyhedra_option_button.selected - 1)
 	
 	
 func update_camera_transform(delta: float) -> void:

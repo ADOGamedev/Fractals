@@ -50,6 +50,7 @@ func _ready() -> void:
 
 	constant.set_initial_complex_num(MANDELBULB_DEFAULT_C)
 	constant.set_target_complex_num(MANDELBULB_DEFAULT_C)
+	
 
 func _process(delta: float) -> void:
 	Global.current_shader_material = material

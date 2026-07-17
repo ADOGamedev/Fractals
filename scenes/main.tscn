@@ -8,15 +8,37 @@
 [ext_resource type="Texture2D" uid="uid://gd5oqyinimrw" path="res://assets/fractal_images/mandelbulb.png" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://7phhin0lwyhr" path="res://scenes/mandelbulb_fractal.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://y17qe67c5klj" path="res://scenes/n_flake.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://cafy2kbs61d30" path="res://scenes/sierpinski_polyhedra.tscn" id="10_choun"]
+[ext_resource type="Texture2D" uid="uid://wuoq7se3ji1k" path="res://assets/fractal_images/sierpinski_polyhedra.png" id="10_y6deb"]
 [ext_resource type="Texture2D" uid="uid://bbgroli1cecq" path="res://assets/fractal_images/sierpinski.png" id="10_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="11_ya4ey"]
+[ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="12_pm3ni"]
+[ext_resource type="Gradient" uid="uid://38rwewew0sbg" path="res://gradients/bands_rainbow.tres" id="13_y6deb"]
+[ext_resource type="Gradient" uid="uid://y0quel0pufgw" path="res://gradients/cream.tres" id="14_og1vs"]
+[ext_resource type="Gradient" uid="uid://cwh4nrprc4xyg" path="res://gradients/fire.tres" id="15_2wyq8"]
+[ext_resource type="Gradient" uid="uid://v61us4d3aeu4" path="res://gradients/ice.tres" id="16_vxglm"]
+[ext_resource type="Gradient" uid="uid://dx7rpk6r5t1c7" path="res://gradients/grayscale.tres" id="17_2f3dj"]
+[ext_resource type="Gradient" uid="uid://crmvht7bdqc1y" path="res://gradients/grayscale_loop.tres" id="18_yq6so"]
+[ext_resource type="Gradient" uid="uid://bbnbwqql04dyc" path="res://gradients/orange-blue.tres" id="19_fv21b"]
+[ext_resource type="Gradient" uid="uid://ctj4exp31dajw" path="res://gradients/pale_red-blue.tres" id="20_tel4y"]
+[ext_resource type="Gradient" uid="uid://cfirb73msk08l" path="res://gradients/radioactive.tres" id="21_qkpxi"]
+[ext_resource type="Gradient" uid="uid://dm2xvel4mqib0" path="res://gradients/plasma.tres" id="22_5q0nq"]
+[ext_resource type="Gradient" path="res://gradients/gold.tres" id="23_dgi5k"]
+
+[sub_resource type="Gradient" id="Gradient_y6deb"]
+offsets = PackedFloat32Array(0.0018730499, 0.17599067, 0.25058275, 0.3735521, 0.5028958, 0.6341699, 0.76158303, 0.89285713, 0.9999995, 1)
+colors = PackedColorArray(0.13333334, 0.007843138, 0.105882354, 1, 1, 0.19999999, 0.19999999, 1, 1, 0.8, 0.19999999, 1, 0.5781, 0.94, 0.21620002, 1, 0.21620002, 0.94, 0.39715, 1, 0.21620002, 0.94, 0.94, 1, 0.21620002, 0.39715, 0.94, 1, 0.5781, 0.21620002, 0.94, 1, 0.13378984, 0.009690926, 0.10400613, 1, 0.13378984, 0.009690926, 0.10400613, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_og1vs"]
+gradient = SubResource("Gradient_y6deb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
 shader = ExtResource("2_0wfyh")
-shader_parameter/speed = 0.043
-shader_parameter/intensity = 0.25
+shader_parameter/speed = 0.068
+shader_parameter/intensity = 0.295
 shader_parameter/scale = 0.92
-shader_parameter/saturation = 0.5
-shader_parameter/brightness = 0.395
+shader_parameter/contrast = 2.6550000000000002
+shader_parameter/gradient = SubResource("GradientTexture1D_og1vs")
 
 [node name="Main" type="Control" unique_id=1798503980]
 layout_mode = 3
@@ -57,7 +79,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 65
-columns = 3
+columns = 4
 
 [node name="mandelbrot_display_panel" parent="MarginContainer/GridContainer" unique_id=928070062 instance=ExtResource("3_sugp2")]
 z_index = -1
@@ -98,3 +120,20 @@ secondary_label = "Includes:
     · Vicsek's Fractal
     · Any other N-Flake"
 scene = ExtResource("9_85g3d")
+
+[node name="sierpinski_polyhedra_display_panel" parent="MarginContainer/GridContainer" unique_id=597368466 instance=ExtResource("3_sugp2")]
+z_index = -1
+custom_minimum_size = Vector2(234.585, 234.585)
+layout_mode = 2
+size_flags_vertical = 4
+image = ExtResource("10_y6deb")
+label = "Sierpinski Polyhedra"
+secondary_label = "Includes:
+    · Siperinski's Tetrahedron
+    · Vicsek's 3D Fractal
+    · Any other 3D N-Flake"
+scene = ExtResource("10_choun")
+
+[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_ya4ey")]
+gradients = Array[Gradient]([ExtResource("12_pm3ni"), ExtResource("13_y6deb"), ExtResource("14_og1vs"), ExtResource("15_2wyq8"), ExtResource("16_vxglm"), ExtResource("17_2f3dj"), ExtResource("18_yq6so"), ExtResource("19_fv21b"), ExtResource("20_tel4y"), ExtResource("21_qkpxi"), ExtResource("22_5q0nq"), ExtResource("23_dgi5k")])
+gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Grayscale (loop)", "Blue-Orange", "Plae Red-Blue", "Radiactive", "Plasma", "Gold"])

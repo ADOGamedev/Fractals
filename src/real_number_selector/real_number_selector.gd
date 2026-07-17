@@ -15,6 +15,7 @@ var prev_alt_integer = false
 
 @export var curr_value: float = 0.35
 @export var divide_by_a_thouand = false
+@export var divide_sensitivity_by_a_thouand = false
 @export var minimun_inclusive = true
 var initial_value := 0.0
 var target_value := 0.0
@@ -31,6 +32,7 @@ var lag_threshold_fps = 15
 
 func _ready() -> void:
 	var val = (curr_value / 1000.) if divide_by_a_thouand else curr_value
+	sensitivity = (sensitivity / 1000.) if divide_sensitivity_by_a_thouand else sensitivity
 	
 	$HSlider.exp_edit = exp_edit
 	$HSlider.value = val

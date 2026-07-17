@@ -13,18 +13,17 @@ func _ready() -> void:
 	update_gradient(default_grad_index) 
 
 
-
 func _process(delta: float) -> void:
-	MandelbulbConfig.hit_position_strength = %hit_position.get_value()
-	MandelbulbConfig.iteratios_coloring_strength = %iteratios_coloring_strength.get_value()
-	MandelbulbConfig.lighting_strength = %lighting.get_value()
-	MandelbulbConfig.ambient_light = %ambient_light.get_value()
-	MandelbulbConfig.gradient = %GradientSelector.grad
-	MandelbulbConfig.bg_color = %bg_color_picker.color
-	MandelbulbConfig.single_color_bg = %single_color_background_checkbox.button_pressed
-	MandelbulbConfig.gradient_repetition = %gradient_repetition.get_value();
-	MandelbulbConfig.gradient_attenuation = %gradient_attenuation.get_value();
-	MandelbulbConfig.gradient_offset = %gradient_offset.get_value();
+	SierpinskiPolyhedraConfig.hit_position_strength = %hit_position.get_value()
+	SierpinskiPolyhedraConfig.iteratios_coloring_strength = %iteratios_coloring_strength.get_value()
+	SierpinskiPolyhedraConfig.lighting_strength = %lighting.get_value()
+	SierpinskiPolyhedraConfig.ambient_light = %ambient_light.get_value()
+	SierpinskiPolyhedraConfig.gradient = %GradientSelector.grad
+	SierpinskiPolyhedraConfig.bg_color = %bg_color_picker.color
+	SierpinskiPolyhedraConfig.single_color_bg = %single_color_background_checkbox.button_pressed
+	SierpinskiPolyhedraConfig.gradient_repetition = %gradient_repetition.get_value();
+	SierpinskiPolyhedraConfig.gradient_attenuation = %gradient_attenuation.get_value();
+	SierpinskiPolyhedraConfig.gradient_offset = %gradient_offset.get_value();
 
 	%PopupMenu.position = %gradient_menu_button.global_position +  Vector2(%gradient_menu_button.size.x - 3, %gradient_menu_button.size.y / 2.)
 	%PopupMenu.position += Vector2i(0, -%PopupMenu.size.y / 2.)
@@ -79,5 +78,5 @@ func _on_popup_menu_index_pressed(index: int) -> void:
 
 
 func update_gradient(index: int)-> void:
-	MandelbulbConfig.grad = gradients[index]
-	%GradientSelector.set_gradient(MandelbulbConfig.grad)
+	SierpinskiPolyhedraConfig.grad = gradients[index]
+	%GradientSelector.set_gradient(SierpinskiPolyhedraConfig.grad)

@@ -24,6 +24,8 @@ MandelbrotConfig="*uid://cm7t31riprdpv"
 Global="*uid://c2ru27sdvqmn4"
 MandelbulbConfig="*uid://cfjsm4qlhfiye"
 NFlakeConfig="*uid://cvwai1slx7pkh"
+SierpinskiPolyhedraConfig="*uid://cdy0oh27157l7"
+Gradients="*uid://x6mjb5blsfr5"
 
 [display]
 

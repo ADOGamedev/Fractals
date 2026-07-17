@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_hk775"]
 [ext_resource type="PackedScene" uid="uid://xj7n5iawbntx" path="res://scenes/n_flake_color_widget.tscn" id="8_a2pt7"]
 [ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="9_vhm6x"]
+[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="11_7y71y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64vu0"]
 shader = ExtResource("1_ajs3g")
-shader_parameter/iterations = 5
-shader_parameter/sides = 5
+shader_parameter/iterations = 5.0
+shader_parameter/sides = 6.0
 shader_parameter/scale = 0.38
 shader_parameter/radius = 0.4
 shader_parameter/include_center = false
@@ -23,6 +24,8 @@ shader_parameter/negative_space = false
 shader_parameter/color_by_position = false
 shader_parameter/color_by_iterations = false
 shader_parameter/color_by_overlap = false
+shader_parameter/color_by_distance = false
+shader_parameter/sdf_coloring = false
 shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/gradient_repetition = 7.0
@@ -43,10 +46,10 @@ shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
 shader_parameter/edge_width = 3.61600017176
 shader_parameter/chromatic_strength = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lbs0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g4sd"]
 content_margin_left = 20.0
 content_margin_top = 30.0
-content_margin_right = 30.0
+content_margin_right = 20.0
 content_margin_bottom = 20.0
 bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
 border_width_left = 5
@@ -54,6 +57,9 @@ border_width_top = 5
 border_color = Color(0.54, 0.54, 0.54, 0.2)
 border_blend = true
 corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 corner_detail = 16
 
 [sub_resource type="FontVariation" id="FontVariation_mcxrb"]
@@ -101,7 +107,7 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 theme = ExtResource("4_7y71y")
-theme_override_styles/panel = SubResource("StyleBoxFlat_7lbs0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3g4sd")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main_panel/Panel" unique_id=1244142182]
 layout_mode = 2
@@ -268,6 +274,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("9_vhm6x")]
 metadata/_edit_use_anchors_ = true
+
+[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_7y71y")]
 
 [connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 

@@ -188,8 +188,22 @@ float sdSierpinskiPolyhedron(in vec3 p, in int index) {
 	return d;
 }
 
+vec3 rotate(vec3 v, vec3 axis, float angle)
+{
+    float c = cos(angle);
+    float s = sin(angle);
+
+    return v * c +
+           cross(axis, v) * s +
+           axis * dot(axis, v) * (1.0 - c);
+}
 
 float map(in vec3 p) {
+	if (polyhedron_index == 0) {
+		p = rotate(p, vec3(0., 1., 0.), radians(-45));
+		p = rotate(p, vec3(0., 0., 1.), radians(-135));
+		p = rotate(p, vec3(1., 1., 0.), radians(-30));
+	}
 	return sdSierpinskiPolyhedron(p, polyhedron_index);
 }
 
@@ -207,6 +221,9 @@ vec3 normals(in vec3 p) {
 
 void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, -1.);
+	if (polyhedron_index == 0) {
+		uv += vec2(0.02, 0.07);
+	}
 	float iters;
 	
 	vec3 camera_position = camPos;
@@ -236,7 +253,7 @@ void fragment() {
         	break;
     	}
 
-    	t += d;
+    	t += d * 0.7;
 	}
 
 	if (hit || !single_color_bg) {

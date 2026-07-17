@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://vhri0a7a70hm"]
+
+[ext_resource type="Script" uid="uid://dfojed2y3va65" path="res://src/gradients/gradients.gd" id="1_todyr"]
+
+[node name="Gradients" type="Node" unique_id=1395826568]
+script = ExtResource("1_todyr")

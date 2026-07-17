@@ -8,8 +8,8 @@ var GRADIENT_MAPPING_ATTENUATION = 8.0
 
 @export var default_grad_index = 0
 
-@export var gradients : Array[Gradient]
-@export var gradients_names : Array[String]
+var gradients : Array[Gradient]
+var gradients_names : Array[String]
 var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
 
@@ -62,6 +62,9 @@ func _process(_delta: float) -> void:
 
 
 func load_gradients() -> void:
+	gradients = Gradients.gradients
+	gradients_names = Gradients.gradients_names
+	
 	for grad in gradients:
 		var id = %PopupMenu.item_count
 
