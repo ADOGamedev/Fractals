@@ -10,8 +10,6 @@
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_b87lo"]
 [ext_resource type="Texture2D" uid="uid://dgnx7do0cu4hm" path="res://assets/sprites/hide_ui_icon.png" id="7_tik6r"]
 [ext_resource type="Texture2D" uid="uid://mbf5sjnrd86n" path="res://assets/sprites/fullscreen_icon.png" id="8_l8mao"]
-[ext_resource type="FontFile" uid="uid://ohn5rrj6cwn5" path="res://assets/fonts/latinmodern-math.otf" id="10_l8mao"]
-[ext_resource type="Texture2D" uid="uid://ij403ibm1407" path="res://assets/sprites/manual_icon.png" id="11_81r64"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_raht5"]
 shader = ExtResource("1_d2mi6")
@@ -69,13 +67,6 @@ base_font = ExtResource("7_b87lo")
 variation_embolden = 1.2
 variation_transform = Transform2D(0.75, 0, 0, 1, 0, 0)
 spacing_glyph = -3
-
-[sub_resource type="FontVariation" id="FontVariation_81r64"]
-base_font = ExtResource("10_l8mao")
-variation_embolden = 0.3
-variation_transform = Transform2D(0.75, 0, 0, 1, 0, 0)
-spacing_glyph = -3
-baseline_offset = -0.07
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brem2"]
 content_margin_left = 30.0
@@ -223,30 +214,12 @@ text = "FPS"
 icon_alignment = 1
 expand_icon = true
 
-[node name="manual_icon" type="Button" parent="PanelContainer/HBoxContainer" unique_id=802233604]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_colors/font_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
-theme_override_colors/font_focus_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
-theme_override_colors/font_pressed_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
-theme_override_colors/font_hover_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
-theme_override_colors/font_hover_pressed_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
-theme_override_fonts/font = SubResource("FontVariation_81r64")
-theme_override_font_sizes/font_size = 23
-theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
-theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
-icon = ExtResource("11_81r64")
-icon_alignment = 1
-expand_icon = true
-
 [node name="close_fractal_panel" type="Panel" parent="." unique_id=1952804074]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -185.0
+offset_left = -177.0
 offset_top = 65.0
-offset_right = -94.0
+offset_right = -86.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_brem2")
@@ -268,9 +241,9 @@ vertical_alignment = 1
 [node name="reset_camera_panel" type="Panel" parent="." unique_id=1412301020]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -149.0
+offset_left = -135.0
 offset_top = 65.0
-offset_right = -58.0
+offset_right = -44.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -293,9 +266,9 @@ vertical_alignment = 1
 [node name="reset_panel" type="Panel" parent="." unique_id=5716802]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -108.0
+offset_left = -89.0
 offset_top = 65.0
-offset_right = -17.0
+offset_right = 2.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -316,9 +289,9 @@ vertical_alignment = 1
 [node name="save_img_panel" type="Panel" parent="." unique_id=798069485]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -95.0
+offset_left = -71.0
 offset_top = 65.0
-offset_right = 48.0
+offset_right = 72.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -350,9 +323,8 @@ vertical_alignment = 1
 [node name="hide_ui_panel" type="Panel" parent="." unique_id=1493751150]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -30.0
 offset_top = 65.0
-offset_right = 70.0
+offset_right = 100.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -384,9 +356,9 @@ vertical_alignment = 1
 [node name="fullscreen_panel" type="Panel" parent="." unique_id=2059534472]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -12.0
+offset_left = 24.0
 offset_top = 65.0
-offset_right = 131.0
+offset_right = 167.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -418,9 +390,9 @@ vertical_alignment = 1
 [node name="fps_panel" type="Panel" parent="." unique_id=705707747]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 27.0
+offset_left = 70.0
 offset_top = 65.0
-offset_right = 170.0
+offset_right = 213.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -449,32 +421,8 @@ text = "[F5]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="manual_panel" type="Panel" parent="." unique_id=1024785779]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 98.0
-offset_top = 65.0
-offset_right = 183.0
-offset_bottom = 92.0
-theme = ExtResource("6_brem2")
-theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="manual_panel" unique_id=21187909]
-layout_mode = 0
-offset_right = 85.0
-offset_bottom = 26.0
-theme_override_constants/separation = 3
-alignment = 1
-
-[node name="Label" type="Label" parent="manual_panel/HBoxContainer" unique_id=698783943]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_tik6r")
-theme_override_font_sizes/font_size = 11
-text = "Manual"
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="fps" type="Label" parent="." unique_id=2034584198]
+visible = false
 layout_mode = 0
 offset_left = 171.0
 offset_top = 36.0
@@ -506,6 +454,3 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_pressed"]
-[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_mouse_entered"]
-[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_mouse_exited"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_pressed"]

@@ -16,16 +16,17 @@ var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 var LABEL_DISABLED_COLOR = Color(0.7, 0.7, 0.7, 1.0)
 
 func _ready() -> void:
-	MandelbrotConfig.grad = gradients[default_grad_index]
+	await Gradients.gradients_ready
+
+	load_gradients()
+	update_gradient(default_grad_index) 
 
 	%gradient_attenuation.initial_value = DEFAULT_GRADIENT_ATENUATION
 	%gradient_attenuation.set_value(DEFAULT_GRADIENT_ATENUATION)
 	%GradientSelector.set_gradient(MandelbrotConfig.grad)
 	%ColorPickerButton.color = MandelbrotConfig.color
 
-	load_gradients()
-	update_gradient(default_grad_index) 
-
+	MandelbrotConfig.grad = gradients[default_grad_index]
 
 
 func load_gradients() -> void:

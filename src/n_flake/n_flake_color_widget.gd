@@ -14,6 +14,8 @@ var GRADIENT_SIZE_IN_MENU = Vector2(181, 22)
 
 
 func _ready() -> void:
+	await Gradients.gradients_ready
+	
 	load_gradients()
 	
 	NFlakeConfig.grad = gradients[default_grad_index]

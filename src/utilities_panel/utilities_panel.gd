@@ -111,5 +111,3 @@ func _on_manual_icon_mouse_exited() -> void:
 	
 func _on_manual_icon_pressed() -> void:
 	pass
-
-

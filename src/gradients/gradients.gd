@@ -9,3 +9,4 @@ extends Node
 func _ready() -> void:
 	Gradients.gradients = gradients
 	Gradients.gradients_names = gradients_names
+

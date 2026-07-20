@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://piw3jberil5m" path="res://scenes/triplex_number_selector.tscn" id="8_i5g6i"]
 [ext_resource type="PackedScene" uid="uid://ip7m555w5pnt" path="res://scenes/mandelbulb_color_widget.tscn" id="9_5tp42"]
 [ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="11_4fdp8"]
-[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="12_s30jy"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_caifj"]
 gradient = ExtResource("2_caifj")
@@ -460,8 +459,6 @@ text = "Color"
 displacement = Vector2(-437, 0)
 
 [node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("11_4fdp8")]
-
-[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("12_s30jy")]
 
 [connection signal="item_selected" from="CanvasLayer/main_panel/PanelContainer/VBoxContainer/fractals_option_button" to="." method="_on_fractals_option_button_item_selected"]
 [connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]

@@ -1,8 +1,12 @@
 extends ColorRect
 
+const PHI = (1.0 + sqrt(5.0)) / 2.0
+
+
 var MOVE_SPEED_FACTOR = 1.05
 @export var camera_move_speed = 3
 @export var sensitivity = 0.003
+
 
 var DEFAULT_CAMERA_POSITION = Vector3(0, 0, -1.7)
 var DEFAULT_CAMERA_SPEED = 3
@@ -46,12 +50,25 @@ func update_shader_parameters() -> void:
 	grad_tex.gradient = SierpinskiPolyhedraConfig.gradient
 	material.set_shader_parameter("gradient", grad_tex)
 
+	var auto_scale = %auto_scale_checkbox.button_pressed
+
+	var matrix = Basis.IDENTITY
+
+	if %polyhedra_option_button.selected - 1 == 0:
+		var b = Basis.IDENTITY
+		b = b.rotated(Vector3.UP, deg_to_rad(-10))
+		b = b.rotated(Vector3.RIGHT, deg_to_rad(-35))
+		b = b.rotated(Vector3.FORWARD, deg_to_rad(45))
+		
+		matrix = b
+
+	material.set_shader_parameter("rotation_matrix", matrix)
+
 	material.set_shader_parameter("lower_bound", %lower_bound.get_value())
 	material.set_shader_parameter("iterations", %iterations.get_value())
 	material.set_shader_parameter("ray_march_iterations", %ray_march_iterations.get_value())
-	material.set_shader_parameter("include_center", %include_center_checkbox.button_pressed)
-	material.set_shader_parameter("auto_scale", %auto_scale_checkbox.button_pressed)
-	material.set_shader_parameter("scale", %scale.get_value())
+	material.set_shader_parameter("auto_scale", auto_scale)
+	material.set_shader_parameter("scale", get_auto_scale() if auto_scale else %scale.get_value())
 
 	material.set_shader_parameter("polyhedron_index", %polyhedra_option_button.selected - 1)
 	
@@ -143,3 +160,16 @@ func _gui_input(event: InputEvent) -> void:
 
 func _on_utilities_panel_restart_camera() -> void:
 	reset_camera()
+
+
+
+func get_auto_scale() -> float:
+	match (%polyhedra_option_button.selected - 1):
+		0, 1, 2:
+			return 0.5
+		3:
+			return 1.0 / (2.0 + PHI)
+		4:
+			return 1.0 / (1.0 + PHI)
+		_:
+			return 1.0

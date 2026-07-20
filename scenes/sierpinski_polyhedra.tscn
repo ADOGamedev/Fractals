@@ -10,13 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_h5hhv"]
 [ext_resource type="PackedScene" uid="uid://c83658xvs5o5g" path="res://scenes/sierpinski_polyhedra_color_widget.tscn" id="8_l1x7u"]
 [ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="9_bmqtg"]
-[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="11_rpyai"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ac7lt"]
 gradient = ExtResource("2_8bndb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_var0u"]
 shader = ExtResource("1_e4822")
+shader_parameter/rotation_matrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/polyhedron_index = 0
 shader_parameter/radius = 0.4
 shader_parameter/ratio = 1.7777778
@@ -30,7 +30,6 @@ shader_parameter/upper_bound = 100.0
 shader_parameter/ray_march_iterations = 300.0
 shader_parameter/iterations = 3.0
 shader_parameter/exponent = 8.0
-shader_parameter/include_center = false
 shader_parameter/auto_scale = true
 shader_parameter/hit_pos_strength = 0.33
 shader_parameter/iteratios_coloring_strength = 0.665
@@ -106,9 +105,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -345.99997
-offset_top = -375.0
+offset_top = -342.0
 offset_right = 30.61441
-offset_bottom = -4.828247
+offset_bottom = -10.666138
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.84968597, 0.84968597)
@@ -175,7 +174,7 @@ layout_mode = 2
 variable_name = "Iterations"
 integer = true
 exp_edit = true
-curr_value = 25.0
+curr_value = 10.0
 exp_maximum = 1000
 
 [node name="HSlider" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/iterations" index="0" unique_id=1601533653]
@@ -227,23 +226,6 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.18
 
-[node name="include_center" type="HBoxContainer" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1593610477]
-layout_mode = 2
-theme_override_constants/separation = 9
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/include_center" unique_id=408284352]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_rpyai")
-text = "Include Center"
-
-[node name="include_center_checkbox" type="CheckBox" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer/include_center" unique_id=1607270811]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 0
-
 [node name="Control5" type="Control" parent="CanvasLayer/main_panel/PanelContainer/VBoxContainer" unique_id=1554230656]
 layout_mode = 2
 size_flags_vertical = 3
@@ -269,9 +251,9 @@ focus_mode = 0
 [node name="InOutWidget" parent="CanvasLayer/main_panel" unique_id=392686038 instance=ExtResource("7_h5hhv")]
 layout_mode = 0
 offset_left = -137.00003
-offset_top = -77.000015
+offset_top = -64.000015
 offset_right = 11.0
-offset_bottom = 85.0
+offset_bottom = 98.0
 scale = Vector2(0.535, 0.535)
 text = "Main"
 direction = 0
@@ -302,8 +284,6 @@ text = "Color"
 displacement = Vector2(-437, 0)
 
 [node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("9_bmqtg")]
-
-[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_rpyai")]
 
 [connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 

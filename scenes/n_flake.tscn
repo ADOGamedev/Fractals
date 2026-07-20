@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="7_hk775"]
 [ext_resource type="PackedScene" uid="uid://xj7n5iawbntx" path="res://scenes/n_flake_color_widget.tscn" id="8_a2pt7"]
 [ext_resource type="PackedScene" uid="uid://gp1svmtktnw2" path="res://scenes/utilities_panel.tscn" id="9_vhm6x"]
-[ext_resource type="PackedScene" uid="uid://vhri0a7a70hm" path="res://scenes/gradients.tscn" id="11_7y71y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64vu0"]
 shader = ExtResource("1_ajs3g")
@@ -274,8 +273,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UtilitiesPanel" parent="CanvasLayer" unique_id=990072235 instance=ExtResource("9_vhm6x")]
 metadata/_edit_use_anchors_ = true
-
-[node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_7y71y")]
 
 [connection signal="restart_camera" from="CanvasLayer/UtilitiesPanel" to="." method="_on_utilities_panel_restart_camera"]
 

@@ -67,6 +67,7 @@ func _on_panel_container_mouse_exited() -> void:
 
 func _on_panel_container_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		await Gradients.gradients_ready
 		get_tree().change_scene_to_packed(scene)
 
 

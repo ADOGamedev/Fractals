@@ -2,6 +2,8 @@ shader_type canvas_item;
 
 #define PHI 1.61803398874989484820
 
+uniform mat3 rotation_matrix;
+
 const int POLY_VERTEX_COUNT[5] = int[](4, 8, 6, 20, 12);
 const int POLY_START_INDEX[5] = int[](0, 4, 12, 18, 38);
 
@@ -58,7 +60,6 @@ uniform float ray_march_iterations = 350;
 uniform float iterations = 50;
 uniform float exponent = 8.;
 
-uniform bool include_center = false;
 uniform bool auto_scale = false;
 
 uniform float hit_pos_strength = 0.33;
@@ -74,83 +75,65 @@ uniform float gradient_repetition = 350;
 uniform float gradient_attenuation = 1.;
 uniform float gradient_offset = 0.;
 
-float get_scale() {
-	if (!auto_scale) {
-		return scale;
-	}
-	
-	switch (polyhedron_index) {
-		case 0:
-			return 0.5;
-		case 1:
-			return 0.5;
-		case 2:
-			return 0.5;
-		case 3:
-			return 0.276393;
-		case 4:
-			return 0.381966;
-	}
-}
 
 vec3 inverse_child_transform(in vec3 p, in int index, in int k, in float R, in float r) {
 	vec3 v = POLYHEDRON_VERTICES[POLY_START_INDEX[index] + k];
-	vec3 offset = v * (R - R*r);
+	vec3 offset = v * (R * (1.0 - r));
 	
 	return (p - offset) / r;
 }
 
 // ------------------Signed Distance Functions------------------ //
 float sdRegularPolyhedron(vec3 p, int index, float r) {
-    if (index == 0) {
-        p.xy = (p.x + p.y < 0.0) ? -p.yx : p.xy;
-        p.xz = (p.x + p.z < 0.0) ? -p.zx : p.xz;
-        p.yz = (p.y + p.z < 0.0) ? -p.zy : p.yz;
-        return (p.x + p.y + p.z - r) * 0.577350269;
-    }
-    
-    if (index == 1) {
-        vec3 d = abs(p) - vec3(r);
-        return min(max(d.x, max(d.y, d.z)), 0.0) + length(max(d, 0.0));
-    }
-    
-    if (index == 2) {
-        p = abs(p);
-        return (p.x + p.y + p.z - r) * 0.577350269;
-    }
-    
-    if (index == 3) {
-        p = abs(p);
-        vec3 n = normalize(vec3(PHI, 1.0, 0.0));
-        float d = dot(p, n);
-        
-        d = max(d, dot(p.yzx, n));
-        d = max(d, dot(p.zxy, n));
-        return d - r;
-    }
-    
-    if (index == 4) {
-        p = abs(p);
-        
-        const vec3 n1 = normalize(vec3(2.61803398875, 1.0, 0.0));
-        
-        const float n2 = 0.57735026919; 
-        
-        float a = dot(p, n1.xyz);
-        float b = dot(p, n1.zxy);
-        float c = dot(p, n1.yzx);
-        float d = dot(p, vec3(n2)); 
-        
-        return max(max(max(a, b), c), d) - r;
-    }
+	if (index == 0) {
+		p.xy = (p.x + p.y < 0.0) ? -p.yx : p.xy;
+		p.xz = (p.x + p.z < 0.0) ? -p.zx : p.xz;
+		p.yz = (p.y + p.z < 0.0) ? -p.zy : p.yz;
+		return (p.x + p.y + p.z - r) * 0.577350269;
+	}
 
-    return 0.0;
+	if (index == 1) {
+		vec3 d = abs(p) - vec3(r);
+		return min(max(d.x, max(d.y, d.z)), 0.0) + length(max(d, 0.0));
+	}
+
+	if (index == 2) {
+		p = abs(p);
+		return (p.x + p.y + p.z - r) * 0.577350269;
+	}
+
+	if (index == 3) {
+		p = abs(p);
+		vec3 n = normalize(vec3(PHI, 1.0, 0.0));
+		float d = dot(p, n);
+
+		d = max(d, dot(p.yzx, n));
+		d = max(d, dot(p.zxy, n));
+		return d - r;
+	}
+
+	if (index == 4) {
+		p = abs(p);
+
+		const vec3 n1 = normalize(vec3(2.61803398875, 1.0, 0.0));
+
+		const float n2 = 0.57735026919;
+
+		float a = dot(p, n1.xyz);
+		float b = dot(p, n1.zxy);
+		float c = dot(p, n1.yzx);
+		float d = dot(p, vec3(n2));
+
+		return max(max(max(a, b), c), d) - r;
+	}
+	
+	return 0.0;
 }
 
+
 float sdSierpinskiPolyhedron(in vec3 p, in int index) {
-	float real_scale = get_scale();
 	float s = 1.0;
-	float d = 0.0;
+	float d = 1e20;
 	
 	for (int i = 0; i < int(iterations); i++) {
 		
@@ -158,52 +141,27 @@ float sdSierpinskiPolyhedron(in vec3 p, in int index) {
 		float best_length = 1e20;
 		
 		for (int k = 0; k < POLY_VERTEX_COUNT[index]; k++) {
-			vec3 child = inverse_child_transform(p, index, k, radius, real_scale);
-			float dist = sdRegularPolyhedron(child, index, radius);
-			
-			if (length(child) < best_length) {
-				best_length = length(child);
+			vec3 child = inverse_child_transform(p, index, k, radius, scale);
+			float l = dot(child, child);
+				
+			if (l < best_length) {
+				best_length = l;
 				best_child = child;
-				d = dist;
-			}
-			
-		}
-		
-		if (include_center) {
-			vec3 child = p / real_scale;
-			float dist = sdRegularPolyhedron(child, index, radius);
-			
-			if (length(child) < best_length) {
-				best_length = length(child);
-				best_child = child;
-				d = dist;
 			}
 		}
 		
 		p = best_child;
-		s *= real_scale;
+		s *= scale;
 	}
 	
 	d = sdRegularPolyhedron(p, index, radius) * s;
 	return d;
 }
 
-vec3 rotate(vec3 v, vec3 axis, float angle)
-{
-    float c = cos(angle);
-    float s = sin(angle);
-
-    return v * c +
-           cross(axis, v) * s +
-           axis * dot(axis, v) * (1.0 - c);
-}
 
 float map(in vec3 p) {
-	if (polyhedron_index == 0) {
-		p = rotate(p, vec3(0., 1., 0.), radians(-45));
-		p = rotate(p, vec3(0., 0., 1.), radians(-135));
-		p = rotate(p, vec3(1., 1., 0.), radians(-30));
-	}
+	p = rotation_matrix * p;
+	
 	return sdSierpinskiPolyhedron(p, polyhedron_index);
 }
 
@@ -243,7 +201,7 @@ void fragment() {
     	rayPos =  camera_position + rayDir * t;
     	float d = map(rayPos);
 		
-		iters = fract(float(i) / float(gradient_repetition));
+		iters = float(i);
 	    if (d < lower_bound) {
         	hit = true;
         	break;
@@ -253,7 +211,7 @@ void fragment() {
         	break;
     	}
 
-    	t += d * 0.7;
+    	t += d * 0.85;
 	}
 
 	if (hit || !single_color_bg) {
@@ -264,6 +222,7 @@ void fragment() {
     		dp = dot(light_dir, n);
 		}
 		
+		float iters = fract(iters / gradient_repetition);
 		iters = pow(iters, gradient_attenuation);
 		iters = fract(iters + gradient_offset);
 		vec3 grad_color = texture(gradient, vec2(iters, 0.)).xyz * iteratios_coloring_strength;

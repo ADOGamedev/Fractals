@@ -3,24 +3,12 @@
 [ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_7pcls"]
 [ext_resource type="Script" uid="uid://dtpmonlq4n2v2" path="res://src/mandelbrot_fractal/mandelbrot_color_widget.gd" id="1_avj2j"]
 [ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_avj2j"]
-[ext_resource type="Gradient" uid="uid://q0136r0no4j1" path="res://gradients/rainbow.tres" id="2_wup21"]
-[ext_resource type="Gradient" uid="uid://y0quel0pufgw" path="res://gradients/cream.tres" id="3_dynds"]
-[ext_resource type="Gradient" uid="uid://38rwewew0sbg" path="res://gradients/bands_rainbow.tres" id="3_lolw5"]
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="3_xp7sd"]
 [ext_resource type="PackedScene" uid="uid://388ls8jfbkcm" path="res://scenes/gradient_selector.tscn" id="4_gq60x"]
-[ext_resource type="Gradient" uid="uid://cwh4nrprc4xyg" path="res://gradients/fire.tres" id="4_lolw5"]
-[ext_resource type="Gradient" uid="uid://v61us4d3aeu4" path="res://gradients/ice.tres" id="5_66ye8"]
-[ext_resource type="Gradient" uid="uid://dx7rpk6r5t1c7" path="res://gradients/grayscale.tres" id="6_lfbkb"]
 [ext_resource type="Texture2D" uid="uid://ddjsisbevv2ae" path="res://assets/sprites/menu_icon.png" id="6_t1ain"]
 [ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="6_xp7sd"]
-[ext_resource type="Gradient" uid="uid://bbnbwqql04dyc" path="res://gradients/orange-blue.tres" id="7_8kix3"]
 [ext_resource type="Texture2D" uid="uid://rjmctmc3xn80" path="res://assets/sprites/menu_icon_pressed.png" id="7_dh67l"]
-[ext_resource type="Gradient" uid="uid://crmvht7bdqc1y" path="res://gradients/grayscale_loop.tres" id="8_66ye8"]
-[ext_resource type="Gradient" uid="uid://cfirb73msk08l" path="res://gradients/radioactive.tres" id="8_kyjbt"]
 [ext_resource type="Texture2D" uid="uid://bxakqlug3b46y" path="res://assets/sprites/menu_icon_hover.png" id="8_m6187"]
-[ext_resource type="Gradient" uid="uid://ctj4exp31dajw" path="res://gradients/pale_red-blue.tres" id="9_waqna"]
-[ext_resource type="Gradient" uid="uid://dm2xvel4mqib0" path="res://gradients/plasma.tres" id="11_lfbkb"]
-[ext_resource type="Gradient" path="res://gradients/gold.tres" id="13_lfbkb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7pcls"]
 shader = ExtResource("1_7pcls")
@@ -108,8 +96,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_avj2j")
-gradients = Array[Gradient]([ExtResource("2_wup21"), ExtResource("3_lolw5"), ExtResource("3_dynds"), ExtResource("4_lolw5"), ExtResource("5_66ye8"), ExtResource("6_lfbkb"), ExtResource("8_66ye8"), ExtResource("7_8kix3"), ExtResource("9_waqna"), ExtResource("8_kyjbt"), ExtResource("11_lfbkb"), ExtResource("13_lfbkb")])
-gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Grayscale (loop)", "Blue-Orange", "Pale Red-Blue", "Radioactive", "Plasma", "Gold"])
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=411128301]
 material = SubResource("ShaderMaterial_7pcls")
