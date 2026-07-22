@@ -112,22 +112,18 @@ float sdRegularPolyhedron(vec3 p, int index, float r) {
 		return d - r;
 	}
 
-	if (index == 4) {
-		p = abs(p);
+	p = abs(p);
 
-		const vec3 n1 = normalize(vec3(2.61803398875, 1.0, 0.0));
+	const vec3 n1 = normalize(vec3(2.61803398875, 1.0, 0.0));
 
-		const float n2 = 0.57735026919;
+	const float n2 = 0.57735026919;
 
-		float a = dot(p, n1.xyz);
-		float b = dot(p, n1.zxy);
-		float c = dot(p, n1.yzx);
-		float d = dot(p, vec3(n2));
+	float a = dot(p, n1.xyz);
+	float b = dot(p, n1.zxy);
+	float c = dot(p, n1.yzx);
+	float d = dot(p, vec3(n2));
 
-		return max(max(max(a, b), c), d) - r;
-	}
-	
-	return 0.0;
+	return max(max(max(a, b), c), d) - r;
 }
 
 
@@ -136,7 +132,6 @@ float sdSierpinskiPolyhedron(in vec3 p, in int index) {
 	float d = 1e20;
 	
 	for (int i = 0; i < int(iterations); i++) {
-		
 		vec3 best_child = p;
 		float best_length = 1e20;
 		

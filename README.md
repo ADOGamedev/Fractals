@@ -1,118 +1,135 @@
 # **FRACTALS EXPLORER**
 #### GitHub repo: https://github.com/ADOGamedev/Fractals
 
-#### Description: an app made in Godot 4.6 which allows you to control EVERY aspect of some complex-recursive fractals like the Mandelbrot Set.
+#### Description: an app made in Godot 4.6 which allows you to control EVERY aspect of some complex recursive fractals like the Mandelbrot Set, or self-contained fractals like Sierpinski's N-Flakes.
 
-![A screenshot of the app](screenshots/screenshot1.png)
 
 ## **How to use it**
 
-#### **YOU ARE ENCOURAGED TO MESS AROUND WITH EVERY CONTROL AN SEE WHAT IS DOES**
-
-I wanted to keep the design minimalist, but that makes it more difficult to know how to control it. So this is an in-depth explation:
+#### **YOU ARE ENCOURAGED TO MESS AROUND WITH EVERY CONTROL AND SEE WHAT IT DOES**
 
 ### **Sliders**
-The main things you are going to touch are probably the sliders.
-Depending on what use a slider has, it can just allow integer values, all real values in some range, or just all real values.<br/>
+The main things you are probably going to touch are the sliders.
+Depending on what a slider is used for, it can only allow integer values, all real values in some range, or just all real values.<br/>
 In this last case, the slider will let you continue dragging indefinitely, although visually it may have reached the end.
-Also, it can have **exponential edit** which gives more precision for low values and less for big ones.
+Also, it can have **exponential editing**, which gives more precision for low values and less for big ones.
 
 > [!IMPORTANT]
-> You may want more control over the slider, to do this there are 4 levels of control: <br/>
+> You may want more control over the slider. To do this, there are 4 levels of control: <br/>
 > - **Drag with Left Click**: the basic one, to move the slider around without much precision.
-> - **Drag with Left Click + Shift**: this gives 10 times more control, allowing for finer adjusting.
+> - **Drag with Left Click + Shift**: this gives 10 times more control, allowing for finer adjustments.
 > - **Drag with Left Click + Ctrl**: like the previous one but with 1000 times more control instead.
 > - **Drag with Left Click + Shift + Ctrl**: like the previous one but with 10000 times more control instead.<br/>
 
 > [!IMPORTANT]
-> If you want to reset a slider to its default value, double ckick it.
+> If you want to reset a slider to its default value, double-click it.
+
+### **Gradient Selector**
+This is another important one, found in every fractal under the **Color** panel.
+The gradient selector works just like Godot's built-in one.
+There are little color selectors which you can **Left Click** to change the color. If you **Right Click** on any of them, you'll delete it (you must always have at least 2 color selectors).
+If you **Left Click** on an empty part of the gradient, you'll add a new color selector.
+
+Lastly, there are some presets which you can select by clicking the little menu button at the right of the gradient selector.
+
+
+### **Main menu**
+When you open the app, you'll be able to select the fractal.
+
+> [!WARNING]
+> This will just explain how to use the app, so it's assumed you have a basic understanding of fractals.
+> It's not essential to use the app, though.
+
+
+## **COMPLEX 2D FRACTALS**
 
 ### **Main panel**:
-Located at the bottom-right corner, it allows you **to** select 4 different things.
+Located in the bottom-right corner, it allows you to select 4 different things.
 
 <img src="screenshots/main_panel.png" width="400" align="left">
 
 #### The first option allows you to select what type of fractal you want. There are three options, each with different recursive formulas:
- **Mandelbrot**: $z_{n+1} = z_n^x + c$ <br/><br/>
- **Burning ship**: $z_{n+1} = (|Re(z_n)| + i|Im(z_n)|)^2 + c$<br/><br/>
- **Rings Fractal**: ${\Large z_{n+1} = \frac{z_n^2(z_n^2 + c)e^{2\pi\phi i}}{c z_n^2 + 1}}$
 
- where $z_n$ is each term of the sucesion, $c$ si a complex number, $x$ is a chosen complex number and $\phi = \frac{1 + \sqrt{5}}{2}$.
+**Mandelbrot**: $z_{n+1} = z_n^x + c$ <br/><br/>
 
+**Burning ship**: $z_{n+1} = (|Re(z_n)| + i|Im(z_n)|)^2 + c$<br/><br/>
 
-> [!NOTE]
-> This formulas are adapted to allow full control over each thing.
-#### Next, there is the **threshold** $t$. To understand what this does, we have to first know how rendering a fractal works:
+**Rings Fractal**: ${\Large z_{n+1} = \frac{z_n^2(z_n^2 + c)e^{2\pi\phi i}}{c z_n^2 + 1}}$
 
-First we take an initial number $z_0$, apply the corresponding recursive formula, per example: $z_1 = z_0^2 + c$. This new value $z_1$ is then fed in again to the formula giving $z_2 = z_1^2 + c$ and we continue this process again and again. If this number continues growing, it is not part of the set. To do this, the program checks if the current $z_n$ is greater than some threshold $t$. The default value for $t$ is 10, which works great with all the fractals.
+where $z_n$ is each term of the sequence, $c$ is a complex number, $x$ is a chosen complex number and $\phi = \frac{1 + \sqrt{5}}{2}$.
 
-#### Just below the threshold there is the **iterations** slider $i$, this is related to how the program calculates the fractal, just like the previous one:
-
-Apart from seeing if the number reaches a threshold, it can get in a loop, never reaching the threshold, these are the points that belong to the set. To solve this, theres is a limit on how many times the recursive formula can be fed into it self. This limit is the iteration count $i$
 
 > [!NOTE]
-> Greater iteration count will give you a more accurate fractal but may lag your computer. In the other hand, lower values will make the fractal less detailed.
+> These formulas are adapted to allow full control over each parameter.
 
-#### Finally, the **Julia Set** option, to know what this does we have to see how the $c$ and $z_0$ values are chosen:
+#### Next, there is the **threshold** slider.
+This is the number that the code checks to determine if a point is inside the set. In Mandelbrot,
+it is proven that the fractal is contained inside a circle of radius 2, so the threshold should be 2.
+However, its default value is 10, as it works well for all fractals and gives better-looking images.
 
-When **Julia Set** is off, the initial $z$ value ($z_0$) is chosen manually, these are the default values:
+#### Just below the threshold there is the **iterations** slider.
+
+This is the limit on how many times the fractal recursive formula can be applied.
+
+> [!NOTE]
+> A greater iteration count will give you a more accurate fractal but may slow down your computer. On the other hand, lower values will make the fractal less detailed.
+
+#### Finally, the **Julia Set** option. To know what this does, we have to see how the $\text{Constant Term}$ and $\text{Initial Value}$ values are chosen (which I'll call $c$ and $z$ respectively):
+
+When **Julia Set** is off, the initial $z$ value ($z_0$) is chosen manually. These are the default values:
+
 - **Mandelbrot**: $z_0 = 0$
 - **Burning Ship**: $z_0 = 0$
 - **Rings Fractal**: $z_0 = 1$
 
-The $c$ instead is chosen depending on the pixel of the image that is being rendered. When we render the pixel at, say, $1 + 0.5i$, the $c$ value used to perform the calculations during the rendering of that pixel will be $1 + 0.5i$.
+The $c$ value instead is chosen depending on the pixel of the image that is being rendered. When we render the pixel at, say, $1 + 0.5i$, the $c$ value used to perform the calculations during the rendering of that pixel will be $1 + 0.5i$.
 
-In the other case, when **Julia Set** is on, the $c$ value is chosen manually, the defaults being:
+In the other case, when **Julia Set** is on, the $c$ value is chosen manually, with the following defaults:
+
 - **Mandelbrot**: $c = -0.76133 + 0.07694i$
 - **Burning Ship**: $c = -0.4384 + 0.07305i$
 - **Rings Fractal**: $c = \sqrt{2}$
 
 > [!NOTE]
-> These default values have been chosesd for aesthetic reasions.
+> These default values have been chosen for aesthetic reasons.
 
 And this time, $z_0$ is chosen based on the pixel that is being rendered.
 
 
 ### **Color Panel**
 
-This is probably the most complex one, but it allows you to give your fractals a wide variety of looks. I'll explain how it works:
+This is probably the most complex panel, but it allows you to give your fractals a wide variety of looks. I'll explain how it works:
 
 <img src="screenshots/color_panel.png" width="400" align="left">
 
-Before anything, we have to clarify one thing: in the context of "Gradient Mapping" I refer that the coloring is related to the **mathematical** meaning of gradient (the direction of steapest increase), in other contexts I refer to a **Color Gradient**.
+Before anything, we have to clarify one thing: "Gradient Mapping" refers to the **mathematical** meaning of gradient (the direction of steepest increase). In other contexts, I refer to a **Color Gradient**.
 <br/><br/><br/><br/><br/><br/><br/>
 
-#### The gradient mapping option allows you to select diferent colorings based on the gradient. These are the options:
-- **HSB**: asigns the **angle** of the gradient vector to the HUE of the color and the **magnitude** of this vector to the brightness.
-- **By angle**: asigns the **angle** of the vector gradient to a position in the **color gradient**.
-- **By magnitude**: asigns the **magnitude** of the vector gradient to a position in the **color gradient**.
+#### The gradient mapping option allows you to select different colorings based on the gradient. These are the options:
 
-#### When gradient mapping is not disabled, you can toggle the **Invert Gradient Mapping** checkbox, this will change the angle and magnitude in the next way:
+- **HSB**: assigns the **angle** of the gradient vector to the HUE of the color and the **magnitude** of this vector to the brightness.
+- **By angle**: assigns the **angle** of the gradient vector to a position in the **color gradient**.
+- **By magnitude**: assigns the **magnitude** of the gradient vector to a position in the **color gradient**.
 
-$\alpha' = 1 - \alpha \text{ where } \alpha \text{ is the angle and } \alpha' \text{ the new one}$<br/>
-$m' = 1 - m \text{ where } m \text{ is the angle and } m' \text{ the new one}$
+#### When gradient mapping is not disabled, you can toggle the **Invert Gradient Mapping** checkbox. This will change the angle and magnitude in the following way:
+
+$\alpha' = 1 - \alpha$ <br/>
+$m' = 1 - m$
+
+$\text{where } m \text{ is the magnitude and } m' \text{ is the new magnitude}$
+<br/>
+$\text{where } \alpha \text{ is the angle and } \alpha' \text{ is the new angle}$
 
 #### Next, the color gradient selector. This allows you to change the different colors of your gradient.
 
-> [!NOTE]
-> I'll call "selectors" the little indicators that define each color in the gradient.
-
-- If you **Left Click** on a selector, you can change its color.
-- If you **Left Click** on the gradient (but not a selector) you'll add a new selector.
-- If you **Right Click** on a selector, you'll deleate it.
-- If you hold **Left Click** on a selector and move the mouse, you can change the selector's position.
-
-You can also click the three lines at the right of the gradient to load some presets.
-
-#### Just below the color gradient, is the **Color** selector, this just changes the color of the pixels that belong to the set.
+#### Just below the color gradient is the **Color** selector. This simply changes the color of the pixels that belong to the set.
 
 You click it and it allows you to select a color, simple.
 
-#### Then, you can see the **Smoothened Gradient** checkbox. If you toggle that off, the color will appear discretly, but when it is on the colors will interpolate smoothly.
+#### Then, you can see the **Smoothened Gradient** checkbox. If you toggle that off, the color will appear discretely, but when it is on, the colors will interpolate smoothly.
 
-It works by applying a formula to the iterations it took to a certain pixel to overcome the threshold. This is the formula:
+It works by applying a formula to the number of iterations it took for a certain pixel to overcome the threshold. This is the formula:
 
-			float first_log = log(length(current_number)) / log(threshold);
-			vec2 smooth_i = float(i) + 1.0 - complex_log_base(exponent, vec2(first_log, 0.0));
+$N_{smooth} = N - log_x(log_t(|z|))$
 
-$N_{smooth} = N - log_x($
+$\text{where } x \text{ is the exponent, } t \text{ the threshold, } z \text{ the complex number, and } N \text{ the iterations. }$
