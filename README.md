@@ -3,6 +3,7 @@
 
 #### Description: an app made in Godot 4.6 which allows you to control EVERY aspect of some complex recursive fractals like the Mandelbrot Set, or self-contained fractals like Sierpinski's N-Flakes.
 
+![A screenshot of the app](screenshots/screenshot1.png)
 
 ## **How to use it**
 
@@ -46,7 +47,7 @@ When you open the app, you'll be able to select the fractal.
 ### **Main panel**:
 Located in the bottom-right corner, it allows you to select 4 different things.
 
-<img src="screenshots/main_panel.png" width="400" align="left">
+<img src="screenshots/mandelbrot_main_panel.png" width="400" align="left">
 
 #### The first option allows you to select what type of fractal you want. There are three options, each with different recursive formulas:
 
@@ -100,10 +101,10 @@ And this time, $z_0$ is chosen based on the pixel that is being rendered.
 
 This is probably the most complex panel, but it allows you to give your fractals a wide variety of looks. I'll explain how it works:
 
-<img src="screenshots/color_panel.png" width="400" align="left">
+<img src="screenshots/mandelbrot_color_panel.png" width="420" align="left">
 
 Before anything, we have to clarify one thing: "Gradient Mapping" refers to the **mathematical** meaning of gradient (the direction of steepest increase). In other contexts, I refer to a **Color Gradient**.
-<br/><br/><br/><br/><br/><br/><br/>
+
 
 #### The gradient mapping option allows you to select different colorings based on the gradient. These are the options:
 
@@ -128,8 +129,10 @@ You click it and it allows you to select a color, simple.
 
 #### Then, you can see the **Smoothened Gradient** checkbox. If you toggle that off, the color will appear discretely, but when it is on, the colors will interpolate smoothly.
 
-It works by applying a formula to the number of iterations it took for a certain pixel to overcome the threshold. This is the formula:
+It works by applying a formula to the number of iterations:
 
 $N_{smooth} = N - log_x(log_t(|z|))$
 
 $\text{where } x \text{ is the exponent, } t \text{ the threshold, } z \text{ the complex number, and } N \text{ the iterations. }$
+
+#### Finally, you can use the **Color Inside** checkbox to color the inside of the fractal bases on the gradient instead of a single color.
