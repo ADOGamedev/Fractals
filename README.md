@@ -50,7 +50,7 @@ After selecting a fractal, a bar will show up at the top, this is what each thin
     5. Click save!
 
 > [!NOTE]
-> When saving in large resolutions it may take some time to finish
+> When saving in large resolutions it may take some time to finish.  
 > If you have an exiting file with the same name and extension, it will ask if you want to override it.
 - **Hide UI**: well, in other word, makes the UI invisible.
 > [!IMPORTANT]
