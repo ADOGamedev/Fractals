@@ -24,6 +24,8 @@
 [ext_resource type="Gradient" uid="uid://cfirb73msk08l" path="res://gradients/radioactive.tres" id="21_qkpxi"]
 [ext_resource type="Gradient" uid="uid://dm2xvel4mqib0" path="res://gradients/plasma.tres" id="22_5q0nq"]
 [ext_resource type="Gradient" path="res://gradients/gold.tres" id="23_dgi5k"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="25_og1vs"]
+[ext_resource type="Texture2D" uid="uid://cgndkkrmqepkh" path="res://assets/ADOGames_H_White.png" id="26_2wyq8"]
 
 [sub_resource type="Gradient" id="Gradient_y6deb"]
 offsets = PackedFloat32Array(0.0018730499, 0.17599067, 0.25058275, 0.3735521, 0.5028958, 0.6341699, 0.76158303, 0.89285713, 0.9999995, 1)
@@ -37,8 +39,16 @@ shader = ExtResource("2_0wfyh")
 shader_parameter/speed = 0.068
 shader_parameter/intensity = 0.295
 shader_parameter/scale = 0.92
-shader_parameter/contrast = 2.6550000000000002
+shader_parameter/contrast = 2.655
 shader_parameter/gradient = SubResource("GradientTexture1D_og1vs")
+
+[sub_resource type="FontVariation" id="FontVariation_og1vs"]
+base_font = ExtResource("25_og1vs")
+variation_embolden = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_2wyq8"]
+base_font = ExtResource("25_og1vs")
+variation_embolden = 1.5
 
 [node name="Main" type="Control" unique_id=1798503980]
 layout_mode = 3
@@ -130,10 +140,45 @@ image = ExtResource("10_y6deb")
 label = "Sierpinski Polyhedra"
 secondary_label = "Includes:
     · Siperinski's Tetrahedron
-    · Vicsek's 3D Fractal
     · Any other 3D N-Flake"
 scene = ExtResource("10_choun")
 
 [node name="Gradients" parent="." unique_id=1395826568 instance=ExtResource("11_ya4ey")]
 gradients = Array[Gradient]([ExtResource("12_pm3ni"), ExtResource("13_y6deb"), ExtResource("14_og1vs"), ExtResource("15_2wyq8"), ExtResource("16_vxglm"), ExtResource("17_2f3dj"), ExtResource("18_yq6so"), ExtResource("19_fv21b"), ExtResource("20_tel4y"), ExtResource("21_qkpxi"), ExtResource("22_5q0nq"), ExtResource("23_dgi5k")])
 gradients_names = Array[String](["Rainbow", "Bands Rainbow", "Cream", "Fire", "Ice", "Grayscale", "Grayscale (loop)", "Blue-Orange", "Plae Red-Blue", "Radiactive", "Plasma", "Gold"])
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=964092657]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -140.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = SubResource("FontVariation_og1vs")
+theme_override_fonts/bold_font = SubResource("FontVariation_2wyq8")
+bbcode_enabled = true
+text = "[b]Welcome to my Fractal Explorer![/b]
+
+Unfortunately, you may experience some performance issues, mainly with the Sierpinski Polyhedra and the Complex Fractals 3D (Mandelbox).
+To view the controls, click the Manual icon at the top after entering a fractal.
+
+[b]Have fun![/b]"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1890811004]
+modulate = Color(1, 1, 1, 0.3882353)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -121.0
+offset_top = 17.0
+offset_right = 126.0
+offset_bottom = 108.0
+grow_horizontal = 2
+texture = ExtResource("26_2wyq8")
+expand_mode = 1
+stretch_mode = 5

@@ -92,9 +92,9 @@ script = ExtResource("2_ac7lt")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 989.0
-offset_top = 564.0
+offset_top = 590.0
 offset_right = 1275.0
-offset_bottom = 744.0
+offset_bottom = 770.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/main_panel" unique_id=1594876557]
 material = SubResource("ShaderMaterial_8utgf")

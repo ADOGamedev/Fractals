@@ -110,4 +110,8 @@ func _on_manual_icon_mouse_exited() -> void:
 	tween.tween_property($manual_panel, "modulate", Color(1, 1, 1, 0), 0.15)
 	
 func _on_manual_icon_pressed() -> void:
-	pass
+	$manual.visible = !$manual.visible
+
+
+func _on_rich_text_label_meta_clicked(meta: Variant) -> void:
+	OS.shell_open(meta)

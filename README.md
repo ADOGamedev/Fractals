@@ -1,7 +1,7 @@
 # **FRACTALS EXPLORER**
 #### GitHub repo: https://github.com/ADOGamedev/Fractals
 
-#### Description: an app made in Godot 4.6 which allows you to control EVERY aspect of some complex recursive fractals like the Mandelbrot Set, or self-contained fractals like Sierpinski's N-Flakes.
+#### Description: an app made in Godot 4.6 which allows you to control EVERY aspect of some complex recursive fractals like the Mandelbrot Set, or self-contained fractals like Sierpinski's N-Flakes, also in 3D (like Mandelbulb or Sierpinski Polyhedra)!.
 
 ![A screenshot of the app](screenshots/screenshot1.png)
 
@@ -37,12 +37,35 @@ Lastly, there are some presets which you can select by clicking the little menu 
 ### **Main menu**
 When you open the app, you'll be able to select the fractal.
 
+### **Utilities Bar**
+After selecting a fractal, a bar will show up at the top, this is what each thing does:
+- **Close Fractal**: goes back to the main menu (you can also press the ESC key).
+- **Reset Camera**: resets the camera to its default zoom and position.
+- **Reset Fractal**: completly reloads the fractal (just like exiting and re-entering a fractal)
+- **Save Fractal Image**: download your creations in any size up to 22K (21840 x 12285 px).
+    1. Select the resolution in the drop-down menu.
+    2. Name your fractal.
+    3. Select the file extension (.png, .jpg, .mbp, .tif, .webp).
+    4. Select the folder in which the image will be saved.
+    5. Click save!
+
+    > [!NOTE]
+    > When saving in large resolutions it may take some time to finish
+    > If you have an exiting file with the same name and extension, it will ask if you want to override it.
+- **Hide UI**: well, in other word, makes the UI invisible.
+    > [!IMPORTANT]
+    > Press F1 to show it again after hidding it.
+- **Toggle Fulscreen**: yep, preety self-explanatory.
+- **Show/Hide FPS**: toggles the visibility of an FPS indicator at the right of the utilities bar.
+- **Show/Hide Manual**: toggles the visibility of a manual with all the controls.
+
+
 > [!WARNING]
 > This will just explain how to use the app, so it's assumed you have a basic understanding of fractals.
 > It's not essential to use the app, though.
 
 
-## **COMPLEX 2D FRACTALS**
+## **COMPLEX FRACTALS 2D**
 
 ### **Main panel**:
 Located in the bottom-right corner, it allows you to select 4 different things.
@@ -53,9 +76,9 @@ Located in the bottom-right corner, it allows you to select 4 different things.
 
 **Mandelbrot**: $z_{n+1} = z_n^x + c$ <br/><br/>
 
-**Burning ship**: $z_{n+1} = (|Re(z_n)| + i|Im(z_n)|)^2 + c$<br/><br/>
+**Burning ship**: $z_{n+1} = (|Re(z_n)| + i|Im(z_n)|)^x + c$<br/><br/>
 
-**Rings Fractal**: ${\Large z_{n+1} = \frac{z_n^2(z_n^2 + c)e^{2\pi\phi i}}{c z_n^2 + 1}}$
+**Rings Fractal**: ${\Large z_{n+1} = \frac{z_n^x(z_n^x + c)e^{2\pi\phi i}}{c z_n^x + 1}}$
 
 where $z_n$ is each term of the sequence, $c$ is a complex number, $x$ is a chosen complex number and $\phi = \frac{1 + \sqrt{5}}{2}$.
 
@@ -135,4 +158,39 @@ $N_{smooth} = N - log_x(log_t(|z|))$
 
 $\text{where } x \text{ is the exponent, } t \text{ the threshold, } z \text{ the complex number, and } N \text{ the iterations. }$
 
-#### Finally, you can use the **Color Inside** checkbox to color the inside of the fractal bases on the gradient instead of a single color.
+#### Finally, you can use the **Color Inside** checkbox to color the inside of the fractal based on the gradient instead of a single color.
+
+
+### **Initial Number Panel**
+
+#### Here you select the initial number that is fed into the recursive formula.
+
+> [!NOTE]
+> Only available on not-julia mode
+
+You can change the real and imaginary components separatelly with the sliders, or use the complex plane above to select it. The controls are the following:
+- **Right Click + Drag**: select number
+- **Mouse Wheel**: zoom
+- **Left Click + Drag**: move camera
+- **Double Click**: reset
+
+
+### **Constant Term Panel**
+
+#### Here you select the constant term of the recursive formula.
+
+> [!NOTE]
+> Only available on julia mode
+
+Works just like the the **Initial Number Panel**
+
+
+### **Exponent Panel**
+
+> [!NOTE]
+> The formulas are adapted to support any complex exponent 
+
+#### Controls the exponent of the formula
+
+
+## COMPLEX FRACTALS 3D

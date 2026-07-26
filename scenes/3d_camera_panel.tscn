@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://csaro04fvq2fn"]
+
+[ext_resource type="Script" uid="uid://csv8gyy0dukt" path="res://src/3d_camera_panel/3d_camera_panel.gd" id="1_ady4e"]
+[ext_resource type="Shader" uid="uid://cyq7t2nbl8cwp" path="res://src/shaders/liquid_glass.gdshader" id="1_hj46v"]
+[ext_resource type="Theme" uid="uid://bbf1lvlicbu03" path="res://assets/themes/theme.tres" id="2_ady4e"]
+[ext_resource type="PackedScene" uid="uid://bjomfxjmw08sm" path="res://scenes/real_number_selector.tscn" id="3_law35"]
+[ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="4_xu3iy"]
+[ext_resource type="PackedScene" uid="uid://cnsaof66r7yoh" path="res://scenes/in_out_widget.tscn" id="5_cxcwx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc2rp"]
+shader = ExtResource("1_hj46v")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g4sd"]
+content_margin_left = 20.0
+content_margin_top = 30.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.18, 0.18, 0.18, 0.4745098)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.54, 0.54, 0.54, 0.2)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 16
+
+[sub_resource type="FontVariation" id="FontVariation_mcxrb"]
+base_font = ExtResource("4_xu3iy")
+variation_embolden = 1.1
+
+[node name="3DCameraPanel" type="Control" unique_id=2120068919]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_ady4e")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=898465583]
+material = SubResource("ShaderMaterial_yc2rp")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = -123.037415
+offset_right = 163.0
+offset_bottom = 4.9625854
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_ady4e")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3g4sd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1213828953]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -2
+
+[node name="fov" parent="Panel/VBoxContainer" unique_id=691124258 instance=ExtResource("3_law35")]
+unique_name_in_owner = true
+layout_mode = 2
+variable_name = "FOV"
+curr_value = 50.0
+minimun_inclusive = false
+exp_maximum = 50000
+
+[node name="HSlider" parent="Panel/VBoxContainer/fov" index="0" unique_id=1601533653]
+max_value = 180.0
+step = 0.0
+value = 1.0
+allow_greater = true
+
+[node name="Control2" type="Control" parent="Panel/VBoxContainer" unique_id=1563347447]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="orthogonal_view" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=203687085]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/orthogonal_view" unique_id=1838857848]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_mcxrb")
+text = "Orthogonal View"
+
+[node name="orthogonal_view_checkbox" type="CheckBox" parent="Panel/VBoxContainer/orthogonal_view" unique_id=494883265]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="InOutWidget" parent="." unique_id=392686038 instance=ExtResource("5_cxcwx")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.99997
+offset_top = -153.0
+offset_right = 132.4299
+offset_bottom = -91.31781
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.535, 0.535)
+theme_override_font_sizes/font_size = 40
+text = "Camera"
+direction = 1
+displacement = Vector2(0, 144)
+parent_hidden = false
+
+[connection signal="toggled" from="Panel/VBoxContainer/orthogonal_view/orthogonal_view_checkbox" to="." method="_on_orthogonal_view_checkbox_toggled"]
+
+[editable path="Panel/VBoxContainer/fov"]

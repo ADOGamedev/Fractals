@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://b1p3imq3ube0g" path="res://assets/fonts/Montserrat-VariableFont_wght.ttf" id="7_b87lo"]
 [ext_resource type="Texture2D" uid="uid://dgnx7do0cu4hm" path="res://assets/sprites/hide_ui_icon.png" id="7_tik6r"]
 [ext_resource type="Texture2D" uid="uid://mbf5sjnrd86n" path="res://assets/sprites/fullscreen_icon.png" id="8_l8mao"]
+[ext_resource type="Texture2D" uid="uid://ij403ibm1407" path="res://assets/sprites/manual_icon.png" id="10_l8mao"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_raht5"]
 shader = ExtResource("1_d2mi6")
@@ -105,6 +106,36 @@ corner_radius_top_right = 17
 corner_radius_bottom_right = 17
 corner_radius_bottom_left = 17
 corner_detail = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8mao"]
+shader = ExtResource("1_d2mi6")
+shader_parameter/blur = 3.5
+shader_parameter/warp_intensity = 0.4
+shader_parameter/strength_x = 12.0
+shader_parameter/strength_y = 12.0
+shader_parameter/offset_x = 0.0
+shader_parameter/offset_y = 0.0
+shader_parameter/corner_radius = 0.3
+shader_parameter/edge_smoothness = 1.114000029165
+shader_parameter/tint = Color(0.11399999, 0.116399996, 0.12, 0.30588236)
+shader_parameter/edge_highlight = Color(1, 1, 1, 0.19607843)
+shader_parameter/edge_width = 3.61600017176
+shader_parameter/chromatic_strength = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81r64"]
+content_margin_left = 35.0
+content_margin_top = 35.0
+content_margin_right = 35.0
+content_margin_bottom = 35.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_81r64"]
+base_font = ExtResource("7_b87lo")
+variation_embolden = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_5n26l"]
+base_font = ExtResource("7_b87lo")
+variation_embolden = 1.5
 
 [node name="UtilitiesPanel" type="Control" unique_id=990072235]
 layout_mode = 3
@@ -214,12 +245,29 @@ text = "FPS"
 icon_alignment = 1
 expand_icon = true
 
+[node name="manual_icon" type="Button" parent="PanelContainer/HBoxContainer" unique_id=286666229]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
+theme_override_colors/font_focus_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
+theme_override_colors/font_pressed_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
+theme_override_colors/font_hover_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
+theme_override_colors/font_hover_pressed_color = Color(0.8784314, 0.8784314, 0.8784314, 0.8235294)
+theme_override_fonts/font = SubResource("FontVariation_l8mao")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dv00b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qo2f3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n0re4")
+icon = ExtResource("10_l8mao")
+icon_alignment = 1
+expand_icon = true
+
 [node name="close_fractal_panel" type="Panel" parent="." unique_id=1952804074]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -177.0
+offset_left = -182.0
 offset_top = 65.0
-offset_right = -86.0
+offset_right = -91.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_brem2")
@@ -241,9 +289,9 @@ vertical_alignment = 1
 [node name="reset_camera_panel" type="Panel" parent="." unique_id=1412301020]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -135.0
+offset_left = -141.0
 offset_top = 65.0
-offset_right = -44.0
+offset_right = -50.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -266,9 +314,9 @@ vertical_alignment = 1
 [node name="reset_panel" type="Panel" parent="." unique_id=5716802]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -89.0
+offset_left = -103.0
 offset_top = 65.0
-offset_right = 2.0
+offset_right = -12.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -289,9 +337,9 @@ vertical_alignment = 1
 [node name="save_img_panel" type="Panel" parent="." unique_id=798069485]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -71.0
+offset_left = -84.0
 offset_top = 65.0
-offset_right = 72.0
+offset_right = 59.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -323,8 +371,9 @@ vertical_alignment = 1
 [node name="hide_ui_panel" type="Panel" parent="." unique_id=1493751150]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_left = -25.0
 offset_top = 65.0
-offset_right = 100.0
+offset_right = 75.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -356,9 +405,9 @@ vertical_alignment = 1
 [node name="fullscreen_panel" type="Panel" parent="." unique_id=2059534472]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 24.0
+offset_left = -9.0
 offset_top = 65.0
-offset_right = 167.0
+offset_right = 134.0
 offset_bottom = 92.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
@@ -390,10 +439,10 @@ vertical_alignment = 1
 [node name="fps_panel" type="Panel" parent="." unique_id=705707747]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 70.0
-offset_top = 65.0
-offset_right = 213.0
-offset_bottom = 92.0
+offset_left = 31.0
+offset_top = 64.0
+offset_right = 174.0
+offset_bottom = 91.0
 theme = ExtResource("6_brem2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
 
@@ -421,6 +470,31 @@ text = "[F5]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="manual_panel" type="Panel" parent="." unique_id=145010072]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 68.0
+offset_top = 65.0
+offset_right = 211.0
+offset_bottom = 92.0
+theme = ExtResource("6_brem2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b87lo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="manual_panel" unique_id=828986780]
+layout_mode = 0
+offset_right = 143.0
+offset_bottom = 26.0
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="manual_panel/HBoxContainer" unique_id=461300596]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_tik6r")
+theme_override_font_sizes/font_size = 11
+text = "Show/Hide Manual"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="fps" type="Label" parent="." unique_id=2034584198]
 visible = false
 layout_mode = 0
@@ -432,6 +506,62 @@ theme_override_fonts/font = SubResource("FontVariation_tik6r")
 theme_override_font_sizes/font_size = 11
 text = "60 FPS"
 vertical_alignment = 1
+
+[node name="manual" type="PanelContainer" parent="." unique_id=996033187]
+visible = false
+material = SubResource("ShaderMaterial_l8mao")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -162.0
+offset_top = 91.00001
+offset_right = 348.2362
+offset_bottom = 333.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.635, 0.635)
+theme_override_styles/panel = SubResource("StyleBoxFlat_81r64")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="manual" unique_id=600644127]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("FontVariation_81r64")
+theme_override_fonts/bold_font = SubResource("FontVariation_5n26l")
+bbcode_enabled = true
+text = "[b]Check the [color=#6f6fff][url=https://github.com/ADOGamedev/Fractals]GitHub[/url][/color] for a more in-depth explanation[/b]
+
+[font_size=24][b]3D Camera [/b][/font_size]
+[ul][b]C: [/b] move down
+[b]SPACE: [/b] move up
+[b]WASD: [/b] move forwards/left/backwards/right
+[b]Mouse Wheel: [/b] change move speed
+[b]Left Click + Drag: [/b] rotate camera[/ul]
+
+[font_size=24][b]2D Camera [/b][/font_size]
+[ul][b]Mouse Wheel: [/b] zoom out/in
+[b]Left Click + Drag: [/b] move camera[/ul]
+
+[font_size=24][b]Sliders[/b][/font_size]
+[ul][b]Double click: [/b] reset slider
+[b]Shift + Left Click + Drag: [/b] fine tune slider x10
+[b]Ctrl + Left Click + Drag: [/b] fine tune slider x1000
+[b]Shift + Ctrl + Left Click + Drag: [/b] fine tune slider x10000[/ul]
+[b]Alt + Left Click: [/b] snap to integers[/ul]
+
+[font_size=24][b]Gradient Selector[/b][/font_size]
+[ul][b]Left Click (on color selector): [/b] change color
+[b]Left Click (on gradient): [/b] add color selector
+[b]Right Click (on color selector): [/b] delete color selector
+[b]Left Click + Drag (on color selector): [/b] move color selector[/ul]
+
+[font_size=24][b]Complex Number Selector (only in Mandelbrot)[/b][/font_size]
+[ul]
+[b]Right Click + Drag: [/b] change complex number
+[b]Double Click: [/b] reset complex number
+[b]Left Click + Drag: [/b] move camera
+[b]Mouse Wheel: [/b] zoom out/in[/ul]
+
+"
 
 [connection signal="mouse_entered" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_mouse_exited"]
@@ -454,3 +584,7 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/fps_icon" to="." method="_on_fps_icon_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/manual_icon" to="." method="_on_manual_icon_pressed"]
+[connection signal="meta_clicked" from="manual/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]

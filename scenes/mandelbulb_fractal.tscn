@@ -46,6 +46,8 @@ shader_parameter/mandelbox_f = 1.0
 shader_parameter/mandelbox_s = -1.5
 shader_parameter/mandelbox_r = 0.5
 shader_parameter/mandelbox_or = 1.0
+shader_parameter/fov = 45.0
+shader_parameter/orthogonal = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s30jy"]
 shader = ExtResource("3_iovtp")

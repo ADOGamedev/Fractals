@@ -113,7 +113,6 @@ func update_shader_parameters() -> void:
 	mandelbox_parameters.get_node("InOutWidget").set_button_disabled(!mandelbox)
 	
 
-
 func update_camera_transform(delta: float) -> void:
 	var cp = cos(camera_pitch)
 	var sp = sin(camera_pitch)

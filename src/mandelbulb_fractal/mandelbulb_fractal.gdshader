@@ -226,8 +226,6 @@ void fragment() {
 	vec2 uv = (UV - vec2(0.5)) * vec2(ratio, -1.) * scale;
 	float iters;
 	
-	float d_factor = mandelbox ? (julia ? 0.5 : 1.) : 0.7;
-
 	vec3 camera_position = camPos * (mandelbox ? mandelboox_space_scale : 1.);
 	vec3 rayDir = normalize(
     	camDir +
@@ -255,7 +253,7 @@ void fragment() {
         	break;
     	}
 
-    	t += d * d_factor;
+    	t += min(3., d);
 	}
 
 	if (hit || !single_color_bg) {
