@@ -49,12 +49,12 @@ After selecting a fractal, a bar will show up at the top, this is what each thin
     4. Select the folder in which the image will be saved.
     5. Click save!
 
-    > [!NOTE]
-    > When saving in large resolutions it may take some time to finish
-    > If you have an exiting file with the same name and extension, it will ask if you want to override it.
+> [!NOTE]
+> When saving in large resolutions it may take some time to finish
+> If you have an exiting file with the same name and extension, it will ask if you want to override it.
 - **Hide UI**: well, in other word, makes the UI invisible.
-    > [!IMPORTANT]
-    > Press F1 to show it again after hidding it.
+> [!IMPORTANT]
+> Press F1 to show it again after hidding it.
 - **Toggle Fulscreen**: yep, preety self-explanatory.
 - **Show/Hide FPS**: toggles the visibility of an FPS indicator at the right of the utilities bar.
 - **Show/Hide Manual**: toggles the visibility of a manual with all the controls.
